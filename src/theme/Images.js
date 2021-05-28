@@ -3,6 +3,13 @@ const Home_Bottom_Tab = require('../assets/images/icons/home_bottom_tab.png');
 const Profile_Bottom_Tab = require('../assets/images/icons/profile_bottom_tab.png');
 const Search_Bottom_Tab = require('../assets/images/icons/search_bottom_tab.png');
 const Upload_Video_Bottom_Tab = require('../assets/images/icons/upload_video_bottom_tab.png');
+const menu = require('../assets/images/icons/menu.png');
+const filter = require('../assets/images/icons/filter.png');
+const heart = require('../assets/images/icons/heart.png');
+const heartFill = require('../assets/images/icons/heartFill.png');
+const comments = require('../assets/images/icons/comments.png');
+const share = require('../assets/images/icons/share.png');
+const user = require('../assets/images/user.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -10,4 +17,11 @@ export default {
   Profile_Bottom_Tab,
   Search_Bottom_Tab,
   Upload_Video_Bottom_Tab,
+  menu,
+  filter,
+  user,
+  heart,
+  heartFill,
+  comments,
+  share,
 };

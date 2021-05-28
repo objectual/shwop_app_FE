@@ -12,24 +12,25 @@
 import Metrics from './Metrics';
 
 const type = {
-  //Montserrat
-  MontserratBlack: 'Montserrat-Black',
-  MontserratBlackItalic: 'Montserrat-BlackItalic',
-  MontserratBold: 'Montserrat-Bold',
-  MontserratBoldItalic: 'Montserrat-BoldItalic',
-  MontserratExtraBold: 'Montserrat-ExtraBold',
-  MontserratExtraBoldItalic: 'Montserrat-ExtraBoldItalic',
-  MontserratExtraLight: 'Montserrat-ExtraLight',
-  MontserratExtraLightItalic: 'Montserrat-ExtraLightItalic',
-  MontserratItalic: 'Montserrat-Italic',
-  MontserratLight: 'Montserrat-Light',
-  MontserratLightItalic: 'Montserrat-LightItalic',
-  MontserratMedium: 'Montserrat-Medium',
-  MontserratRegular: 'Montserrat-Regular',
-  MontserratSemiBold: 'Montserrat-SemiBold',
-  MontserratSemiBoldItalic: 'Montserrat-SemiBoldItalic',
-  MontserratThin: 'Montserrat-Thin',
-  MontserratThinItalic: 'Montserrat-ThinItalic',
+  LatoBlack: 'Lato-Black',
+  LatoBlackItalic: "Lato-BlackItalic",
+  Arial: "arial",
+  LatoBold: 'Lato-Bold',
+  LatoBoldItalic: 'Lato-BoldItalic',
+  LatoHairline: "Lato-Hairline",
+  LatoHairlineItalic: "Lato-HairlineItalic",
+  LatoHeavy: "Lato-Heavy",
+  LatoHeavyItalic: "Lato-HeavyItalic",
+  LatoItalic: "Lato-Italic",
+  LatoLight: "Lato-Light",
+  LatoLightItalic: "Lato-LightItalic",
+  LatoMedium: "Lato-Medium",
+  LatoMediumItalic: "Lato-MediumItalic",
+  LatoRegular: "Lato-Regular",
+  LatoSemibold: "Lato-Semibold",
+  LatoSemiboldItalic: "Lato-SemiboldItalic",
+  LatoThin: "Lato-Thin",
+  LatoThinItalic: "Lato-ThinItalic"
 };
 
 const size = {
