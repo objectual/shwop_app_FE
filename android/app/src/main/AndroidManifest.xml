@@ -2,6 +2,7 @@
   package="com.shwopp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
       android:name=".MainApplication"
@@ -21,5 +22,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+       <service android:name="com.rnfloatingvideowidget.FloatingVideoWidgetShowService"  
+    android:enabled="true"></service>
     </application>
 </manifest>

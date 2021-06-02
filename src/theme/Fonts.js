@@ -30,7 +30,11 @@ const type = {
   LatoSemibold: "Lato-Semibold",
   LatoSemiboldItalic: "Lato-SemiboldItalic",
   LatoThin: "Lato-Thin",
-  LatoThinItalic: "Lato-ThinItalic"
+  LatoThinItalic: "Lato-ThinItalic",
+  Nunito:"Nunito-Regular",
+  NunitoBold: "Nunito-Bold",
+  NunitoSemiBold: "Nunito-SemiBold",
+  NunitoLight: "Nunito-Light",
 };
 
 const size = {

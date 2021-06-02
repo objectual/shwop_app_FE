@@ -4,9 +4,7 @@ import {Metrics, Colors} from '../../theme';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1, 
   },
   bottomBar: {
     flexDirection: 'row',
@@ -17,7 +15,7 @@ export default StyleSheet.create({
     right: 0,
     left: 0,
     height: Metrics.ratio(55),
-    backgroundColor: '#FFF',
+    backgroundColor: Colors.White,
   },
   tabBarBtn: {
     flex: 1,

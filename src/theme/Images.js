@@ -10,6 +10,8 @@ const heartFill = require('../assets/images/icons/heartFill.png');
 const comments = require('../assets/images/icons/comments.png');
 const share = require('../assets/images/icons/share.png');
 const user = require('../assets/images/user.png');
+const cardProduct = require('../assets/images/cardProduct.png');
+const dummy = require('../assets/video/dummy.mp4');
 
 export default {
   Chat_Bottom_Tab,
@@ -24,4 +26,6 @@ export default {
   heartFill,
   comments,
   share,
+  cardProduct,
+  dummy,
 };
