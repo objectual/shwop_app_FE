@@ -12,8 +12,10 @@ const Layout = props => {
     props.navigation.navigate(screenName);
   };
 
-  const renderTabBar = (image, onPress) => (
-    <TouchableOpacity onPress={onPress} style={{...styles.tabBarBtn}}>
+  const renderTabBar = (image, screenName) => (
+    <TouchableOpacity
+      onPress={() => handleNavigation(screenName)}
+      style={{...styles.tabBarBtn}}>
       <Image
         resizeMode={'contain'}
         source={image}
@@ -38,15 +40,11 @@ const Layout = props => {
     <View style={{...styles.container}}>
       {children}
       <View style={{...styles.bottomBar}}>
-        {renderTabBar(Images.Home_Bottom_Tab, handleNavigation('Home'))}
-
-        {renderTabBar(Images.Home_Bottom_Tab, handleNavigation('Search'))}
-
+        {renderTabBar(Images.Home_Bottom_Tab, 'Home')}
+        {renderTabBar(Images.Search_Bottom_Tab, 'Search')}
         {renderUploadVideoBtn()}
-
-        {renderTabBar(Images.Home_Bottom_Tab, handleNavigation('Chat'))}
-
-        {renderTabBar(Images.Home_Bottom_Tab, handleNavigation('Profile'))}
+        {renderTabBar(Images.Chat_Bottom_Tab, 'Chat')}
+        {renderTabBar(Images.Profile_Bottom_Tab, 'Profile')}
       </View>
     </View>
   );

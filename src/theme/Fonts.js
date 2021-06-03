@@ -12,29 +12,34 @@
 import Metrics from './Metrics';
 
 const type = {
+  // Arial
+  Arial: 'arial',
+
+  // Lato
   LatoBlack: 'Lato-Black',
-  LatoBlackItalic: "Lato-BlackItalic",
-  Arial: "arial",
+  LatoBlackItalic: 'Lato-BlackItalic',
   LatoBold: 'Lato-Bold',
   LatoBoldItalic: 'Lato-BoldItalic',
-  LatoHairline: "Lato-Hairline",
-  LatoHairlineItalic: "Lato-HairlineItalic",
-  LatoHeavy: "Lato-Heavy",
-  LatoHeavyItalic: "Lato-HeavyItalic",
-  LatoItalic: "Lato-Italic",
-  LatoLight: "Lato-Light",
-  LatoLightItalic: "Lato-LightItalic",
-  LatoMedium: "Lato-Medium",
-  LatoMediumItalic: "Lato-MediumItalic",
-  LatoRegular: "Lato-Regular",
-  LatoSemibold: "Lato-Semibold",
-  LatoSemiboldItalic: "Lato-SemiboldItalic",
-  LatoThin: "Lato-Thin",
-  LatoThinItalic: "Lato-ThinItalic",
-  Nunito:"Nunito-Regular",
-  NunitoBold: "Nunito-Bold",
-  NunitoSemiBold: "Nunito-SemiBold",
-  NunitoLight: "Nunito-Light",
+  LatoHairline: 'Lato-Hairline',
+  LatoHairlineItalic: 'Lato-HairlineItalic',
+  LatoHeavy: 'Lato-Heavy',
+  LatoHeavyItalic: 'Lato-HeavyItalic',
+  LatoItalic: 'Lato-Italic',
+  LatoLight: 'Lato-Light',
+  LatoLightItalic: 'Lato-LightItalic',
+  LatoMedium: 'Lato-Medium',
+  LatoMediumItalic: 'Lato-MediumItalic',
+  LatoRegular: 'Lato-Regular',
+  LatoSemibold: 'Lato-Semibold',
+  LatoSemiboldItalic: 'Lato-SemiboldItalic',
+  LatoThin: 'Lato-Thin',
+  LatoThinItalic: 'Lato-ThinItalic',
+
+  // Nunito
+  Nunito: 'Nunito-Regular',
+  NunitoBold: 'Nunito-Bold',
+  NunitoSemiBold: 'Nunito-SemiBold',
+  NunitoLight: 'Nunito-Light',
 };
 
 const size = {
