@@ -8,7 +8,7 @@ import {
   SocialOptions,
   VideoBuyCard,
   FloatVideo,
-  VideoPlayer,
+  CustomVideoPlayer,
 } from '../../components';
 
 const Home = props => {
@@ -29,7 +29,7 @@ const Home = props => {
         <SocialOptions />
         <VideoBuyCard />
         {/* <FloatVideo /> */}
-        <VideoPlayer />
+        <CustomVideoPlayer />
       </Layout>
     </>
   );

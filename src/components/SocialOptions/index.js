@@ -15,7 +15,7 @@ const SocialOptions = () => {
         <TouchableOpacity style={styles.follow}>
           <MaterialCommunityIcons 
             name="plus"
-            size={Metrics.ratio(20)}
+            size={Metrics.ratio(16)}
             color={Colors.White}
           />
         </TouchableOpacity>
@@ -25,7 +25,7 @@ const SocialOptions = () => {
           <Image
             style={styles.optionImg}
             resizeMode="contain"
-            source={Images.heartFill}></Image>
+            source={Images.heart}></Image>
         </TouchableOpacity>
         <Text style={styles.optionText}>24.5k</Text>
       </View>
