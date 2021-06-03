@@ -21,7 +21,7 @@ const Home = props => {
           isLeftIconImg={true}
           isRightIconImg={true}
           rightIcon={Images.filter}
-          leftBtnPress={() => props.navigation.goBack()}
+          leftBtnPress={() => props.navigation.openDrawer()}
           rightBtnPress={() => props.navigation.goBack()}
           headerTextStyle={styles.headerTextStyle}
         />

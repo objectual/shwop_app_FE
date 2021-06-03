@@ -12,6 +12,14 @@ const share = require('../assets/images/icons/share.png');
 const user = require('../assets/images/user.png');
 const cardProduct = require('../assets/images/cardProduct.png');
 const dummy = require('../assets/video/dummy.mp4');
+const home_drawer = require('../assets/images/icons/home_drawer.png');
+const my_products_drawer = require('../assets/images/icons/my_products_drawer.png');
+const return_policy_drawer = require('../assets/images/icons/return_policy_drawer.png');
+const settings_drawer = require('../assets/images/icons/settings_drawer.png');
+const shop_drawer = require('../assets/images/icons/shop_drawer.png');
+const terms_and_conditions_drawer = require('../assets/images/icons/terms_and_conditions_drawer.png');
+const wish_list_drawer = require('../assets/images/icons/wish_list_drawer.png');
+const back_drawer = require('../assets/images/icons/back_drawer.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -28,4 +36,12 @@ export default {
   share,
   cardProduct,
   dummy,
+  home_drawer,
+  my_products_drawer,
+  return_policy_drawer,
+  settings_drawer,
+  shop_drawer,
+  terms_and_conditions_drawer,
+  wish_list_drawer,
+  back_drawer,
 };

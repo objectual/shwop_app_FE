@@ -5,7 +5,8 @@ const Concrete = '#F2F2F2';
 
 // Approximate Colors
 const Affair = '#8A49A1';
-const Razzmatazz = '#F01C5B'; 
+const Razzmatazz = '#F01C5B';
+const Charade = '#2F2E41';
 
 export default {
   // Solid Colors
@@ -15,5 +16,6 @@ export default {
 
   // Approximate Colors
   Affair,
-  Razzmatazz, 
+  Razzmatazz,
+  Charade,
 };

@@ -1,30 +1,70 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
+import styles from './styles';
+import DrawerContent from './DrawerContent';
+
+import AppStack from '../AppStack';
+
 import {
   MyProducts,
   Shop,
   TermsAndConditions,
   ReturnPolicy,
   WishList,
+  Settings,
 } from '../../containers';
-
-import AppStack from '../AppStack';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  const drawerScreenOptions = {
+    headerShown: false,
+    unmountOnBlur: true,
+    gestureEnabled: false,
+  };
+
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={AppStack} />
-      <Drawer.Screen name="My Products" component={MyProducts} />
-      <Drawer.Screen name="Shop" component={Shop} />
+    <Drawer.Navigator
+      initialRouteName={'Home'}
+      drawerContent={props => <DrawerContent {...props} />}
+      overlayColor="transparent"
+      drawerStyle={{...styles.drawerStyle}}>
       <Drawer.Screen
-        name="Terms &amp; Conditions"
-        component={TermsAndConditions}
+        name="Home"
+        component={AppStack}
+        options={{...drawerScreenOptions}}
       />
-      <Drawer.Screen name="Return Policy" component={ReturnPolicy} />
-      <Drawer.Screen name="Wish List" component={WishList} />
+      <Drawer.Screen
+        name="MyProducts"
+        component={MyProducts}
+        options={{...drawerScreenOptions}}
+      />
+      <Drawer.Screen
+        name="Shop"
+        component={Shop}
+        options={{...drawerScreenOptions}}
+      />
+      <Drawer.Screen
+        name="TermsAndConditions"
+        component={TermsAndConditions}
+        options={{...drawerScreenOptions}}
+      />
+      <Drawer.Screen
+        name="ReturnPolicy"
+        component={ReturnPolicy}
+        options={{...drawerScreenOptions}}
+      />
+      <Drawer.Screen
+        name="WishList"
+        component={WishList}
+        options={{...drawerScreenOptions}}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{...drawerScreenOptions}}
+      />
     </Drawer.Navigator>
   );
 };
