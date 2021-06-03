@@ -5,7 +5,7 @@ import OverlayLoader from './OverlayLoader';
 import SocialOptions from './SocialOptions';
 import VideoBuyCard from './VideoBuyCard';
 // import FloatVideo from './FloatVideo';
-import VideoPlayer from './VideoPlayer';
+import CustomVideoPlayer from './CustomVideoPlayer';
 
 export {
   CustomTextInput,
@@ -15,5 +15,5 @@ export {
   SocialOptions,
   VideoBuyCard,
 //   FloatVideo,
-  VideoPlayer,
+CustomVideoPlayer,
 };
