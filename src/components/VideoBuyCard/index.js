@@ -8,7 +8,7 @@ const VideoBuyCard = () => {
   return (
     <View style={styles.cardArea}>
       <View style={styles.imageText}>
-        <Image source={Images.cardProduct}></Image>
+        <Image style={styles.ImageCard} source={Images.cardProduct}></Image>
         <View style={styles.buyArea}>
           <Text style={styles.buyProductTitle}>The New Products</Text>
           <Text style={styles.buyProductPrice}>$15.00</Text>

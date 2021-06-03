@@ -6,8 +6,13 @@ export default StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    bottom: 20,
+    bottom: 200,
     right: 0,
     zIndex: -1,
+  },
+  playbtnArea: {
+    position: 'absolute',
+    bottom: 75,
+    left: 16,
   },
 });
