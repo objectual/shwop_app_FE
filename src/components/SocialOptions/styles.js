@@ -1,5 +1,5 @@
 // @flow
-import {StyleSheet} from 'react-native'; 
+import {StyleSheet} from 'react-native';
 import {Metrics, Fonts, Colors} from '../../theme';
 
 export default StyleSheet.create({
@@ -11,12 +11,17 @@ export default StyleSheet.create({
     width: Metrics.screenHeight * 0.09,
     position: 'absolute',
     right: Metrics.ratio(16),
-    top: Metrics.ratio(150),
+    bottom: Metrics.ratio(232),
+  },
+  userImgView: {
+    borderRadius: Metrics.screenHeight * 0.045,
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
   },
   userImg: {
-    borderRadius: 30,
-    width: Metrics.ratio(55),
-    height: Metrics.ratio(55),
+    width: '100%',
+    height: '100%',
   },
   follow: {
     backgroundColor: Colors.Razzmatazz,
@@ -25,13 +30,13 @@ export default StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     position: 'absolute',
-    bottom: Metrics.ratio(-10),
+    bottom: Metrics.ratio(-8),
     left: Metrics.ratio(18),
   },
   UserImageView: {
     width: Metrics.screenHeight * 0.09,
     height: Metrics.screenHeight * 0.09,
-    marginBottom: 10, 
+    marginBottom: 10,
   },
   optionImg: {
     height: Metrics.screenHeight * 0.033,

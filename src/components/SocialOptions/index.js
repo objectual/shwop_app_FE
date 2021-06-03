@@ -1,19 +1,24 @@
 import React from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
-import styles from './styles';
-import {Images, Metrics, Colors} from '../../theme';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import styles from './styles';
+
+import {Images, Metrics, Colors} from '../../theme';
 
 const SocialOptions = () => {
   return (
     <View style={styles.homeOptions}>
       <View style={styles.UserImageView}>
-        <Image
-          style={styles.userImg}
-          resizeMode="contain"
-          source={Images.user}></Image>
+        <View style={{...styles.userImgView}}>
+          <Image
+            style={{...styles.userImg}}
+            resizeMode="contain"
+            source={Images.user}
+          />
+        </View>
         <TouchableOpacity style={styles.follow}>
-          <MaterialCommunityIcons 
+          <MaterialCommunityIcons
             name="plus"
             size={Metrics.ratio(16)}
             color={Colors.White}
@@ -25,7 +30,8 @@ const SocialOptions = () => {
           <Image
             style={styles.optionImg}
             resizeMode="contain"
-            source={Images.heart}></Image>
+            source={Images.heart}
+          />
         </TouchableOpacity>
         <Text style={styles.optionText}>24.5k</Text>
       </View>
@@ -34,7 +40,8 @@ const SocialOptions = () => {
           <Image
             style={styles.optionImg}
             resizeMode="contain"
-            source={Images.comments}></Image>
+            source={Images.comments}
+          />
         </TouchableOpacity>
         <Text style={styles.optionText}>24.5k</Text>
       </View>
@@ -43,7 +50,8 @@ const SocialOptions = () => {
           <Image
             style={styles.optionImg}
             resizeMode="contain"
-            source={Images.share}></Image>
+            source={Images.share}
+          />
         </TouchableOpacity>
         <Text style={styles.optionText}>24.5k</Text>
       </View>

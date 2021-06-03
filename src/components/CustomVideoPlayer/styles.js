@@ -1,18 +1,33 @@
-// @flow
 import {StyleSheet} from 'react-native';
 
+import {Metrics} from '../../theme';
+
 export default StyleSheet.create({
-  backgroundVideo: {
+  container: {
     position: 'absolute',
     top: 0,
-    left: 0,
-    bottom: 200,
+    bottom: Metrics.ratio(55),
     right: 0,
+    left: 0,
     zIndex: -1,
   },
-  playbtnArea: {
+  videoPlayer: {
     position: 'absolute',
-    bottom: 75,
-    left: 16,
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+  },
+  controlsContainer: {
+    height: Metrics.ratio(50),
+    left: 0,
+    right: 0,
+    bottom: Metrics.ratio(32),
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: Metrics.ratio(8),
+    marginHorizontal: Metrics.ratio(16),
   },
 });

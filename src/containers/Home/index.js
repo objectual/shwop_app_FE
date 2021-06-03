@@ -1,37 +1,41 @@
 import React from 'react';
-import Video from 'react-native-video';
-import {Images} from '../../theme';
+import {StatusBar} from 'react-native';
+
 import styles from './styles';
+
 import {
   Layout,
   Header,
   SocialOptions,
   VideoBuyCard,
-  FloatVideo,
   CustomVideoPlayer,
 } from '../../components';
+import {Images} from '../../theme';
 
 const Home = props => {
   return (
-    <>
-      <Layout {...props}>
-        <Header
-          {...props}
-          leftIcon={Images.menu}
-          isLeftIconImg={true}
-          isRightIconImg={true}
-          rightIcon={Images.filter}
-          leftBtnPress={() => props.navigation.openDrawer()}
-          rightBtnPress={() => props.navigation.goBack()}
-          headerTextStyle={styles.headerTextStyle}
-        />
+    <Layout {...props}>
+      <StatusBar
+        translucent
+        backgroundColor={'transparent'}
+        barStyle="light-content"
+      />
 
-        <SocialOptions />
-        <VideoBuyCard />
-        {/* <FloatVideo /> */}
-        <CustomVideoPlayer />
-      </Layout>
-    </>
+      <Header
+        {...props}
+        leftIcon={Images.menu}
+        isLeftIconImg={true}
+        isRightIconImg={true}
+        rightIcon={Images.filter}
+        leftBtnPress={() => props.navigation.openDrawer()}
+        rightBtnPress={() => props.navigation.goBack()}
+        headerTextStyle={styles.headerTextStyle}
+      />
+
+      <SocialOptions />
+      <VideoBuyCard />
+      <CustomVideoPlayer {...props} />
+    </Layout>
   );
 };
 
