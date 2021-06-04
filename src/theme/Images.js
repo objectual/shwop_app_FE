@@ -31,6 +31,7 @@ const back_arrow_nav = require('../assets/images/icons/back_arrow_nav.png');
 const tag_upload_video = require('../assets/images/icons/tag_upload_video.png');
 const instagram_upload_video = require('../assets/images/icons/instagram_upload_video.png');
 const facebook_upload_video = require('../assets/images/icons/facebook_upload_video.png');
+const verification = require('../assets/images/backgrounds/verification.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -66,4 +67,5 @@ export default {
   tag_upload_video,
   instagram_upload_video,
   facebook_upload_video,
+  verification,
 };

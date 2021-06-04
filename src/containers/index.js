@@ -9,6 +9,8 @@ import Shop from './Shop';
 import TermsAndConditions from './TermsAndConditions';
 import UploadVideo from './UploadVideo';
 import WishList from './WishList';
+import Otp from './Otp';
+import SignUp from './SignUp';
 
 export {
   Chat,
@@ -22,4 +24,6 @@ export {
   TermsAndConditions,
   UploadVideo,
   WishList,
+  Otp,
+  SignUp,
 };
