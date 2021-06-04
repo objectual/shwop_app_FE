@@ -28,6 +28,7 @@ const polygon = require('../assets/images/icons/polygon.png');
 const upload_video_icon = require('../assets/images/icons/upload_video_icon.png');
 const record_video_icon = require('../assets/images/icons/record_video_icon.png');
 const back_arrow_nav = require('../assets/images/icons/back_arrow_nav.png');
+const verification = require('../assets/images/backgrounds/verification.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -60,4 +61,5 @@ export default {
   upload_video_icon,
   record_video_icon,
   back_arrow_nav,
+  verification,
 };

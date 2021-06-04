@@ -81,7 +81,7 @@ const Layout = props => {
         <Text style={styles.verificationTxt}>
           Verification code will be sent to you on the number you added above!
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('otp')}>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
@@ -141,7 +141,7 @@ const Layout = props => {
         <Text style={styles.verificationTxt}>
           Verification code will be sent to you on the number you added above!
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('signup')}>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}

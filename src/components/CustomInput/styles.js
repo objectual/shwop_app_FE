@@ -1,13 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {Fonts, Metrics} from '../../theme';
+import {Fonts, Metrics, Colors} from '../../theme';
 
 export default StyleSheet.create({
   InputView: {
-    paddingHorizontal: Metrics.ratio(5),
+    paddingHorizontal: Metrics.ratio(15),
     marginTop: Metrics.ratio(5),
     borderRadius: Metrics.ratio(30),
     height: Metrics.ratio(50),
-    borderColor: '#F5F5F5',
+    borderColor: Colors.Mercury,
     borderWidth: 0.5,
     fontFamily: Fonts.type.MontserratItalic,
     flexDirection: 'row',

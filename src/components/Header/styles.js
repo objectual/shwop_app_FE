@@ -71,7 +71,7 @@ export default StyleSheet.create({
     marginRight: Metrics.ratio(16),
   },
   headerText: {
-    fontSize: Metrics.ratio(20),
+    fontSize: Metrics.ratio(18),
     color: Colors.Charade,
     fontFamily: Fonts.type.NunitoBold,
     textTransform: 'capitalize',
