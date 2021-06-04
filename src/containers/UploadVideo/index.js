@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,10 +11,14 @@ import {
 
 import styles from './styles';
 
-import {Layout, Header} from '../../components';
-import {Images, Metrics, Fonts, Colors} from '../../theme';
+import {Layout, Header, GradientButton} from '../../components';
+import {Images, Colors} from '../../theme';
 
 const UploadVideo = props => {
+  const [title, setTitle] = useState('');
+
+  const onChangeTitle = text => title.length <= 120 && setTitle(text);
+
   return (
     <Layout {...props}>
       <StatusBar
@@ -31,119 +35,86 @@ const UploadVideo = props => {
         leftBtnPress={() => props.navigation.goBack()}
         headerText={'Add Video'}
       />
-      <View
-        style={{
-          backgroundColor: Colors.White,
-          width: '100%',
-          height: Metrics.ratio(50),
-          borderBottomLeftRadius: Metrics.ratio(10),
-          borderBottomRightRadius: Metrics.ratio(10),
-        }}
-      />
-      <ScrollView style={{marginTop: Metrics.ratio(-40)}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity
-            style={{
-              width: Metrics.screenWidth * 0.32,
-              height: Metrics.screenWidth * 0.32,
-              borderRadius: Metrics.ratio(10),
-              backgroundColor: Colors.White,
-              margin: Metrics.ratio(12),
-              padding: Metrics.ratio(12),
-              justifyContent: 'center',
-              alignItems: 'center',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
 
-              elevation: 5,
-            }}>
+      <View style={{...styles.headerSeparator}} />
+
+      <ScrollView style={{...styles.contentScrollView}}>
+        <View style={{...styles.uploadBtnContainer}}>
+          <TouchableOpacity style={{...styles.uploadBtn}}>
             <Image
               source={Images.upload_video_icon}
               resizeMode={'contain'}
-              style={{
-                width: Metrics.ratio(25),
-                height: Metrics.ratio(25),
-                flex: 1,
-              }}
+              style={{...styles.uploadBtnImage}}
             />
-            <Text
-              style={{
-                fontSize: Metrics.ratio(14),
-                fontFamily: Fonts.type.NunitoBold,
-                color: Colors.Affair,
-              }}>
-              Upload Video
-            </Text>
+            <Text style={{...styles.uploadBtnText}}>Upload Video</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: Metrics.screenWidth * 0.32,
-              height: Metrics.screenWidth * 0.32,
-              borderRadius: Metrics.ratio(10),
-              backgroundColor: Colors.Affair,
-              margin: Metrics.ratio(12),
-              padding: Metrics.ratio(12),
-              justifyContent: 'center',
-              alignItems: 'center',
-              shadowColor: '#000',
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-
-              elevation: 5,
-            }}>
+          <TouchableOpacity style={{...styles.recordBtn}}>
             <Image
               source={Images.record_video_icon}
               resizeMode={'contain'}
-              style={{
-                width: Metrics.ratio(25),
-                height: Metrics.ratio(25),
-                flex: 1,
-              }}
+              style={{...styles.recordBtnImage}}
             />
-            <Text
-              style={{
-                fontSize: Metrics.ratio(14),
-                fontFamily: Fonts.type.NunitoBold,
-                color: Colors.White,
-              }}>
-              Record Video
-            </Text>
+            <Text style={{...styles.recordBtnText}}>Record Video</Text>
           </TouchableOpacity>
         </View>
-        <View
-          style={{
-            backgroundColor: 'red',
-            paddingHorizontal: Metrics.ratio(16),
-          }}>
-          <View style>
+
+        <View style={{...styles.formContainer}}>
+          <View style={{...styles.titleContainer}}>
             <TextInput
-              onChangeText={text => console.log(text)}
-              style={{
-                backgroundColor: Colors.Affair,
-                alignContent: 'flex-start',
-                borderRadius: Metrics.ratio(16),
-              }}
+              value={title}
+              onChangeText={onChangeTitle}
+              style={{...styles.titleTextInput}}
               placeholder={'Title'}
               placeholderTextColor={Colors.Mercury}
               multiline={true}
               numberOfLines={9}
             />
-            <Text>{`Character ${0}/120`}</Text>
+            <Text
+              style={{
+                ...styles.titleCount,
+              }}>{`Character ${title.length}/120`}</Text>
           </View>
+
+          <View style={{...styles.tagsContainer}}>
+            <Text style={{...styles.tagsTitle}}>Tags</Text>
+            <TouchableOpacity style={{...styles.tagsBtn}}>
+              <Image
+                source={Images.tag_upload_video}
+                resizeMode={'contain'}
+                style={{...styles.tagsBtnImage}}
+              />
+              <Text style={{...styles.tagsBtnText}}>Add a Tag</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{...styles.socialContainer}}>
+            <TouchableOpacity style={{...styles.socialBtnContainer}}>
+              <View style={{...styles.socialBtnImageContainer}}>
+                <Image
+                  source={Images.instagram_upload_video}
+                  resizeMode={'contain'}
+                  style={{...styles.socialBtnImage}}
+                />
+              </View>
+              <Text style={{...styles.socialBtnText}}>Share to Instagram</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={{...styles.socialBtnContainer}}>
+              <View style={{...styles.socialBtnImageContainer}}>
+                <Image
+                  source={Images.facebook_upload_video}
+                  resizeMode={'contain'}
+                  style={{...styles.socialBtnImage}}
+                />
+              </View>
+              <Text style={{...styles.socialBtnText}}>Share to Facebook</Text>
+            </TouchableOpacity>
+          </View>
+
+          <GradientButton
+            label={'Post'}
+            containerStyle={{...styles.gradientButtonContainer}}
+          />
         </View>
       </ScrollView>
     </Layout>

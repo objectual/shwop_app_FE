@@ -7,6 +7,7 @@ import VideoBuyCard from './VideoBuyCard';
 import CustomVideoPlayer from './CustomVideoPlayer';
 import CustomModalize from './CustomModalize';
 import CustomPhoneInput from './CustomPhoneInput';
+import GradientButton from './GradientButton';
 
 export {
   CustomTextInput,
@@ -18,4 +19,5 @@ export {
   CustomVideoPlayer,
   CustomModalize,
   CustomPhoneInput,
+  GradientButton,
 };
