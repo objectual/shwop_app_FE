@@ -28,6 +28,9 @@ const polygon = require('../assets/images/icons/polygon.png');
 const upload_video_icon = require('../assets/images/icons/upload_video_icon.png');
 const record_video_icon = require('../assets/images/icons/record_video_icon.png');
 const back_arrow_nav = require('../assets/images/icons/back_arrow_nav.png');
+const tag_upload_video = require('../assets/images/icons/tag_upload_video.png');
+const instagram_upload_video = require('../assets/images/icons/instagram_upload_video.png');
+const facebook_upload_video = require('../assets/images/icons/facebook_upload_video.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -60,4 +63,7 @@ export default {
   upload_video_icon,
   record_video_icon,
   back_arrow_nav,
+  tag_upload_video,
+  instagram_upload_video,
+  facebook_upload_video,
 };
