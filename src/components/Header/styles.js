@@ -3,7 +3,7 @@ import {Metrics, Colors, Fonts} from '../../theme';
 
 export default StyleSheet.create({
   container: {
-    marginTop: Metrics.ratio(16),
+    marginTop: Metrics.ratio(24),
     height: Metrics.screenHeight * 0.095,
     flexDirection: 'row',
   },
@@ -62,7 +62,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   headerLogo: {
     width: Metrics.ratio(45),
@@ -72,29 +72,30 @@ export default StyleSheet.create({
   },
   headerText: {
     fontSize: Metrics.ratio(20),
-    color: '#454F63',
-    fontFamily: Fonts.type.MontserratBold,
+    color: Colors.Charade,
+    fontFamily: Fonts.type.NunitoBold,
     textTransform: 'capitalize',
   },
   rightText: {
     fontSize: Metrics.ratio(10),
-    fontWeight: 'bold',
-    color: '#454F63',
+    fontFamily: Fonts.type.NunitoBold,
+    color: Colors.Charade,
   },
   searchBarView: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.Athens_Gray,
+    backgroundColor: Colors.Concrete,
     paddingHorizontal: Metrics.ratio(8),
     paddingVertical: Metrics.ratio(4),
     borderRadius: Metrics.ratio(30),
     overflow: 'hidden',
   },
   searchBarTextInput: {
-    color: Colors.Dove_Gray,
+    color: Colors.Charade,
     flex: 1,
     height: Metrics.ratio(35),
     fontSize: Metrics.ratio(16),
+    fontFamily: Fonts.type.Nunito,
     paddingVertical: 0,
     paddingHorizontal: Metrics.ratio(4),
   },

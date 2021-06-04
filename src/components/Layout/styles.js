@@ -5,6 +5,7 @@ import {Metrics, Colors, Fonts} from '../../theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.Concrete,
   },
   bottomBar: {
     flexDirection: 'row',

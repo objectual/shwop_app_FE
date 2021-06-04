@@ -25,6 +25,9 @@ const instagram = require('../assets/images/icons/instagram.png');
 const google = require('../assets/images/icons/google.png');
 const twitter = require('../assets/images/icons/twitter.png');
 const polygon = require('../assets/images/icons/polygon.png');
+const upload_video_icon = require('../assets/images/icons/upload_video_icon.png');
+const record_video_icon = require('../assets/images/icons/record_video_icon.png');
+const back_arrow_nav = require('../assets/images/icons/back_arrow_nav.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -54,4 +57,7 @@ export default {
   google,
   twitter,
   polygon,
+  upload_video_icon,
+  record_video_icon,
+  back_arrow_nav,
 };
