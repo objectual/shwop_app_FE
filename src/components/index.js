@@ -5,6 +5,8 @@ import OverlayLoader from './OverlayLoader';
 import SocialOptions from './SocialOptions';
 import VideoBuyCard from './VideoBuyCard';
 import CustomVideoPlayer from './CustomVideoPlayer';
+import CustomModalize from './CustomModalize';
+import CustomPhoneInput from './CustomPhoneInput';
 
 export {
   CustomTextInput,
@@ -14,4 +16,6 @@ export {
   SocialOptions,
   VideoBuyCard,
   CustomVideoPlayer,
+  CustomModalize,
+  CustomPhoneInput,
 };

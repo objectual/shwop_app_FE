@@ -20,6 +20,11 @@ const shop_drawer = require('../assets/images/icons/shop_drawer.png');
 const terms_and_conditions_drawer = require('../assets/images/icons/terms_and_conditions_drawer.png');
 const wish_list_drawer = require('../assets/images/icons/wish_list_drawer.png');
 const back_drawer = require('../assets/images/icons/back_drawer.png');
+const facebook = require('../assets/images/icons/facebook.png');
+const instagram = require('../assets/images/icons/instagram.png');
+const google = require('../assets/images/icons/google.png');
+const twitter = require('../assets/images/icons/twitter.png');
+const polygon = require('../assets/images/icons/polygon.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -44,4 +49,9 @@ export default {
   terms_and_conditions_drawer,
   wish_list_drawer,
   back_drawer,
+  facebook,
+  instagram,
+  google,
+  twitter,
+  polygon,
 };

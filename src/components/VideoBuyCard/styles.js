@@ -59,7 +59,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: Metrics.screenHeight * 0.03,
     height: Metrics.screenHeight * 0.03,
-    borderRadius: 30,
+    borderRadius: Metrics.ratio(30),
     position: 'absolute',
     right: Metrics.ratio(8),
     top: Metrics.ratio(8),
