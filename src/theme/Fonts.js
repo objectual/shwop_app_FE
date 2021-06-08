@@ -40,6 +40,7 @@ const type = {
   NunitoBold: 'Nunito-Bold',
   NunitoSemiBold: 'Nunito-SemiBold',
   NunitoLight: 'Nunito-Light',
+  NunitoItalic: 'Nunito-Italic',
 };
 
 const size = {

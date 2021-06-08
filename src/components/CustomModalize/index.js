@@ -9,24 +9,40 @@ import {Metrics, Colors} from '../../theme';
 import styles from './styles';
 
 const CustomModalize = props => {
-  const {modalTopOffset, modalizeRef, onClosed, headerText, children} = props;
+  const {
+    modalTopOffset,
+    modalizeRef,
+    onClosed,
+    headerText,
+    children,
+    footerComponent,
+    noCloseBtn,
+  } = props;
 
   return (
     <Modalize
       ref={modalizeRef ? modalizeRef : null}
-      modalStyle={{...styles.modalStyle}}
-      handleStyle={{...styles.handleStyle}}
+      modalStyle={
+        noCloseBtn ? {...styles.commentmodalStyle} : {...styles.modalStyle}
+      }
+      handleStyle={
+        noCloseBtn ? {...styles.commenthandleStyle} : {...styles.handleStyle}
+      }
       overlayStyle={{...styles.overlayStyle}}
       handlePosition={'inside'}
+      FooterComponent={footerComponent ? footerComponent : null}
       HeaderComponent={
         <>
-          <TouchableOpacity onPress={onClosed} style={styles.close}>
-            <MaterialCommunityIcons
-              name="close"
-              size={Metrics.ratio(10)}
-              color={Colors.Charade}
-            />
-          </TouchableOpacity>
+          {noCloseBtn ? null : (
+            <TouchableOpacity onPress={onClosed} style={styles.close}>
+              <MaterialCommunityIcons
+                name="close"
+                size={Metrics.ratio(10)}
+                color={Colors.Charade}
+              />
+            </TouchableOpacity>
+          )}
+
           <View style={styles.HeaderView}>
             <Text style={styles.HeaderText}>{headerText}</Text>
           </View>
@@ -49,6 +65,7 @@ CustomModalize.defaultProps = {
 CustomModalize.propTypes = {
   data: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  noCloseBtn: PropTypes.bool,
   renderItem: PropTypes.node.isRequired,
   headerText: PropTypes.string,
   footerComponent: PropTypes.node,

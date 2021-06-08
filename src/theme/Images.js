@@ -39,6 +39,8 @@ const facebookBlack = require('../assets/images/icons/facebookBlack.png');
 const twitterBlack = require('../assets/images/icons/twitterBlack.png');
 const eyeShowPass = require('../assets/images/icons/eye.png');
 const eyeHidePass = require('../assets/images/icons/hideeye.png');
+const send = require('../assets/images/icons/send.png');
+const commentUser = require('../assets/images/icons/commentUser.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -82,4 +84,6 @@ export default {
   twitterBlack,
   eyeShowPass,
   eyeHidePass,
+  send,
+  commentUser,
 };

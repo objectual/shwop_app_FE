@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 
-import {Images, Metrics, Colors} from '../../theme';
+import {Images, Metrics} from '../../theme';
 import {
   CustomModalize,
   CustomPhoneInput,

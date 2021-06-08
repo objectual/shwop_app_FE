@@ -6,7 +6,8 @@ import styles from './styles';
 
 import {Images, Metrics, Colors} from '../../theme';
 
-const SocialOptions = () => {
+const SocialOptions = props => {
+  const {onPress} = props;
   return (
     <View style={styles.homeOptions}>
       <View style={styles.UserImageView}>
@@ -36,7 +37,7 @@ const SocialOptions = () => {
         <Text style={styles.optionText}>24.5k</Text>
       </View>
       <View style={styles.UserOptions}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Image
             style={styles.optionImg}
             resizeMode="contain"

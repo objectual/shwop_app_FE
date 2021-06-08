@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Colors, Metrics, Fonts} from '../../theme';
+import {Colors, Metrics} from '../../theme';
 
 export default StyleSheet.create({
   container: {
@@ -14,8 +14,10 @@ export default StyleSheet.create({
     color: Colors.black,
   },
   headerTextStyle: {
-    position:'absolute',
-    top:0,
+    position: 'absolute',
+    top: 0,
   },
- 
+  commentContainer: {
+    paddingHorizontal: Metrics.ratio(16),
+  },
 });
