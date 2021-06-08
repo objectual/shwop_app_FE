@@ -8,10 +8,12 @@ import styles from './styles';
 import {Colors} from '../../theme';
 
 const GradientButton = props => {
-  const {containerStyle, gradientContainer, labelStyle, label} = props;
+  const {containerStyle, gradientContainer, labelStyle, label, onPress} = props;
 
   return (
-    <TouchableOpacity style={{...styles.container, ...containerStyle}}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{...styles.container, ...containerStyle}}>
       <LinearGradient
         style={{...styles.gradientContainer, ...gradientContainer}}
         start={{x: 0, y: 0}}
@@ -35,12 +37,14 @@ GradientButton.defaultProps = {
   gradientContainer: {},
   labelStyle: {},
   label: '',
+  onPress: undefined,
 };
 
 GradientButton.propTypes = {
   gradientContainer: PropTypes.object,
   labelStyle: PropTypes.object,
   label: PropTypes.string.isRequired,
+  onPress: PropTypes.func,
 };
 
 export default GradientButton;

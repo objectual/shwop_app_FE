@@ -61,4 +61,8 @@ export default StyleSheet.create({
     borderColor: '#03DAC6',
   },
   otpView: {marginTop: Metrics.ratio(20)},
+  gradientButtonContainer: {
+    marginTop: Metrics.ratio(50),
+    marginBottom: Metrics.ratio(0),
+  },
 });

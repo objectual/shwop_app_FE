@@ -32,6 +32,13 @@ const tag_upload_video = require('../assets/images/icons/tag_upload_video.png');
 const instagram_upload_video = require('../assets/images/icons/instagram_upload_video.png');
 const facebook_upload_video = require('../assets/images/icons/facebook_upload_video.png');
 const verification = require('../assets/images/backgrounds/verification.png');
+const upload = require('../assets/images/icons/upload.png');
+const camera = require('../assets/images/icons/camera.png');
+const userImg = require('../assets/images/icons/user.png');
+const facebookBlack = require('../assets/images/icons/facebookBlack.png');
+const twitterBlack = require('../assets/images/icons/twitterBlack.png');
+const eyeShowPass = require('../assets/images/icons/eye.png');
+const eyeHidePass = require('../assets/images/icons/hideeye.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -68,4 +75,11 @@ export default {
   instagram_upload_video,
   facebook_upload_video,
   verification,
+  upload,
+  camera,
+  userImg,
+  facebookBlack,
+  twitterBlack,
+  eyeShowPass,
+  eyeHidePass,
 };

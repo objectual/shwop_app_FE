@@ -1,11 +1,13 @@
 import React, {useRef, useState} from 'react';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import LinearGradient from 'react-native-linear-gradient';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 
 import {Images, Metrics, Colors} from '../../theme';
-import {CustomModalize, CustomPhoneInput} from '../../components';
+import {
+  CustomModalize,
+  CustomPhoneInput,
+  GradientButton,
+} from '../../components';
 
 import styles from './styles';
 
@@ -15,18 +17,6 @@ const Layout = props => {
   const phoneInput = useRef(null);
   const [authorize, setAuthorize] = useState(false);
   const [signup, setSignup] = useState(false);
-
-  const renderLogin = () => (
-    <View style={{flex: 1, backgroundColor: 'red'}}>
-      <TouchableOpacity style={styles.close}>
-        <MaterialCommunityIcons
-          name="close"
-          size={Metrics.ratio(15)}
-          color={Colors.Black}
-        />
-      </TouchableOpacity>
-    </View>
-  );
 
   const handleOnClosedModalize = () => {
     modalizeRef.current?.close();
@@ -78,26 +68,11 @@ const Layout = props => {
             phoneInputTxt={phoneInput}
           />
         </View>
-        <Text style={styles.verificationTxt}>
-          Verification code will be sent to you on the number you added above!
-        </Text>
-        <TouchableOpacity onPress={() => props.navigation.navigate('otp')}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            locations={[0.1, 0.3, 0.4, 0.6, 0.8, 0.9]}
-            colors={[
-              '#8A49A1',
-              '#C1558B',
-              '#C1558B',
-              '#E56969',
-              '#FFC273',
-              '#FFDF9E',
-            ]}
-            style={styles.loginBtn}>
-            <Text style={styles.loginBtnTxt}>Login</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        <GradientButton
+          label={'Login'}
+          containerStyle={{...styles.gradientButtonContainer}}
+          onPress={() => props.navigation.navigate('Otp')}
+        />
         <View style={styles.Orarea}>
           <View style={styles.line}></View>
           <Text style={styles.orText}>OR</Text>
@@ -138,26 +113,11 @@ const Layout = props => {
             phoneInputTxt={phoneInput}
           />
         </View>
-        <Text style={styles.verificationTxt}>
-          Verification code will be sent to you on the number you added above!
-        </Text>
-        <TouchableOpacity onPress={() => props.navigation.navigate('signup')}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            locations={[0.1, 0.3, 0.4, 0.6, 0.8, 0.9]}
-            colors={[
-              '#8A49A1',
-              '#C1558B',
-              '#C1558B',
-              '#E56969',
-              '#FFC273',
-              '#FFDF9E',
-            ]}
-            style={styles.loginBtn}>
-            <Text style={styles.loginBtnTxt}>Sign Up</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        <GradientButton
+          label={'Sign Up'}
+          containerStyle={{...styles.gradientButtonContainer}}
+          onPress={() => props.navigation.navigate('SignUp')}
+        />
         <View style={styles.Orarea}>
           <View style={styles.line}></View>
           <Text style={styles.orText}>OR</Text>

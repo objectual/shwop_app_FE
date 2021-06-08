@@ -1,8 +1,7 @@
 import React, {useRef} from 'react';
-import {Text, ScrollView, View, Image, TouchableOpacity} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {Text, ScrollView, View, Image} from 'react-native';
 import OTPTextInput from 'react-native-otp-textinput';
-import {Header} from '../../components';
+import {Header, GradientButton} from '../../components';
 import {Images, Metrics} from '../../theme';
 
 import styles from './styles';
@@ -36,7 +35,6 @@ const Otp = props => {
               //  handleTextChange={()=>{}}
               tintColor="#8A49A1"
               textInputStyle={{
-                // backgroundColor: 'green',
                 borderRadius: Metrics.ratio(30),
                 borderWidth: 2,
                 borderBottomWidth: 2,
@@ -44,23 +42,10 @@ const Otp = props => {
               }}
             />
           </View>
-          <TouchableOpacity onPress={() => props.navigation.navigate('otp')}>
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              locations={[0.1, 0.3, 0.4, 0.6, 0.8, 0.9]}
-              colors={[
-                '#8A49A1',
-                '#C1558B',
-                '#C1558B',
-                '#E56969',
-                '#FFC273',
-                '#FFDF9E',
-              ]}
-              style={styles.loginBtn}>
-              <Text style={styles.loginBtnTxt}>Confirm</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+          <GradientButton
+            label={'Confirm'}
+            containerStyle={{...styles.gradientButtonContainer}}
+          />
         </View>
       </ScrollView>
     </>
