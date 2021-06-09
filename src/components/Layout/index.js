@@ -27,6 +27,8 @@ const Layout = props => {
   };
 
   const handleNavigation = screenName => {
+    closeModalize();
+    setShowSignUp(false);
     props.navigation.navigate(screenName);
   };
 
@@ -62,7 +64,7 @@ const Layout = props => {
     return (
       <View style={{...styles.headerComponentContainer}}>
         <Text style={{...styles.headerText}}>
-          {!showSignUp ? 'Login With Number ' : 'Sign Up With Number '}
+          {!showSignUp ? 'Login With Number' : 'Sign Up With Number'}
         </Text>
         <TouchableOpacity onPress={closeModalize} style={{...styles.closeBtn}}>
           <MaterialCommunityIcons
@@ -87,7 +89,7 @@ const Layout = props => {
         <GradientButton
           label={'Login'}
           containerStyle={{...styles.gradientButtonContainer}}
-          onPress={() => props.navigation.navigate('Otp')}
+          onPress={() => handleNavigation('Otp')}
         />
         <View style={styles.Orarea}>
           <View style={styles.line} />
@@ -132,7 +134,7 @@ const Layout = props => {
         <GradientButton
           label={'Sign Up'}
           containerStyle={{...styles.gradientButtonContainer}}
-          onPress={() => props.navigation.navigate('SignUp')}
+          onPress={() => handleNavigation('SignUp')}
         />
         <View style={styles.Orarea}>
           <View style={styles.line} />

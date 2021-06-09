@@ -3,10 +3,11 @@ import {View, Text, Image, TouchableOpacity, StatusBar} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import * as Progress from 'react-native-progress';
 import moment from 'moment';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 
-import {RecordingButton} from '../../components';
+import {RecordingButton, CustomModalize} from '../../components';
 
 import {Images, Colors, Metrics, Fonts} from '../../theme';
 
@@ -15,12 +16,14 @@ let _progress = -1;
 
 const RecordVideo = props => {
   const cameraRef = useRef(null);
+  const modalizeRef = useRef(null);
 
   const [timeline, setTimeline] = useState(15);
   const [cameraType, setCameraType] = useState('back');
   const [flashMode, setFlashMode] = useState('off');
   const [progress, setProgress] = useState(0);
   const [videoTimings] = useState([15, 60, 90]);
+  const [timer] = useState([5, 10, 15]);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUri, setRecordedVideoUri] = useState(false);
 
@@ -55,6 +58,29 @@ const RecordVideo = props => {
     _progress = -1;
   };
 
+  const closeModalize = () => {
+    modalizeRef.current?.close();
+  };
+
+  const openModalize = () => {
+    modalizeRef.current?.open();
+  };
+
+  const renderHeaderComponent = () => {
+    return (
+      <View style={{...styles.headerComponentContainer}}>
+        <Text style={{...styles.headerText}}>{'Set Timer'}</Text>
+        <TouchableOpacity onPress={closeModalize} style={{...styles.closeBtn}}>
+          <MaterialCommunityIcons
+            name="close"
+            size={Metrics.ratio(10)}
+            color={Colors.Charade}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={{...styles.container}}>
       <StatusBar
@@ -82,7 +108,7 @@ const RecordVideo = props => {
 
       <View style={{...styles.actionButtonsContainer}}>
         {!isRecording && !recordedVideoUri && (
-          <TouchableOpacity style={{...styles.actionButton}}>
+          <TouchableOpacity style={{...styles.actionButton}} onPress={() => {}}>
             <Image
               source={Images.timer_recorder}
               resizeMode={'contain'}
@@ -221,6 +247,53 @@ const RecordVideo = props => {
           ))}
         </View>
       )}
+
+      <CustomModalize
+        modalizeType={'children'}
+        modalizeRef={modalizeRef}
+        modalTopOffset={Metrics.screenHeight * 0.6}
+        headerComponent={renderHeaderComponent()}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'red',
+            flexDirection: 'column',
+            width: Metrics.screenWidth,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: Metrics.ratio(24),
+              // marginBottom: Metrics.ratio(16),
+            }}>
+            {timer.map(item => (
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: Colors.Snuff,
+                  width: Metrics.ratio(35),
+                  height: Metrics.ratio(35),
+                  borderRadius: Metrics.ratio(35),
+                  marginHorizontal: Metrics.ratio(16),
+                }}>
+                <Text
+                  style={{
+                    fontSize: Metrics.ratio(20),
+                    color: Colors.Affair,
+                    fontFamily: Fonts.type.NunitoBold,
+                  }}>{`${item}s`}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <TouchableOpacity>
+            <Text>Done</Text>
+          </TouchableOpacity>
+        </View>
+      </CustomModalize>
     </View>
   );
 };

@@ -128,4 +128,26 @@ export default StyleSheet.create({
     height: Metrics.ratio(7),
     borderRadius: Metrics.ratio(7),
   },
+  headerComponentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerText: {
+    fontFamily: Fonts.type.NunitoBold,
+    fontSize: Metrics.ratio(16),
+    color: Colors.Charade,
+  },
+  closeBtn: {
+    width: Metrics.ratio(20),
+    height: Metrics.ratio(20),
+    backgroundColor: Colors.Concrete,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: Metrics.ratio(15),
+    position: 'absolute',
+    top: Metrics.ratio(-8),
+    right: Metrics.ratio(12),
+    zIndex: 1,
+  },
 });

@@ -58,6 +58,10 @@ const Home = props => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
 
+  const openModalize = () => {
+    modalizeRef.current?.open();
+  };
+
   const handleComment = () => {
     // const payload = {
     //   data: Commentdata,
@@ -83,10 +87,6 @@ const Home = props => {
     return <Comment description={comment} time={time} img={img} />;
   };
 
-  const onOpen = () => {
-    modalizeRef.current?.open();
-  };
-
   return (
     <Layout {...props}>
       <StatusBar
@@ -106,7 +106,7 @@ const Home = props => {
         headerTextStyle={styles.headerTextStyle}
       />
 
-      {!isLoading && <SocialOptions onPress={onOpen} />}
+      {!isLoading && <SocialOptions onPress={openModalize} />}
 
       {!isLoading && <VideoBuyCard />}
 
