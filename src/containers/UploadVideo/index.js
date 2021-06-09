@@ -19,6 +19,10 @@ const UploadVideo = props => {
 
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
+  const handleNavigation = screenName => {
+    props.navigation.navigate(screenName);
+  };
+
   return (
     <Layout {...props}>
       <StatusBar
@@ -48,7 +52,9 @@ const UploadVideo = props => {
             />
             <Text style={{...styles.uploadBtnText}}>Upload Video</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{...styles.recordBtn}}>
+          <TouchableOpacity
+            style={{...styles.recordBtn}}
+            onPress={() => handleNavigation('RecordVideo')}>
             <Image
               source={Images.record_video_icon}
               resizeMode={'contain'}

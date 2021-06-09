@@ -8,6 +8,7 @@ import CustomVideoPlayer from './CustomVideoPlayer';
 import CustomModalize from './CustomModalize';
 import CustomPhoneInput from './CustomPhoneInput';
 import GradientButton from './GradientButton';
+import RecordingButton from './RecordingButton';
 
 export {
   CustomTextInput,
@@ -20,4 +21,5 @@ export {
   CustomModalize,
   CustomPhoneInput,
   GradientButton,
+  RecordingButton,
 };

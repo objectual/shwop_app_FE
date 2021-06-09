@@ -32,6 +32,14 @@ const tag_upload_video = require('../assets/images/icons/tag_upload_video.png');
 const instagram_upload_video = require('../assets/images/icons/instagram_upload_video.png');
 const facebook_upload_video = require('../assets/images/icons/facebook_upload_video.png');
 const verification = require('../assets/images/backgrounds/verification.png');
+const swap_camera_recorder = require('../assets/images/icons/swap_camera_recorder.png');
+const image_gallery_recorder = require('../assets/images/icons/image_gallery_recorder.png');
+const speed_recorder = require('../assets/images/icons/speed_recorder.png');
+const timer_recorder = require('../assets/images/icons/timer_recorder.png');
+const flash_light_off_recorder = require('../assets/images/icons/flash_light_off_recorder.png');
+const filters_recorder = require('../assets/images/icons/filters_recorder.png');
+const beautify_recorder = require('../assets/images/icons/beautify_recorder.png');
+const flash_light_on_recorder = require('../assets/images/icons/flash_light_on_recorder.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -68,4 +76,12 @@ export default {
   instagram_upload_video,
   facebook_upload_video,
   verification,
+  swap_camera_recorder,
+  image_gallery_recorder,
+  speed_recorder,
+  timer_recorder,
+  flash_light_off_recorder,
+  filters_recorder,
+  beautify_recorder,
+  flash_light_on_recorder,
 };
