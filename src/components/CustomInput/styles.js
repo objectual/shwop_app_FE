@@ -4,12 +4,11 @@ import {Fonts, Metrics, Colors} from '../../theme';
 export default StyleSheet.create({
   InputView: {
     paddingHorizontal: Metrics.ratio(15),
-    marginTop: Metrics.ratio(5),
     borderRadius: Metrics.ratio(30),
     height: Metrics.ratio(50),
     borderColor: Colors.Mercury,
     borderWidth: 0.5,
-    fontFamily: Fonts.type.MontserratItalic,
+    fontFamily: Fonts.type.Nunito,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
@@ -25,7 +24,7 @@ export default StyleSheet.create({
   },
   textInputStyle: {
     flex: 0.95,
-    fontFamily: Fonts.type.MontserratItalic,
+    fontFamily: Fonts.type.Nunito,
     color: '#3B3B3B',
     fontSize: Fonts.size.thirteen,
   },
@@ -35,7 +34,7 @@ export default StyleSheet.create({
   errormsg: {
     color: 'red',
     fontSize: Fonts.size.fourteen,
-    fontFamily: Fonts.type.MontserratRegular,
+    fontFamily: Fonts.type.Nunito,
     marginHorizontal: Metrics.ratio(15),
   },
   rightIcon: {

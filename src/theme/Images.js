@@ -40,6 +40,17 @@ const flash_light_off_recorder = require('../assets/images/icons/flash_light_off
 const filters_recorder = require('../assets/images/icons/filters_recorder.png');
 const beautify_recorder = require('../assets/images/icons/beautify_recorder.png');
 const flash_light_on_recorder = require('../assets/images/icons/flash_light_on_recorder.png');
+const upload = require('../assets/images/icons/upload.png');
+const camera = require('../assets/images/icons/camera.png');
+const userImg = require('../assets/images/icons/user.png');
+const facebookBlack = require('../assets/images/icons/facebookBlack.png');
+const twitterBlack = require('../assets/images/icons/twitterBlack.png');
+const eyeShowPass = require('../assets/images/icons/eye.png');
+const eyeHidePass = require('../assets/images/icons/hideeye.png');
+const send = require('../assets/images/icons/send.png');
+const commentUser = require('../assets/images/icons/commentUser.png');
+const menuBlack = require('../assets/images/icons/menuBlack.png');
+const filterBlack = require('../assets/images/icons/filterBlack.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -84,4 +95,15 @@ export default {
   filters_recorder,
   beautify_recorder,
   flash_light_on_recorder,
+  upload,
+  camera,
+  userImg,
+  facebookBlack,
+  twitterBlack,
+  eyeShowPass,
+  eyeHidePass,
+  send,
+  commentUser,
+  menuBlack,
+  filterBlack,
 };

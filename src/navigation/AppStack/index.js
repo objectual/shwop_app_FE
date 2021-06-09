@@ -10,6 +10,7 @@ import {
   Otp,
   SignUp,
   RecordVideo,
+  Main,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -21,9 +22,10 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />
       <AppStack.Screen name="Profile" component={Profile} />
-      <AppStack.Screen name="otp" component={Otp} />
-      <AppStack.Screen name="signup" component={SignUp} />
       <AppStack.Screen name="RecordVideo" component={RecordVideo} />
+      <AppStack.Screen name="Otp" component={Otp} />
+      <AppStack.Screen name="SignUp" component={SignUp} />
+      <AppStack.Screen name="Main" component={Main} />
     </AppStack.Navigator>
   );
 };

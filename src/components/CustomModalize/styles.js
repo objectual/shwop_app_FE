@@ -9,8 +9,20 @@ export default StyleSheet.create({
     borderTopRightRadius: Metrics.ratio(16),
     paddingVertical: Metrics.ratio(24),
   },
+  commentmodalStyle: {
+    backgroundColor: Colors.Concrete,
+    borderTopLeftRadius: Metrics.ratio(16),
+    borderTopRightRadius: Metrics.ratio(16),
+    paddingVertical: Metrics.ratio(24),
+  },
   handleStyle: {
     backgroundColor: Colors.White,
+    height: Metrics.ratio(3),
+    width: Metrics.ratio(93),
+    borderRadius: Metrics.ratio(4),
+  },
+  commenthandleStyle: {
+    backgroundColor: Colors.Concrete,
     height: Metrics.ratio(3),
     width: Metrics.ratio(93),
     borderRadius: Metrics.ratio(4),

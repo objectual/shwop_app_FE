@@ -9,6 +9,9 @@ import CustomModalize from './CustomModalize';
 import CustomPhoneInput from './CustomPhoneInput';
 import GradientButton from './GradientButton';
 import RecordingButton from './RecordingButton';
+import PurpleButton from './PurpleButton';
+import CommentInput from './CommentInput';
+import Comment from './Comment';
 
 export {
   CustomTextInput,
@@ -22,4 +25,7 @@ export {
   CustomPhoneInput,
   GradientButton,
   RecordingButton,
+  PurpleButton,
+  CommentInput,
+  Comment,
 };

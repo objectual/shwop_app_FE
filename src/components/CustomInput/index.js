@@ -23,6 +23,7 @@ const CustomTextInput = props => {
     customInputStyle,
     TextInputPaddingStyle,
     secureTextEntry,
+    onPressEye,
   } = props;
 
   return (
@@ -51,13 +52,11 @@ const CustomTextInput = props => {
             onSubmit(onSubmitRef);
           }}
         />
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={onPressEye}>
           <Image
             style={styles.rightIcon}
             resizeMode="contain"
-            source={
-              secureTextEntry === true ? inputRightIcon : inputRightHideIcon
-            }
+            source={secureTextEntry ? inputRightIcon : inputRightHideIcon}
           />
         </TouchableOpacity>
       </View>
@@ -83,6 +82,7 @@ CustomTextInput.defaultProps = {
   customInputStyle: undefined,
   TextInputPaddingStyle: undefined,
   CustomTextInputStyle: undefined,
+  onPressEye: undefined,
 };
 
 CustomTextInput.propTypes = {
@@ -96,6 +96,7 @@ CustomTextInput.propTypes = {
   refrence: PropTypes.object,
   onSubmitRef: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onSubmit: PropTypes.func,
+  onPressEye: PropTypes.func,
   enablesReturnKeyAutomaticallly: PropTypes.bool,
   inputLeftIcon: PropTypes.string,
   secureTextEntry: PropTypes.bool,

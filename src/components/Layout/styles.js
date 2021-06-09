@@ -57,28 +57,6 @@ export default StyleSheet.create({
     marginTop: Metrics.ratio(20),
     alignItems: 'center',
   },
-  verificationTxt: {
-    fontFamily: Fonts.type.Nunito,
-    fontSize: Metrics.ratio(9),
-    marginTop: Metrics.ratio(5),
-  },
-  loginBtn: {
-    backgroundColor: Colors.Affair,
-    borderRadius: Metrics.ratio(30),
-    padding: Metrics.ratio(10),
-    paddingLeft: Metrics.ratio(15),
-    paddingRight: Metrics.ratio(15),
-    height: Metrics.ratio(45),
-    marginTop: Metrics.ratio(20),
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: Metrics.ratio(164),
-  },
-  loginBtnTxt: {
-    fontFamily: Fonts.type.NunitoBold,
-    fontSize: Metrics.ratio(15),
-    color: Colors.White,
-  },
   socialView: {
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -134,5 +112,9 @@ export default StyleSheet.create({
     margin: 10,
     color: '#ffffff',
     backgroundColor: 'transparent',
+  },
+  gradientButtonContainer: {
+    marginTop: Metrics.ratio(20),
+    marginBottom: Metrics.ratio(0),
   },
 });

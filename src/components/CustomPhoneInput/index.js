@@ -72,6 +72,9 @@ const CustomPhoneInput = props => {
         }}
         // withShadow
       />
+      <Text style={styles.verificationTxt}>
+        Verification code will be sent to you on the number you added above!
+      </Text>
       {props.phoneInputTxt.current?.isValidNumber(value) ? (
         <View
           style={{

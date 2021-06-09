@@ -13,6 +13,7 @@ const Mulberry = '#C1558B';
 const Sunglo = '#E56969';
 const Macaroni_And_Cheese = '#FFC273';
 const Cream_Brulee = '#FFDF9E';
+const Silver_Chalice = '#9F9F9F';
 
 export default {
   // Solid Colors
@@ -30,4 +31,5 @@ export default {
   Sunglo,
   Macaroni_And_Cheese,
   Cream_Brulee,
+  Silver_Chalice,
 };
