@@ -11,6 +11,7 @@ import UploadVideo from './UploadVideo';
 import WishList from './WishList';
 import Otp from './Otp';
 import SignUp from './SignUp';
+import Main from './Main';
 
 export {
   Chat,
@@ -26,4 +27,5 @@ export {
   WishList,
   Otp,
   SignUp,
+  Main,
 };

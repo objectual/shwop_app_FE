@@ -161,7 +161,7 @@ const Layout = props => {
       </CustomModalize>
 
       <View style={{...styles.bottomBar}}>
-        {renderTabBar(Images.Home_Bottom_Tab, 'Home')}
+        {renderTabBar(Images.Home_Bottom_Tab, 'Main')}
         {renderTabBar(Images.Search_Bottom_Tab, 'Search')}
         {renderUploadVideoBtn()}
         {renderTabBar(Images.Chat_Bottom_Tab, 'Chat')}

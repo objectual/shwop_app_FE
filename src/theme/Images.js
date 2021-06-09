@@ -41,6 +41,8 @@ const eyeShowPass = require('../assets/images/icons/eye.png');
 const eyeHidePass = require('../assets/images/icons/hideeye.png');
 const send = require('../assets/images/icons/send.png');
 const commentUser = require('../assets/images/icons/commentUser.png');
+const menuBlack = require('../assets/images/icons/menuBlack.png');
+const filterBlack = require('../assets/images/icons/filterBlack.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -86,4 +88,6 @@ export default {
   eyeHidePass,
   send,
   commentUser,
+  menuBlack,
+  filterBlack,
 };

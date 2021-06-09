@@ -9,6 +9,7 @@ import {
   Profile,
   Otp,
   SignUp,
+  Main,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -22,6 +23,7 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Profile" component={Profile} />
       <AppStack.Screen name="Otp" component={Otp} />
       <AppStack.Screen name="SignUp" component={SignUp} />
+      <AppStack.Screen name="Main" component={Main} />
     </AppStack.Navigator>
   );
 };
