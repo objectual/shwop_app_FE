@@ -20,4 +20,11 @@ export default StyleSheet.create({
   commentContainer: {
     paddingHorizontal: Metrics.ratio(16),
   },
+  modalStyle: {
+    backgroundColor: Colors.Concrete,
+    paddingHorizontal: Metrics.ratio(16),
+  },
+  handleStyle: {
+    backgroundColor: Colors.Concrete,
+  },
 });

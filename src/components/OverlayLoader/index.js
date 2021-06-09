@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import PropTypes from 'prop-types';
 
 import styles from './styles';
+import {Colors} from '../../theme';
 
 const OverlayLoader = props => {
   const {isLoading} = props;
@@ -13,7 +14,7 @@ const OverlayLoader = props => {
       visible={isLoading}
       customIndicator={
         <View style={{...styles.container}}>
-          <ActivityIndicator size="small" color={'#4DE528'} />
+          <ActivityIndicator size="small" color={Colors.Affair} />
           <Text style={{...styles.message}}>Loading, please wait.</Text>
         </View>
       }

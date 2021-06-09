@@ -1,8 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Images, Metrics} from '../../theme';
+import {Images, Metrics, Colors} from '../../theme';
 import {
   CustomModalize,
   CustomPhoneInput,
@@ -15,20 +16,22 @@ const Layout = props => {
   const {children} = props;
   const modalizeRef = useRef(null);
   const phoneInput = useRef(null);
-  const [authorize, setAuthorize] = useState(false);
-  const [signup, setSignup] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
-  const handleOnClosedModalize = () => {
+  const closeModalize = () => {
     modalizeRef.current?.close();
   };
 
-  const onOpen = () => {
-    setAuthorize(true);
+  const openModalize = () => {
     modalizeRef.current?.open();
   };
 
   const handleNavigation = screenName => {
     props.navigation.navigate(screenName);
+  };
+
+  const handlePhoneInput = (value, validate) => {
+    console.log('value , validate', value, validate);
   };
 
   const renderTabBar = (image, screenName) => (
@@ -44,7 +47,7 @@ const Layout = props => {
   );
 
   const renderUploadVideoBtn = () => (
-    <TouchableOpacity onPress={onOpen} style={{...styles.uploadBtn}}>
+    <TouchableOpacity onPress={openModalize} style={{...styles.uploadBtn}}>
       <View style={{...styles.uploadBtnView}}>
         <Image
           resizeMode={'contain'}
@@ -55,8 +58,21 @@ const Layout = props => {
     </TouchableOpacity>
   );
 
-  const handlePhoneInput = (value, validate) => {
-    console.log('value , validate', value, validate);
+  const renderHeaderComponent = () => {
+    return (
+      <View style={{...styles.headerComponentContainer}}>
+        <Text style={{...styles.headerText}}>
+          {!showSignUp ? 'Login With Number ' : 'Sign Up With Number '}
+        </Text>
+        <TouchableOpacity onPress={closeModalize} style={{...styles.closeBtn}}>
+          <MaterialCommunityIcons
+            name="close"
+            size={Metrics.ratio(10)}
+            color={Colors.Charade}
+          />
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   const renderLoginPop = () => {
@@ -74,7 +90,7 @@ const Layout = props => {
           onPress={() => props.navigation.navigate('Otp')}
         />
         <View style={styles.Orarea}>
-          <View style={styles.line}></View>
+          <View style={styles.line} />
           <Text style={styles.orText}>OR</Text>
         </View>
         <View style={styles.socialView}>
@@ -96,7 +112,7 @@ const Layout = props => {
         </View>
 
         <View style={styles.RegisterTag}>
-          <TouchableOpacity onPress={() => setSignup(true)}>
+          <TouchableOpacity onPress={() => setShowSignUp(true)}>
             <Text style={styles.RegisterHereLink}>Sign Up Here</Text>
           </TouchableOpacity>
         </View>
@@ -119,7 +135,7 @@ const Layout = props => {
           onPress={() => props.navigation.navigate('SignUp')}
         />
         <View style={styles.Orarea}>
-          <View style={styles.line}></View>
+          <View style={styles.line} />
           <Text style={styles.orText}>OR</Text>
         </View>
         <View style={styles.socialView}>
@@ -141,7 +157,7 @@ const Layout = props => {
         </View>
 
         <View style={styles.RegisterTag}>
-          <TouchableOpacity onPress={() => setSignup(false)}>
+          <TouchableOpacity onPress={() => setShowSignUp(false)}>
             <Text style={styles.RegisterHereLink}>Sign In Here</Text>
           </TouchableOpacity>
         </View>
@@ -153,15 +169,15 @@ const Layout = props => {
     <View style={{...styles.container}}>
       {children}
       <CustomModalize
+        modalizeType={'children'}
         modalizeRef={modalizeRef}
-        headerText={!signup ? 'Login With Number ' : 'Sign Up With Number '}
-        modalTopOffset={Metrics.ratio(190)}
-        onClosed={handleOnClosedModalize}>
-        {!signup ? renderLoginPop() : renderSignUpPop()}
+        modalTopOffset={Metrics.screenHeight * 0.25}
+        headerComponent={renderHeaderComponent()}>
+        {!showSignUp ? renderLoginPop() : renderSignUpPop()}
       </CustomModalize>
 
       <View style={{...styles.bottomBar}}>
-        {renderTabBar(Images.Home_Bottom_Tab, 'Main')}
+        {renderTabBar(Images.Home_Bottom_Tab, 'Home')}
         {renderTabBar(Images.Search_Bottom_Tab, 'Search')}
         {renderUploadVideoBtn()}
         {renderTabBar(Images.Chat_Bottom_Tab, 'Chat')}
