@@ -11,12 +11,13 @@ import {
   SignUp,
   RecordVideo,
   Main,
+  OthersProfile,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="Home">
+    <AppStack.Navigator headerMode="none" initialRouteName="OthersProfile">
       <AppStack.Screen name="Home" component={Home} />
       <AppStack.Screen name="Search" component={Search} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
@@ -26,6 +27,7 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Otp" component={Otp} />
       <AppStack.Screen name="SignUp" component={SignUp} />
       <AppStack.Screen name="Main" component={Main} />
+      <AppStack.Screen name="OthersProfile" component={OthersProfile} />
     </AppStack.Navigator>
   );
 };

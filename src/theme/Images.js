@@ -51,6 +51,20 @@ const send = require('../assets/images/icons/send.png');
 const commentUser = require('../assets/images/icons/commentUser.png');
 const menuBlack = require('../assets/images/icons/menuBlack.png');
 const filterBlack = require('../assets/images/icons/filterBlack.png');
+const FollowCardImg = require('../assets/images/backgrounds/FollowCardImg.png');
+const recordVideo = require('../assets/images/backgrounds/recordVideo.png');
+const clock = require('../assets/images/icons/clock.png');
+const subscribers = require('../assets/images/icons/subscribers.png');
+const play = require('../assets/images/icons/play.png');
+const polygin_white = require('../assets/images/icons/polygin_white.png');
+const video_upload = require('../assets/images/icons/video_upload.png');
+const edit_btn = require('../assets/images/icons/edit_btn.png');
+const video_upload_purple = require('../assets/images/icons/video_upload_purple.png');
+const play_white = require('../assets/images/icons/play_white.png');
+const view = require('../assets/images/icons/view.png');
+const share_profile = require('../assets/images/icons/share_profile.png');
+const details = require('../assets/images/icons/details.png');
+const info = require('../assets/images/icons/info.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -106,4 +120,18 @@ export default {
   commentUser,
   menuBlack,
   filterBlack,
+  FollowCardImg,
+  clock,
+  subscribers,
+  play,
+  recordVideo,
+  polygin_white,
+  video_upload,
+  edit_btn,
+  video_upload_purple,
+  play_white,
+  view,
+  share_profile,
+  details,
+  info,
 };

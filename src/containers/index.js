@@ -13,6 +13,7 @@ import Otp from './Otp';
 import SignUp from './SignUp';
 import RecordVideo from './RecordVideo';
 import Main from './Main';
+import OthersProfile from './OthersProfile';
 
 export {
   Chat,
@@ -30,4 +31,5 @@ export {
   SignUp,
   RecordVideo,
   Main,
+  OthersProfile,
 };
