@@ -12,6 +12,7 @@ import RecordingButton from './RecordingButton';
 import PurpleButton from './PurpleButton';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
+import CameraCountdown from './CameraCountdown';
 
 export {
   CustomTextInput,
@@ -28,4 +29,5 @@ export {
   PurpleButton,
   CommentInput,
   Comment,
+  CameraCountdown,
 };

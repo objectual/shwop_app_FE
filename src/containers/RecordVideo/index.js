@@ -7,55 +7,64 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import styles from './styles';
 
-import {RecordingButton, CustomModalize} from '../../components';
+import {
+  RecordingButton,
+  CustomModalize,
+  CameraCountdown,
+} from '../../components';
 
 import {Images, Colors, Metrics, Fonts} from '../../theme';
 
 const progressBarWidth = Metrics.screenWidth * 0.8;
-let _progress = -1;
+let _progress = 0;
 
 const RecordVideo = props => {
   const cameraRef = useRef(null);
   const modalizeRef = useRef(null);
 
+  const [videoTimings] = useState([15, 60, 90]);
+  const [timer] = useState([5, 10, 15]);
+  const [selectedTimer, setSelectedTimer] = useState(0);
+  const [showTimer, setShowTimer] = useState(false);
   const [timeline, setTimeline] = useState(15);
   const [cameraType, setCameraType] = useState('back');
   const [flashMode, setFlashMode] = useState('off');
   const [progress, setProgress] = useState(0);
-  const [videoTimings] = useState([15, 60, 90]);
-  const [timer] = useState([5, 10, 15]);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUri, setRecordedVideoUri] = useState(false);
 
   const handleCameraType = () =>
     setCameraType(cameraType === 'back' ? 'front' : 'back');
 
-  const startRecording = async () => {
+  const startRecording = () => {
     if (cameraRef) {
-      setIsRecording(true);
+      setShowTimer(selectedTimer ? true : false);
+      setTimeout(async () => {
+        setIsRecording(true);
+        setShowTimer(false);
 
-      const interval = setInterval(() => {
-        _progress += 1;
-        console.log(_progress, '_progress');
-        setProgress(_progress);
-      }, 1000);
+        const interval = setInterval(() => {
+          _progress += 1;
+          setProgress(_progress);
+        }, 1000);
 
-      const {uri} = await cameraRef.current.recordAsync({
-        maxDuration: timeline,
-      });
+        const {uri} = await cameraRef.current.recordAsync({
+          maxDuration: timeline,
+        });
 
-      clearInterval(interval);
-      _progress = -1;
+        clearInterval(interval);
+        _progress = 0;
 
-      setIsRecording(false);
-      setRecordedVideoUri(uri);
+        setIsRecording(false);
+        setRecordedVideoUri(uri);
+      }, selectedTimer * 1000);
     }
   };
 
   const handleTimeline = item => {
     setTimeline(item);
     setProgress(0);
-    _progress = -1;
+    _progress = 0;
   };
 
   const closeModalize = () => {
@@ -66,11 +75,16 @@ const RecordVideo = props => {
     modalizeRef.current?.open();
   };
 
+  const handleCloseBtn = () => {
+    setSelectedTimer(0);
+    closeModalize();
+  };
+
   const renderHeaderComponent = () => {
     return (
       <View style={{...styles.headerComponentContainer}}>
         <Text style={{...styles.headerText}}>{'Set Timer'}</Text>
-        <TouchableOpacity onPress={closeModalize} style={{...styles.closeBtn}}>
+        <TouchableOpacity onPress={handleCloseBtn} style={{...styles.closeBtn}}>
           <MaterialCommunityIcons
             name="close"
             size={Metrics.ratio(10)}
@@ -100,24 +114,46 @@ const RecordVideo = props => {
         </View>
 
         <View style={{...styles.headerRightContainer}}>
-          <TouchableOpacity style={{...styles.saveBtn}}>
-            <Text style={{...styles.saveBtnText}}>Save</Text>
-          </TouchableOpacity>
+          {recordedVideoUri && (
+            <TouchableOpacity style={{...styles.saveBtn}}>
+              <Text style={{...styles.saveBtnText}}>Save</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
       <View style={{...styles.actionButtonsContainer}}>
         {!isRecording && !recordedVideoUri && (
-          <TouchableOpacity style={{...styles.actionButton}} onPress={() => {}}>
-            <Image
-              source={Images.timer_recorder}
-              resizeMode={'contain'}
-              style={{...styles.actionButtonImage}}
-            />
-            <Text style={{...styles.actionButtonText}}>Timer</Text>
-          </TouchableOpacity>
+          <React.Fragment>
+            <TouchableOpacity
+              style={{...styles.actionButton}}
+              onPress={openModalize}>
+              <Image
+                source={Images.timer_recorder}
+                resizeMode={'contain'}
+                style={{...styles.actionButtonImage}}
+              />
+              <Text style={{...styles.actionButtonText}}>Timer</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{...styles.actionButton}}
+              onPress={() =>
+                setFlashMode(flashMode === 'torch' ? 'off' : 'torch')
+              }>
+              <Image
+                source={
+                  flashMode === 'torch'
+                    ? Images.flash_light_off_recorder
+                    : Images.flash_light_on_recorder
+                }
+                resizeMode={'contain'}
+                style={{...styles.actionButtonImage}}
+              />
+              <Text style={{...styles.actionButtonText}}>Timer</Text>
+            </TouchableOpacity>
+          </React.Fragment>
         )}
-        {recordedVideoUri && (
+        {/* {recordedVideoUri && (
           <React.Fragment>
             <TouchableOpacity style={{...styles.actionButton}}>
               <Image
@@ -144,7 +180,7 @@ const RecordVideo = props => {
               <Text style={{...styles.actionButtonText}}>Beautify</Text>
             </TouchableOpacity>
           </React.Fragment>
-        )}
+        )} */}
       </View>
 
       <View style={{...styles.cameraContainer}}>
@@ -153,6 +189,7 @@ const RecordVideo = props => {
           style={{...styles.camera}}
           type={cameraType}
           flashMode={flashMode}
+          captureAudi={true}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
@@ -187,16 +224,9 @@ const RecordVideo = props => {
           />
 
           {!isRecording && (
-            <TouchableOpacity
-              onPress={() =>
-                setFlashMode(flashMode === 'torch' ? 'off' : 'torch')
-              }>
+            <TouchableOpacity onPress={() => {}}>
               <Image
-                source={
-                  flashMode === 'torch'
-                    ? Images.flash_light_off_recorder
-                    : Images.flash_light_on_recorder
-                }
+                source={Images.image_gallery_recorder}
                 resizeMode={'contain'}
                 style={{...styles.flashImage}}
               />
@@ -251,49 +281,28 @@ const RecordVideo = props => {
       <CustomModalize
         modalizeType={'children'}
         modalizeRef={modalizeRef}
-        modalTopOffset={Metrics.screenHeight * 0.6}
+        modalTopOffset={Metrics.screenHeight * 0.65}
         headerComponent={renderHeaderComponent()}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'red',
-            flexDirection: 'column',
-            width: Metrics.screenWidth,
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: Metrics.ratio(24),
-              // marginBottom: Metrics.ratio(16),
-            }}>
+        <View style={{...styles.timerContainer}}>
+          <View style={{...styles.timerItemsRow}}>
             {timer.map(item => (
               <TouchableOpacity
+                onPress={() => setSelectedTimer(item)}
+                // eslint-disable-next-line react-native/no-inline-styles
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: Colors.Snuff,
-                  width: Metrics.ratio(35),
-                  height: Metrics.ratio(35),
-                  borderRadius: Metrics.ratio(35),
-                  marginHorizontal: Metrics.ratio(16),
+                  ...styles.timerItem,
+                  borderWidth: item === selectedTimer ? Metrics.ratio(1) : 0,
                 }}>
-                <Text
-                  style={{
-                    fontSize: Metrics.ratio(20),
-                    color: Colors.Affair,
-                    fontFamily: Fonts.type.NunitoBold,
-                  }}>{`${item}s`}</Text>
+                <Text style={{...styles.timerItemText}}>{`${item}s`}</Text>
               </TouchableOpacity>
             ))}
           </View>
-          <TouchableOpacity>
-            <Text>Done</Text>
+          <TouchableOpacity onPress={closeModalize} style={{...styles.doneBtn}}>
+            <Text style={{...styles.doneBtnText}}>Done</Text>
           </TouchableOpacity>
         </View>
       </CustomModalize>
+      <CameraCountdown duration={selectedTimer} isPlaying={showTimer} />
     </View>
   );
 };
