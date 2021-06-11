@@ -14,6 +14,9 @@ import CommentInput from './CommentInput';
 import Comment from './Comment';
 import CameraCountdown from './CameraCountdown';
 import CardButton from './CardButton';
+import FollowCard from './FollowCard';
+import Search from './Search';
+import ProductCard from './ProductCard';
 
 export {
   CustomTextInput,
@@ -32,4 +35,7 @@ export {
   Comment,
   CameraCountdown,
   CardButton,
+  FollowCard,
+  Search,
+  ProductCard,
 };

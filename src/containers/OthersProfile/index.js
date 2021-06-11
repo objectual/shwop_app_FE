@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -14,10 +14,7 @@ import {Images, Colors} from '../../theme';
 
 import styles from './styles';
 
-const Profile = props => {
-  const [active, setActive] = useState(0);
-  const [activeForYou, setActiveForYou] = useState(null);
-
+const OthersProfile = props => {
   const data = [
     {
       bannerImg: Images.FollowCardImg,
@@ -51,14 +48,6 @@ const Profile = props => {
     },
   ];
 
-  const handleUploads = () => {
-    setActive(0);
-    setActiveForYou(0);
-  };
-  const handleLikes = () => {
-    setActiveForYou(1);
-    setActive(2);
-  };
   return (
     <Layout {...props}>
       <StatusBar
@@ -71,11 +60,13 @@ const Profile = props => {
         headerBgColor={Colors.White}
         isDropShadow={false}
         leftIcon={Images.back_arrow_nav}
-        rightIcon={Images.edit_btn}
+        rightIcon={Images.share_profile}
         isRightIconImg={true}
         isLeftIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
         headerText={'Emma Norman'}
+        isRightSecIconImg={true}
+        rightSecIcon={Images.details}
       />
 
       <View style={{...styles.headerSeparator}} />
@@ -93,65 +84,32 @@ const Profile = props => {
         </View>
         <View style={{...styles.followArea}}>
           <View style={{...styles.followWhiteArea}}>
-            <Text style={{...styles.followNumber}}>77</Text>
+            <Text style={{...styles.followNumber}}>29</Text>
             <Text style={{...styles.followTxt}}>Following</Text>
           </View>
           <View style={{...styles.followWhiteArea}}>
-            <Text style={{...styles.followNumber}}>77</Text>
-            <Text style={{...styles.followTxt}}>Followers</Text>
+            <Text style={{...styles.followNumber}}>213.9K</Text>
+            <Text style={{...styles.followTxt}}>Fans</Text>
           </View>
           <View style={{...styles.followWhiteArea}}>
-            <Text style={{...styles.followNumber}}>77</Text>
-            <Text style={{...styles.followTxt}}>Likes</Text>
+            <Text style={{...styles.followNumber}}>213.9K</Text>
+            <Text style={{...styles.followTxt}}>Hearts</Text>
           </View>
         </View>
         <View style={{...styles.centerView}}>
           <View style={{...styles.uploadContainer}}>
-            <Image
-              resizeMode="contain"
-              style={styles.uploadImg}
-              source={
-                active === 0 ? Images.video_upload_purple : Images.video_upload
-              }
-            />
-            <TouchableOpacity
-              onPress={() => handleUploads()}
-              style={
-                active === 0
-                  ? {...styles.purpleBtn}
-                  : {...styles.transparentBtn}
-              }>
-              <Text
-                style={
-                  active === 0
-                    ? {...styles.BtnText}
-                    : {...styles.transparentBtnText}
-                }>
-                Uploads (375)
-              </Text>
+            <TouchableOpacity style={{...styles.purpleBtn}}>
+              <Image
+                resizeMode="contain"
+                style={styles.infoImg}
+                source={Images.info}
+              />
+              <Text style={{...styles.BtnText}}>Product Info</Text>
             </TouchableOpacity>
           </View>
           <View style={{...styles.uploadContainer}}>
-            <Image
-              resizeMode="contain"
-              style={styles.uploadImg}
-              source={activeForYou === 1 ? Images.heartFill : Images.heart}
-            />
-            <TouchableOpacity
-              onPress={() => handleLikes()}
-              style={
-                activeForYou === 1
-                  ? {...styles.purpleBtn}
-                  : {...styles.transparentBtn}
-              }>
-              <Text
-                style={
-                  activeForYou === 1
-                    ? {...styles.BtnText}
-                    : {...styles.transparentBtnText}
-                }>
-                Liked (375)
-              </Text>
+            <TouchableOpacity style={{...styles.transparentBtn}}>
+              <Text style={{...styles.transparentBtnText}}>FOLLOW</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -181,13 +139,6 @@ const Profile = props => {
                       />
                       <Text style={{...styles.viewTxt}}>{likeCount}</Text>
                     </View>
-                    <View style={{...styles.playBtnArea}}>
-                      <Image
-                        style={{...styles.playBtnImg}}
-                        source={Images.play_white}
-                        resizeMode="contain"
-                      />
-                    </View>
                   </ImageBackground>
                 </TouchableOpacity>
               </View>
@@ -199,8 +150,8 @@ const Profile = props => {
   );
 };
 
-Profile.defaultProps = {};
+OthersProfile.defaultProps = {};
 
-Profile.propTypes = {};
+OthersProfile.propTypes = {};
 
-export default Profile;
+export default OthersProfile;
