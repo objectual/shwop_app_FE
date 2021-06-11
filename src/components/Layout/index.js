@@ -26,10 +26,10 @@ const Layout = props => {
     modalizeRef.current?.open();
   };
 
-  const handleNavigation = screenName => {
+  const handleNavigation = (screenName, params) => {
     closeModalize();
     setShowSignUp(false);
-    props.navigation.navigate(screenName);
+    props.navigation.navigate(screenName, {...params});
   };
 
   const handlePhoneInput = (value, validate) => {

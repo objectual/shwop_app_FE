@@ -1,14 +1,14 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {Text, ScrollView, View, Image} from 'react-native';
 import OTPTextInput from 'react-native-otp-textinput';
 import {Header, GradientButton} from '../../components';
-import {Images, Metrics} from '../../theme';
+import {Images} from '../../theme';
 
 import styles from './styles';
 
 const Otp = props => {
-  const handleNavigation = screenName => {
-    props.navigation.navigate(screenName);
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
   };
 
   return (

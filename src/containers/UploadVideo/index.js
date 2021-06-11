@@ -11,7 +11,7 @@ import {
 
 import styles from './styles';
 
-import {Layout, Header, GradientButton} from '../../components';
+import {Layout, Header, GradientButton, CardButton} from '../../components';
 import {Images, Colors} from '../../theme';
 
 const UploadVideo = props => {
@@ -19,8 +19,8 @@ const UploadVideo = props => {
 
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
-  const handleNavigation = screenName => {
-    props.navigation.navigate(screenName);
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
   };
 
   return (
@@ -44,24 +44,19 @@ const UploadVideo = props => {
 
       <ScrollView style={{...styles.contentScrollView}}>
         <View style={{...styles.uploadBtnContainer}}>
-          <TouchableOpacity style={{...styles.uploadBtn}}>
-            <Image
-              source={Images.upload_video_icon}
-              resizeMode={'contain'}
-              style={{...styles.uploadBtnImage}}
-            />
-            <Text style={{...styles.uploadBtnText}}>Upload Video</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{...styles.recordBtn}}
-            onPress={() => handleNavigation('RecordVideo')}>
-            <Image
-              source={Images.record_video_icon}
-              resizeMode={'contain'}
-              style={{...styles.recordBtnImage}}
-            />
-            <Text style={{...styles.recordBtnText}}>Record Video</Text>
-          </TouchableOpacity>
+          <CardButton
+            source={Images.upload_video_icon}
+            label={'Upload Video'}
+            containerStyle={{backgroundColor: Colors.White}}
+            cardLabelStyle={{color: Colors.Affair}}
+          />
+          <CardButton
+            onPress={() => handleNavigation('RecordVideo')}
+            source={Images.edit_video_complete_video}
+            label={'Record Video'}
+            containerStyle={{backgroundColor: Colors.Affair}}
+            cardLabelStyle={{color: Colors.White}}
+          />
         </View>
 
         <View style={{...styles.formContainer}}>

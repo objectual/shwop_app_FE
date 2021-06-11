@@ -13,6 +13,7 @@ import PurpleButton from './PurpleButton';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 import CameraCountdown from './CameraCountdown';
+import CardButton from './CardButton';
 
 export {
   CustomTextInput,
@@ -30,4 +31,5 @@ export {
   CommentInput,
   Comment,
   CameraCountdown,
+  CardButton,
 };

@@ -51,6 +51,8 @@ const send = require('../assets/images/icons/send.png');
 const commentUser = require('../assets/images/icons/commentUser.png');
 const menuBlack = require('../assets/images/icons/menuBlack.png');
 const filterBlack = require('../assets/images/icons/filterBlack.png');
+const edit_video_complete_video = require('../assets/images/icons/edit_video_complete_video.png');
+const tag_products_complete_video = require('../assets/images/icons/tag_products_complete_video.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -106,4 +108,6 @@ export default {
   commentUser,
   menuBlack,
   filterBlack,
+  edit_video_complete_video,
+  tag_products_complete_video,
 };

@@ -8,8 +8,8 @@ import DrawerItems from './DrawerItems';
 import {Images} from '../../theme';
 
 const DrawerContent = props => {
-  const handleNavigation = screenName => {
-    props.navigation.navigate(screenName);
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
   };
 
   return (

@@ -11,6 +11,7 @@ import {
   SignUp,
   RecordVideo,
   Main,
+  CompleteVideo,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -26,6 +27,7 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Otp" component={Otp} />
       <AppStack.Screen name="SignUp" component={SignUp} />
       <AppStack.Screen name="Main" component={Main} />
+      <AppStack.Screen name="CompleteVideo" component={CompleteVideo} />
     </AppStack.Navigator>
   );
 };

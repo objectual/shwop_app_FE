@@ -12,8 +12,8 @@ import {
   CustomModalize,
   CameraCountdown,
 } from '../../components';
-
 import {Images, Colors, Metrics, Fonts} from '../../theme';
+import util from '../../util';
 
 const progressBarWidth = Metrics.screenWidth * 0.8;
 let _progress = 0;
@@ -32,6 +32,10 @@ const RecordVideo = props => {
   const [progress, setProgress] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUri, setRecordedVideoUri] = useState(false);
+
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
 
   const handleCameraType = () =>
     setCameraType(cameraType === 'back' ? 'front' : 'back');
@@ -80,6 +84,19 @@ const RecordVideo = props => {
     closeModalize();
   };
 
+  const onPressBack = () => {
+    if (recordedVideoUri) {
+      util.showYesNoMessage({
+        title: 'Warning',
+        message: 'Your video will be discarded.',
+        onPressConfirm: props.navigation.goBack,
+        onPressCancel: null,
+      });
+    } else {
+      props.navigation.goBack();
+    }
+  };
+
   const renderHeaderComponent = () => {
     return (
       <View style={{...styles.headerComponentContainer}}>
@@ -105,7 +122,7 @@ const RecordVideo = props => {
 
       <View style={{...styles.headerContainer}}>
         <View style={{...styles.headerLeftContainer}}>
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <TouchableOpacity onPress={onPressBack}>
             <Image
               source={Images.back_arrow_nav}
               style={{...styles.backBtnImage}}
@@ -115,7 +132,11 @@ const RecordVideo = props => {
 
         <View style={{...styles.headerRightContainer}}>
           {recordedVideoUri && (
-            <TouchableOpacity style={{...styles.saveBtn}}>
+            <TouchableOpacity
+              style={{...styles.saveBtn}}
+              onPress={() =>
+                handleNavigation('CompleteVideo', {recordedVideoUri})
+              }>
               <Text style={{...styles.saveBtnText}}>Save</Text>
             </TouchableOpacity>
           )}
