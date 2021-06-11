@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {StatusBar, View, ScrollView} from 'react-native';
+import {StatusBar} from 'react-native';
 
 import {Images, Metrics} from '../../theme';
 
@@ -14,32 +14,53 @@ import {
   CustomModalize,
   CommentInput,
   Comment,
+  OverlayLoader,
 } from '../../components';
 
-const Home = props => {
-  const data = [
-    {
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
-      time: '9:45AM',
-      img: Images.commentUser,
-    },
+const comments = [
+  {
+    id: 1,
+    comment:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.',
+    time: '9:45AM',
+    img: Images.commentUser,
+  },
 
-    {
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
-      time: '9:45AM',
-      img: Images.commentUser,
-    },
-    {
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut .',
-      time: '9:45AM',
-      img: Images.commentUser,
-    },
-  ];
-  const [email, handleEmail] = useState('');
+  {
+    id: 2,
+    comment:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    time: '9:45AM',
+    img: Images.commentUser,
+  },
+  {
+    id: 3,
+    comment:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut .',
+    time: '9:45AM',
+    img: Images.commentUser,
+  },
+  {
+    id: 4,
+    comment:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut .',
+    time: '9:45AM',
+    img: Images.commentUser,
+  },
+];
+
+const videoUrl =
+  'https://static.videezy.com/system/resources/previews/000/043/977/original/DSC_8447_V1-0010.mp4';
+
+const Home = props => {
   const modalizeRef = useRef(null);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState('');
+
+  const openModalize = () => {
+    modalizeRef.current?.open();
+  };
 
   const handleComment = () => {
     // const payload = {
@@ -54,28 +75,16 @@ const Home = props => {
     return (
       <CommentInput
         placeholder={'Type Message Here...'}
-        value={email}
-        onChangeText={text => handleEmail(text)}
+        value={message}
+        onChangeText={text => setMessage(text)}
         onPress={handleComment}
       />
     );
   };
 
-  const renderComments = () => {
-    return (
-      <View style={styles.commentContainer}>
-        <ScrollView style={styles.commentArea}>
-          {data.map(val => {
-            const {comment, time, img} = val;
-            return <Comment description={comment} time={time} img={img} />;
-          })}
-        </ScrollView>
-      </View>
-    );
-  };
-
-  const onOpen = () => {
-    modalizeRef.current?.open();
+  const renderCommentMsg = ({item}) => {
+    const {comment, time, img} = item;
+    return <Comment description={comment} time={time} img={img} />;
   };
 
   return (
@@ -85,14 +94,7 @@ const Home = props => {
         backgroundColor={'transparent'}
         barStyle="light-content"
       />
-      <CustomModalize
-        modalizeRef={modalizeRef}
-        headerText=""
-        noCloseBtn={true}
-        footerComponent={renderCommentBox}
-        modalTopOffset={Metrics.ratio(190)}>
-        {renderComments()}
-      </CustomModalize>
+
       <Header
         {...props}
         leftIcon={Images.menu}
@@ -103,9 +105,29 @@ const Home = props => {
         rightBtnPress={() => props.navigation.goBack()}
         headerTextStyle={styles.headerTextStyle}
       />
-      <SocialOptions onPress={onOpen} />
-      <VideoBuyCard />
-      <CustomVideoPlayer {...props} />
+
+      {!isLoading && <SocialOptions onPress={openModalize} />}
+
+      {!isLoading && <VideoBuyCard />}
+
+      <CustomVideoPlayer
+        source={{uri: videoUrl}}
+        onBuffering={isBuffering => setIsLoading(isBuffering)}
+      />
+
+      <CustomModalize
+        data={comments}
+        modalizeType="flatList"
+        modalizeRef={modalizeRef}
+        modalStyle={{...styles.modalStyle}}
+        handleStyle={{...styles.handleStyle}}
+        noCloseBtn={true}
+        footerComponent={renderCommentBox}
+        modalTopOffset={Metrics.screenHeight * 0.25}
+        renderItem={renderCommentMsg}
+      />
+
+      <OverlayLoader isLoading={isLoading} />
     </Layout>
   );
 };

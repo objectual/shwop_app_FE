@@ -14,6 +14,7 @@ const Sunglo = '#E56969';
 const Macaroni_And_Cheese = '#FFC273';
 const Cream_Brulee = '#FFDF9E';
 const Silver_Chalice = '#9F9F9F';
+const Snuff = '#E8DAEC';
 
 export default {
   // Solid Colors
@@ -32,4 +33,5 @@ export default {
   Macaroni_And_Cheese,
   Cream_Brulee,
   Silver_Chalice,
+  Snuff,
 };

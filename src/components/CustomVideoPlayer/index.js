@@ -1,8 +1,9 @@
 import React, {useState, useRef} from 'react';
-import Video from 'react-native-video';
 import {View, TouchableOpacity} from 'react-native';
+import Video from 'react-native-video';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Progress from 'react-native-progress';
+import PropTypes from 'prop-types';
 
 import styles from './styles';
 
@@ -10,10 +11,9 @@ import {Metrics, Colors} from '../../theme';
 
 const progressBarWidth = Metrics.screenWidth * 0.8;
 
-const videoUrl =
-  'https://static.videezy.com/system/resources/previews/000/043/977/original/DSC_8447_V1-0010.mp4';
-
 const CustomVideoPlayer = props => {
+  const {source, onBuffering} = props;
+
   const videoRef = useRef();
 
   const [showControls, setShowControls] = useState(false);
@@ -22,8 +22,19 @@ const CustomVideoPlayer = props => {
   const [duration, setDuration] = useState(0);
 
   const handleOnLoad = event => {
-    setShowControls(false);
+    setShowControls(true);
     setDuration(event.duration);
+    onBuffering(false);
+  };
+
+  const handleOnLoadStart = () => {
+    onBuffering(true);
+    setShowControls(false);
+  };
+
+  const handleOnBuffer = ({isBuffering}) => {
+    onBuffering(isBuffering);
+    setShowControls(!isBuffering);
   };
 
   const handleOnProgress = event => {
@@ -54,10 +65,12 @@ const CustomVideoPlayer = props => {
     <View style={{...styles.container}}>
       <Video
         paused={paused}
-        source={{uri: videoUrl}}
+        source={source}
         style={{...styles.videoPlayer}}
         resizeMode={'cover'}
         onLoad={handleOnLoad}
+        onLoadStart={handleOnLoadStart}
+        onBuffer={handleOnBuffer}
         onProgress={handleOnProgress}
         onEnd={handleOnEnd}
         onReadyForDisplay={handleOnReadyForDisplay}
@@ -87,6 +100,16 @@ const CustomVideoPlayer = props => {
       )}
     </View>
   );
+};
+
+CustomVideoPlayer.defaultProps = {
+  onBuffering: undefined,
+  source: {},
+};
+
+CustomVideoPlayer.propTypes = {
+  onBuffering: PropTypes.func,
+  source: PropTypes.object,
 };
 
 export default CustomVideoPlayer;

@@ -18,65 +18,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  uploadBtn: {
-    width: Metrics.screenWidth * 0.32,
-    height: Metrics.screenWidth * 0.32,
-    borderRadius: Metrics.ratio(10),
-    backgroundColor: Colors.White,
-    margin: Metrics.ratio(12),
-    padding: Metrics.ratio(12),
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-  uploadBtnImage: {
-    width: Metrics.ratio(25),
-    height: Metrics.ratio(25),
-    flex: 1,
-  },
-  uploadBtnText: {
-    fontSize: Metrics.ratio(14),
-    fontFamily: Fonts.type.NunitoBold,
-    color: Colors.Affair,
-  },
-  recordBtn: {
-    width: Metrics.screenWidth * 0.32,
-    height: Metrics.screenWidth * 0.32,
-    borderRadius: Metrics.ratio(10),
-    backgroundColor: Colors.Affair,
-    margin: Metrics.ratio(12),
-    padding: Metrics.ratio(12),
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-
-  recordBtnImage: {
-    width: Metrics.ratio(25),
-    height: Metrics.ratio(25),
-    flex: 1,
-  },
-  recordBtnText: {
-    fontSize: Metrics.ratio(14),
-    fontFamily: Fonts.type.NunitoBold,
-    color: Colors.White,
-  },
   formContainer: {
     paddingHorizontal: Metrics.ratio(16),
   },

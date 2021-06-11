@@ -1,82 +1,123 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Modalize} from 'react-native-modalize';
 
-import {Metrics, Colors} from '../../theme';
+import {Colors} from '../../theme';
 
 import styles from './styles';
 
 const CustomModalize = props => {
   const {
-    modalTopOffset,
     modalizeRef,
+    modalStyle,
+    handleStyle,
+    overlayStyle,
+    alwaysOpen,
+    modalTopOffset,
     onClosed,
-    headerText,
-    children,
+    onOpened,
     footerComponent,
-    noCloseBtn,
+    headerComponent,
+    data,
+    renderItem,
+    children,
+    isLoading,
+    modalizeType,
   } = props;
 
-  return (
-    <Modalize
-      ref={modalizeRef ? modalizeRef : null}
-      modalStyle={
-        noCloseBtn ? {...styles.commentmodalStyle} : {...styles.modalStyle}
-      }
-      handleStyle={
-        noCloseBtn ? {...styles.commenthandleStyle} : {...styles.handleStyle}
-      }
-      overlayStyle={{...styles.overlayStyle}}
-      handlePosition={'inside'}
-      FooterComponent={footerComponent ? footerComponent : null}
-      HeaderComponent={
-        <>
-          {noCloseBtn ? null : (
-            <TouchableOpacity onPress={onClosed} style={styles.close}>
-              <MaterialCommunityIcons
-                name="close"
-                size={Metrics.ratio(10)}
-                color={Colors.Charade}
-              />
-            </TouchableOpacity>
-          )}
+  const renderListEmptyComponent = () => {
+    return (
+      <View style={{...styles.emptyComponentContainer}}>
+        {isLoading && <ActivityIndicator color={Colors.Affair} size="small" />}
+        <Text style={{...styles.emptyComponentText}}>
+          {isLoading ? 'Loading, please wait.' : 'No record found.'}
+        </Text>
+      </View>
+    );
+  };
 
-          <View style={styles.HeaderView}>
-            <Text style={styles.HeaderText}>{headerText}</Text>
-          </View>
-        </>
-      }
-      modalTopOffset={modalTopOffset}
-      onClosed={onClosed}>
-      {children}
-    </Modalize>
+  return (
+    <React.Fragment>
+      {modalizeType === 'flatList' && (
+        <Modalize
+          ref={modalizeRef ? modalizeRef : null}
+          modalStyle={{...styles.modalStyle, ...modalStyle}}
+          handleStyle={{...styles.handleStyle, ...handleStyle}}
+          overlayStyle={{...styles.overlayStyle, ...overlayStyle}}
+          handlePosition={'inside'}
+          alwaysOpen={alwaysOpen}
+          adjustToContentHeight={false}
+          modalTopOffset={modalTopOffset}
+          onClosed={onClosed}
+          onOpened={onOpened}
+          FooterComponent={footerComponent ? footerComponent : null}
+          HeaderComponent={headerComponent ? headerComponent : null}
+          flatListProps={
+            data
+              ? {
+                  data: data,
+                  ListEmptyComponent: renderListEmptyComponent,
+                  renderItem: renderItem,
+                  keyExtractor: item => item.id,
+                  showsVerticalScrollIndicator: false,
+                }
+              : null
+          }
+        />
+      )}
+
+      {modalizeType === 'children' && (
+        <Modalize
+          ref={modalizeRef ? modalizeRef : null}
+          modalStyle={{...styles.modalStyle, ...modalStyle}}
+          handleStyle={{...styles.handleStyle, ...handleStyle}}
+          overlayStyle={{...styles.overlayStyle, ...overlayStyle}}
+          handlePosition={'inside'}
+          alwaysOpen={alwaysOpen}
+          adjustToContentHeight={false}
+          modalTopOffset={modalTopOffset}
+          onClosed={onClosed}
+          onOpened={onOpened}
+          FooterComponent={footerComponent ? footerComponent : null}
+          HeaderComponent={headerComponent ? headerComponent : null}>
+          {children}
+        </Modalize>
+      )}
+    </React.Fragment>
   );
 };
 
 CustomModalize.defaultProps = {
-  data: [],
-  isLoading: false,
+  modalizeType: '',
+  modalStyle: {},
+  handleStyle: {},
+  overlayStyle: {},
   alwaysOpen: 0,
   modalTopOffset: 0,
+  data: [],
+  isLoading: false,
 };
 
 CustomModalize.propTypes = {
-  data: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  noCloseBtn: PropTypes.bool,
-  renderItem: PropTypes.node.isRequired,
-  headerText: PropTypes.string,
-  footerComponent: PropTypes.node,
-  alwaysOpen: PropTypes.number,
-  modalTopOffset: PropTypes.number,
+  modalizeType: PropTypes.string,
   modalizeRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({current: PropTypes.any}),
   ]),
+  modalStyle: PropTypes.object,
+  handleStyle: PropTypes.object,
+  overlayStyle: PropTypes.object,
+  alwaysOpen: PropTypes.number,
+  modalTopOffset: PropTypes.number,
   onClosed: PropTypes.func,
   onOpened: PropTypes.func,
+  footerComponent: PropTypes.node,
+  headerComponent: PropTypes.node,
+  data: PropTypes.array,
+  renderItem: PropTypes.node,
+  isLoading: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default CustomModalize;

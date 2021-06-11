@@ -9,20 +9,19 @@ class Util {
     }
   }
 
-  showYesNoMessage(title, message, onYes, onNo) {
+  showYesNoMessage({title, message, onPressConfirm, onPressCancel}) {
     setTimeout(() => {
       Alert.alert(
         title,
         message,
         [
           {
-            text: 'Yes',
-            onPress: onYes,
+            text: 'Cancel',
+            onPress: onPressCancel,
           },
           {
-            text: 'No',
-            onPress: onNo,
-            style: 'cancel',
+            text: 'Confirm',
+            onPress: onPressConfirm,
           },
         ],
         {cancelable: false},
@@ -30,24 +29,24 @@ class Util {
     }, 150);
   }
 
-  showCommonMessage(title, message, onOkPressed) {
+  showCommonMessage({title, message, onPress}) {
     Alert.alert(
       title,
       message,
       [
         {
-          text: 'ok',
-          onPress: onOkPressed,
+          text: 'Ok',
+          onPress: onPress,
         },
       ],
       {cancelable: false},
     );
   }
 
-  showAlertWithDelay(title, message, delay = 150) {
+  showAlertWithDelay({title, message}) {
     setTimeout(() => {
       this.showCommonMessage(title, message);
-    }, delay);
+    }, 150);
   }
 
   expiryCountdownFormatter(expiryDate) {

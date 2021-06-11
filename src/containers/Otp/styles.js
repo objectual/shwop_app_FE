@@ -65,4 +65,10 @@ export default StyleSheet.create({
     marginTop: Metrics.ratio(50),
     marginBottom: Metrics.ratio(0),
   },
+  textInputStyle: {
+    borderRadius: Metrics.ratio(30),
+    borderWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: '#dddddd',
+  },
 });

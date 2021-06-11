@@ -1,13 +1,16 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {Text, ScrollView, View, Image} from 'react-native';
 import OTPTextInput from 'react-native-otp-textinput';
 import {Header, GradientButton} from '../../components';
-import {Images, Metrics} from '../../theme';
+import {Images} from '../../theme';
 
 import styles from './styles';
 
 const Otp = props => {
-  const otpInput = useRef(null);
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   return (
     <>
       <Header
@@ -34,17 +37,13 @@ const Otp = props => {
             <OTPTextInput
               //  handleTextChange={()=>{}}
               tintColor="#8A49A1"
-              textInputStyle={{
-                borderRadius: Metrics.ratio(30),
-                borderWidth: 2,
-                borderBottomWidth: 2,
-                borderColor: '#dddddd',
-              }}
+              textInputStyle={{...styles.textInputStyle}}
             />
           </View>
           <GradientButton
             label={'Confirm'}
             containerStyle={{...styles.gradientButtonContainer}}
+            onPress={() => handleNavigation('UploadVideo')}
           />
         </View>
       </ScrollView>
