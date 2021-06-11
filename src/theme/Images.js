@@ -65,6 +65,12 @@ const view = require('../assets/images/icons/view.png');
 const share_profile = require('../assets/images/icons/share_profile.png');
 const details = require('../assets/images/icons/details.png');
 const info = require('../assets/images/icons/info.png');
+const search_remove = require('../assets/images/icons/search_remove.png');
+const star = require('../assets/images/icons/star.png');
+const product = require('../assets/images/backgrounds/product.png');
+const play_purple = require('../assets/images/icons/play_purple.png');
+const wishlist = require('../assets/images/icons/wishlist.png');
+const empty_star = require('../assets/images/icons/empty_star.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -134,4 +140,10 @@ export default {
   share_profile,
   details,
   info,
+  search_remove,
+  star,
+  product,
+  play_purple,
+  wishlist,
+  empty_star,
 };

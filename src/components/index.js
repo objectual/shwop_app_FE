@@ -13,6 +13,8 @@ import PurpleButton from './PurpleButton';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 import FollowCard from './FollowCard';
+import Search from './Search';
+import ProductCard from './ProductCard';
 
 export {
   CustomTextInput,
@@ -30,4 +32,6 @@ export {
   CommentInput,
   Comment,
   FollowCard,
+  Search,
+  ProductCard,
 };

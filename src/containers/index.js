@@ -14,6 +14,7 @@ import SignUp from './SignUp';
 import RecordVideo from './RecordVideo';
 import Main from './Main';
 import OthersProfile from './OthersProfile';
+import TagProduct from './TagProduct';
 
 export {
   Chat,
@@ -32,4 +33,5 @@ export {
   RecordVideo,
   Main,
   OthersProfile,
+  TagProduct,
 };
