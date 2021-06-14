@@ -7,29 +7,107 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 
 import styles from './styles';
 
-import {Layout, Header, GradientButton, CardButton} from '../../components';
+import {
+  Layout,
+  Header,
+  GradientButton,
+  CardButton,
+  CustomPopup,
+} from '../../components';
 import {Images, Colors} from '../../theme';
+import util from '../../util';
 
 const UploadVideo = props => {
   const [title, setTitle] = useState('');
+  const [showYourTakePopup, setShowYourTakePopup] = useState(false);
 
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
   const handleNavigation = (screenName, params) => {
+    setShowYourTakePopup(false);
     props.navigation.navigate(screenName, {...params});
   };
 
+  const openGallery = async () => {
+    try {
+      let granted;
+      granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Allow Shwoop App to access media permission',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (
+        Platform.OS === 'android' &&
+        granted !== PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: 'Storage permission denied',
+        });
+      } else {
+        let options = {
+          title: 'Video Picker',
+          mediaType: 'video',
+          storageOptions: {
+            skipBackup: true,
+            path: 'images',
+            includeBase64: true,
+          },
+        };
+        launchImageLibrary(options, response => {
+          if (response.didCancel) {
+          } else if (response.error) {
+          } else if (response.customButton) {
+            util.showAlertWithDelay({
+              title: 'Message',
+              message: response.customButton,
+            });
+          } else {
+            URIConverter(response?.assets[0]?.uri);
+          }
+        });
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  // Converter and make copy 'content:// to file://'
+  const URIConverter = async uri => {
+    if (uri.startsWith('content://')) {
+      const uriComponents = uri.split('/');
+      const fileNameAndExtension = uriComponents[uriComponents.length - 1];
+      const destPath = `${RNFS.TemporaryDirectoryPath}/${fileNameAndExtension}`;
+      try {
+        await RNFS.copyFile(uri, destPath);
+        handleNavigation('CompleteVideo', {
+          recordedVideoUri: `file://${destPath}`,
+        });
+      } catch (error) {
+        console.log(error, 'error');
+      }
+    }
+  };
+
   return (
-    <Layout {...props}>
+    <Layout {...props} isLogedIn={true}>
       <StatusBar
         translucent
         backgroundColor={Colors.White}
         barStyle="dark-content"
       />
+
       <Header
         {...props}
         headerBgColor={Colors.White}
@@ -45,6 +123,7 @@ const UploadVideo = props => {
       <ScrollView style={{...styles.contentScrollView}}>
         <View style={{...styles.uploadBtnContainer}}>
           <CardButton
+            onPress={openGallery}
             source={Images.upload_video_icon}
             label={'Upload Video'}
             containerStyle={{backgroundColor: Colors.White}}
@@ -78,7 +157,9 @@ const UploadVideo = props => {
 
           <View style={{...styles.tagsContainer}}>
             <Text style={{...styles.tagsTitle}}>Tags</Text>
-            <TouchableOpacity style={{...styles.tagsBtn}}>
+            <TouchableOpacity
+              style={{...styles.tagsBtn}}
+              onPress={() => handleNavigation('TagProduct')}>
               <Image
                 source={Images.tag_upload_video}
                 resizeMode={'contain'}
@@ -115,9 +196,21 @@ const UploadVideo = props => {
           <GradientButton
             label={'Post'}
             containerStyle={{...styles.gradientButtonContainer}}
+            onPress={() => setShowYourTakePopup(true)}
           />
         </View>
       </ScrollView>
+
+      <CustomPopup
+        visible={showYourTakePopup}
+        heading={'Your Take is'}
+        highlightedHeading={'LIVE!'}
+        description={
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        }
+        btnLabel={'Okay'}
+        onPress={() => handleNavigation('Main')}
+      />
     </Layout>
   );
 };

@@ -8,6 +8,7 @@ import styles from './style';
 
 const ProductCard = props => {
   const {
+    image,
     title,
     brand,
     takes,
@@ -25,7 +26,7 @@ const ProductCard = props => {
 
   return (
     <TouchableOpacity onPress={onPressCard} style={{...styles.searchContainer}}>
-      <Image style={{...styles.productImg}} source={Images.product} />
+      <Image style={{...styles.productImg}} source={image} />
       <View style={{...styles.cardMain}}>
         <Text style={{...styles.productTitle}}>{title}</Text>
         <Text style={{...styles.productDesc}}>{brand}</Text>
@@ -74,6 +75,7 @@ const ProductCard = props => {
 
 ProductCard.defaultProps = {};
 ProductCard.propTypes = {
+  image: PropTypes.object || PropTypes.number,
   title: PropTypes.any,
   brand: PropTypes.any,
   takes: PropTypes.any,

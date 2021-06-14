@@ -4,7 +4,7 @@ const DrawerItems = [
   {
     image: Images.home_drawer,
     label: 'Home',
-    screenName: 'Home',
+    screenName: 'Main',
   },
   {
     image: Images.my_products_drawer,

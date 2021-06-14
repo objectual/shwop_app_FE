@@ -7,45 +7,47 @@ import {Images} from '../../theme';
 import styles from './style';
 
 const Search = props => {
-  const {placeholder, onPressSearch, onPressRemove, onChangeText, value} =
+  const {value, placeholder, onChangeText, onPressSearch, onPressRemove} =
     props;
 
   return (
     <View style={{...styles.searchContainer}}>
-      <View style={{...styles.searchInputContainer}}>
-        <TextInput
-          value={value}
-          onChangeText={onChangeText}
-          style={{...styles.searchInput}}
-          placeholder={placeholder}
-        />
-      </View>
-      <View style={{...styles.remove_Search}}>
-        {value.length >= 1 ? (
-          <TouchableOpacity onPress={onPressRemove}>
-            <Image
-              style={{...styles.search_remove}}
-              source={Images.search_remove}
-            />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={onPressSearch}>
-            <Image
-              style={{...styles.search_remove}}
-              source={Images.Search_Bottom_Tab}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        style={{...styles.searchInput}}
+        placeholder={placeholder}
+      />
+      {value.length >= 1 ? (
+        <TouchableOpacity onPress={onPressRemove}>
+          <Image style={{...styles.closeIcon}} source={Images.search_remove} />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={onPressSearch}>
+          <Image
+            style={{...styles.searchIcon}}
+            source={Images.Search_Bottom_Tab}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
-Search.defaultProps = {};
+Search.defaultProps = {
+  placeholder: '',
+  value: '',
+  onChangeText: undefined,
+  onPressSearch: undefined,
+  onPressRemove: undefined,
+};
+
 Search.propTypes = {
-  placeholder: PropTypes.any,
-  onPressRemove: PropTypes.func,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onChangeText: PropTypes.func,
   onPressSearch: PropTypes.func,
+  onPressRemove: PropTypes.func,
 };
 
 export default Search;
