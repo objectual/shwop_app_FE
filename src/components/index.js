@@ -17,6 +17,8 @@ import CardButton from './CardButton';
 import FollowCard from './FollowCard';
 import Search from './Search';
 import ProductCard from './ProductCard';
+import CustomPopup from './CustomPopup';
+import CustomRating from './CustomRating';
 
 export {
   CustomTextInput,
@@ -38,4 +40,6 @@ export {
   FollowCard,
   Search,
   ProductCard,
+  CustomPopup,
+  CustomRating,
 };

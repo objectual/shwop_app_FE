@@ -60,7 +60,7 @@ const Profile = props => {
     setActive(2);
   };
   return (
-    <Layout {...props}>
+    <Layout {...props} isLogedIn={true}>
       <StatusBar
         translucent
         backgroundColor={Colors.White}

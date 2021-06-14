@@ -1,28 +1,80 @@
 import React, {useState} from 'react';
-import {View, StatusBar, TouchableOpacity, Text} from 'react-native';
+import {View, StatusBar, TouchableOpacity, Text, FlatList} from 'react-native';
 
-import {Header, Search, ProductCard} from '../../components';
-import {Images, Colors} from '../../theme';
+import {Header, Search, ProductCard, CustomRating} from '../../components';
+import {Images, Colors, Metrics} from '../../theme';
 
 import styles from './styles';
 
+const tagProducts = [
+  {
+    id: 1,
+    image: Images.product,
+    title: 'Nike New Era Shoes',
+    brand: 'Nike Corporation',
+    noOfTakes: 3,
+  },
+  {
+    id: 2,
+    image: Images.product,
+    title: 'Shoes Cop',
+    brand: 'Nike Corporation',
+    noOfTakes: 2,
+  },
+];
+
 const TagProduct = props => {
   const [search, setSearch] = useState('');
+  const [rating, setRating] = useState(0);
+  const [ratingModalId, setRatingModalId] = useState(0);
 
-  const handleSearch = () => {
-    alert('searched');
+  const onPressProduct = id => {
+    setRating(0);
+    setRatingModalId(id === ratingModalId ? 0 : id);
   };
 
-  const handleWishlistRemove = () => {
-    alert('removed');
+  const hideRatingModal = () => {
+    setRatingModalId(0);
+    setRating(0);
   };
 
-  const handleSearchRemove = () => {
-    setSearch('');
-  };
+  const renderProduct = item => {
+    return (
+      <React.Fragment>
+        <ProductCard
+          image={item.image}
+          title={item.title}
+          brand={item.brand}
+          takes={`${item.noOfTakes} Takes`}
+          isRating={false}
+          isWishlist={false}
+          isPrice={false}
+          onPressCard={() => onPressProduct(item.id)}
+        />
+        {item.id === ratingModalId && (
+          <View style={{...styles.ratingContainer}}>
+            <View>
+              <View style={{...styles.ratingLine}} />
+              <Text style={{...styles.ratingText}}>
+                {'How Would You Rate This Product'}
+              </Text>
+            </View>
 
-  const handleCard = () => {
-    alert('Card');
+            <CustomRating
+              rating={rating}
+              containerStyle={{...styles.customRatingContainer}}
+              onPress={rate => setRating(rate)}
+            />
+
+            <TouchableOpacity
+              style={{...styles.notNowBtn}}
+              onPress={hideRatingModal}>
+              <Text style={{...styles.notNowBtnText}}>{'Not Now'}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </React.Fragment>
+    );
   };
 
   return (
@@ -33,7 +85,6 @@ const TagProduct = props => {
         barStyle="dark-content"
       />
       <Header
-        {...props}
         headerBgColor={Colors.White}
         isDropShadow={false}
         leftIcon={Images.back_arrow_nav}
@@ -43,25 +94,19 @@ const TagProduct = props => {
       />
       <View style={{...styles.headerSeparator}}>
         <Search
-          onPressSearch={handleSearch}
-          onPressRemove={handleSearchRemove}
+          value={search}
           placeholder="Search Here.."
           onChangeText={value => setSearch(value)}
-          value={search}
+          onPressSearch={() => {}}
+          onPressRemove={() => setSearch('')}
         />
       </View>
-      <View style={{...styles.productContainer}}>
-        <ProductCard
-          title="Nike New Era Shoes"
-          brand="Nike Corporation"
-          takes="2 Takes"
-          rating={3}
-          price="$ 312.1"
-          rightIcon={Images.wishlist}
-          onPressRightIcon={handleWishlistRemove}
-          onPressCard={handleCard}
-        />
-      </View>
+      <FlatList
+        data={tagProducts}
+        contentContainerStyle={{paddingBottom: Metrics.ratio(32)}}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => renderProduct(item)}
+      />
     </View>
   );
 };

@@ -99,14 +99,16 @@ const Main = props => {
     );
   };
   return (
-    <Layout {...props}>
+    <Layout {...props} isLogedIn={true}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}
         barStyle="light-content"
       />
       <View style={{...styles.headerMain}}>
-        <TouchableOpacity style={{...styles.TouchableMenu}}>
+        <TouchableOpacity
+          style={{...styles.TouchableMenu}}
+          onPress={() => props.navigation.openDrawer()}>
           <View style={{...styles.backarrowView}}>
             <Image
               source={Images.menuBlack}
@@ -159,31 +161,31 @@ const Main = props => {
         <Menu ref={menuRef} style={styles.menu}>
           {renderMenuItem({
             text: 'Dupes',
-            // onPress: handleDownloadImage,
+            onPress: hideMenu,
           })}
           {renderMenuItem({
             text: 'Vegan',
-            // onPress: shareImage,
+            onPress: hideMenu,
           })}
           {renderMenuItem({
             text: 'Acne',
-            // onPress: modalizeOpen,
+            onPress: hideMenu,
           })}
           {renderMenuItem({
             text: 'Drugstore',
-            // onPress: modalizeOpen,
+            onPress: hideMenu,
           })}
           {renderMenuItem({
             text: 'Acne',
-            // onPress: modalizeOpen,
+            onPress: hideMenu,
           })}
           {renderMenuItem({
             text: 'Vegan',
-            // onPress: modalizeOpen,
+            onPress: hideMenu,
           })}
           {renderMenuItem({
             text: 'Dupes',
-            // onPress: modalizeOpen,
+            onPress: hideMenu,
           })}
         </Menu>
       </View>

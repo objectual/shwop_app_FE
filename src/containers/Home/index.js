@@ -88,7 +88,7 @@ const Home = props => {
   };
 
   return (
-    <Layout {...props}>
+    <Layout {...props} isLogedIn={false}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}

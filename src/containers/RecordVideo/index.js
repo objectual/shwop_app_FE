@@ -1,9 +1,19 @@
 import React, {useRef, useState} from 'react';
-import {View, Text, Image, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import * as Progress from 'react-native-progress';
 import moment from 'moment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {launchImageLibrary} from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 
 import styles from './styles';
 
@@ -82,6 +92,70 @@ const RecordVideo = props => {
   const handleCloseBtn = () => {
     setSelectedTimer(0);
     closeModalize();
+  };
+
+  const openGallery = async () => {
+    try {
+      let granted;
+      granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Allow Shwoop App to access media permission',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (
+        Platform.OS === 'android' &&
+        granted !== PermissionsAndroid.RESULTS.GRANTED
+      ) {
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: 'Storage permission denied',
+        });
+      } else {
+        let options = {
+          title: 'Video Picker',
+          mediaType: 'video',
+          storageOptions: {
+            skipBackup: true,
+            path: 'images',
+            includeBase64: true,
+          },
+        };
+        launchImageLibrary(options, response => {
+          if (response.didCancel) {
+          } else if (response.error) {
+          } else if (response.customButton) {
+            util.showAlertWithDelay({
+              title: 'Message',
+              message: response.customButton,
+            });
+          } else {
+            URIConverter(response?.assets[0]?.uri);
+          }
+        });
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  // Converter and make copy 'content:// to file://'
+  const URIConverter = async uri => {
+    if (uri.startsWith('content://')) {
+      const uriComponents = uri.split('/');
+      const fileNameAndExtension = uriComponents[uriComponents.length - 1];
+      const destPath = `${RNFS.TemporaryDirectoryPath}/${fileNameAndExtension}`;
+      try {
+        await RNFS.copyFile(uri, destPath);
+        handleNavigation('CompleteVideo', {
+          recordedVideoUri: `file://${destPath}`,
+        });
+      } catch (error) {
+        console.log(error, 'error');
+      }
+    }
   };
 
   const onPressBack = () => {
@@ -245,7 +319,7 @@ const RecordVideo = props => {
           />
 
           {!isRecording && (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={openGallery}>
               <Image
                 source={Images.image_gallery_recorder}
                 resizeMode={'contain'}

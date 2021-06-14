@@ -13,7 +13,7 @@ import {
 import styles from './styles';
 
 const Layout = props => {
-  const {children} = props;
+  const {children, isLogedIn} = props;
   const modalizeRef = useRef(null);
   const phoneInput = useRef(null);
   const [showSignUp, setShowSignUp] = useState(false);
@@ -49,7 +49,11 @@ const Layout = props => {
   );
 
   const renderUploadVideoBtn = () => (
-    <TouchableOpacity onPress={openModalize} style={{...styles.uploadBtn}}>
+    <TouchableOpacity
+      onPress={() =>
+        isLogedIn ? handleNavigation('UploadVideo') : openModalize()
+      }
+      style={{...styles.uploadBtn}}>
       <View style={{...styles.uploadBtnView}}>
         <Image
           resizeMode={'contain'}
@@ -170,13 +174,15 @@ const Layout = props => {
   return (
     <View style={{...styles.container}}>
       {children}
-      <CustomModalize
-        modalizeType={'children'}
-        modalizeRef={modalizeRef}
-        modalTopOffset={Metrics.screenHeight * 0.25}
-        headerComponent={renderHeaderComponent()}>
-        {!showSignUp ? renderLoginPop() : renderSignUpPop()}
-      </CustomModalize>
+      {!isLogedIn && (
+        <CustomModalize
+          modalizeType={'children'}
+          modalizeRef={modalizeRef}
+          modalTopOffset={Metrics.screenHeight * 0.25}
+          headerComponent={renderHeaderComponent()}>
+          {!showSignUp ? renderLoginPop() : renderSignUpPop()}
+        </CustomModalize>
+      )}
 
       <View style={{...styles.bottomBar}}>
         {renderTabBar(Images.Home_Bottom_Tab, 'Home')}
@@ -191,10 +197,12 @@ const Layout = props => {
 
 Layout.defaultProps = {
   isLoading: false,
+  isLogedIn: false,
 };
 
 Layout.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  isLogedIn: PropTypes.bool.isRequired,
 };
 
 export default Layout;

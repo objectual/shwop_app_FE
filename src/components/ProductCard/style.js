@@ -1,10 +1,13 @@
 import {StyleSheet} from 'react-native';
+
 import {Metrics, Colors, Fonts} from '../../theme';
+
 const styles = StyleSheet.create({
   searchContainer: {
     backgroundColor: Colors.White,
     borderRadius: Metrics.ratio(10),
-    marginTop: Metrics.ratio(15),
+    marginTop: Metrics.ratio(16),
+    marginHorizontal: Metrics.ratio(16),
     flexDirection: 'row',
   },
   productImg: {
