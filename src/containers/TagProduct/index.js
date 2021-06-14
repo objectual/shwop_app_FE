@@ -38,6 +38,14 @@ const TagProduct = props => {
     setRating(0);
   };
 
+  const results = !search
+    ? tagProducts
+    : tagProducts?.filter(
+        item =>
+          item?.title.toLowerCase().includes(search.toLocaleLowerCase()) ||
+          item?.brand.toLowerCase().includes(search.toLocaleLowerCase()),
+      );
+
   const renderProduct = item => {
     return (
       <React.Fragment>
@@ -102,7 +110,7 @@ const TagProduct = props => {
         />
       </View>
       <FlatList
-        data={tagProducts}
+        data={results}
         contentContainerStyle={{paddingBottom: Metrics.ratio(32)}}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => renderProduct(item)}

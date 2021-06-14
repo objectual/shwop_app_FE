@@ -1,5 +1,5 @@
 import Chat from './Chat';
-import Home from './Home';
+import AfterSplash from './AfterSplash';
 import MyProducts from './MyProducts';
 import Profile from './Profile';
 import ReturnPolicy from './ReturnPolicy';
@@ -19,7 +19,7 @@ import TagProduct from './TagProduct';
 
 export {
   Chat,
-  Home,
+  AfterSplash,
   MyProducts,
   Profile,
   ReturnPolicy,

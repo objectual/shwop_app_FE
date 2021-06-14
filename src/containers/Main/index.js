@@ -103,7 +103,7 @@ const Main = props => {
       <StatusBar
         translucent
         backgroundColor={'transparent'}
-        barStyle="light-content"
+        barStyle="dark-content"
       />
       <View style={{...styles.headerMain}}>
         <TouchableOpacity

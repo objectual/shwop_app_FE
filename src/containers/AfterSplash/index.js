@@ -52,7 +52,7 @@ const comments = [
 const videoUrl =
   'https://static.videezy.com/system/resources/previews/000/043/977/original/DSC_8447_V1-0010.mp4';
 
-const Home = props => {
+const AfterSplash = props => {
   const modalizeRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -132,8 +132,8 @@ const Home = props => {
   );
 };
 
-Home.defaultProps = {};
+AfterSplash.defaultProps = {};
 
-Home.propTypes = {};
+AfterSplash.propTypes = {};
 
-export default Home;
+export default AfterSplash;

@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {
-  Home,
+  AfterSplash,
   Search,
   UploadVideo,
   Chat,
@@ -12,15 +12,15 @@ import {
   RecordVideo,
   Main,
   CompleteVideo,
-  OthersProfile,
+  // OthersProfile,
   TagProduct,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="Home">
-      <AppStack.Screen name="Home" component={Home} />
+    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
+      <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="Search" component={Search} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />

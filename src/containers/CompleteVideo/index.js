@@ -64,6 +64,7 @@ const CompleteVideo = props => {
       <View style={{...styles.videoContainer}}>
         {video && (
           <Video
+            volume={0}
             paused={!isLoading}
             source={{uri: video}}
             style={{...styles.videoStyle}}
@@ -79,6 +80,7 @@ const CompleteVideo = props => {
         <CardButton
           source={Images.tag_products_complete_video}
           label={'Tag Products'}
+          onPress={() => handleNavigation('TagProduct')}
           containerStyle={{backgroundColor: Colors.White}}
           cardLabelStyle={{color: Colors.Affair}}
         />
