@@ -37,6 +37,7 @@ const CustomPhoneInput = props => {
           borderColor: Colors.Mercury,
           borderWidth: Metrics.ratio(1),
           height: Metrics.ratio(50),
+          width: Metrics.screenWidth * 0.83,
         }}
         flagButtonStyle={{
           padding: Metrics.ratio(0),
@@ -54,11 +55,11 @@ const CustomPhoneInput = props => {
         codeTextStyle={{
           position: 'absolute',
           left: Metrics.ratio(-60),
-          color: '#E1E1E1',
+          color: Colors.Mercury,
         }}
-        placeholderTextColor="#E1E1E1"
+        placeholderTextColor={Colors.Mercury}
         textContainerStyle={{
-          backgroundColor: '#fff',
+          backgroundColor: Colors.White,
           paddingVertical: Metrics.ratio(0),
           paddingLeft: Metrics.ratio(0),
         }}

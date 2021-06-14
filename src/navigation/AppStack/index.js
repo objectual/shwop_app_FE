@@ -30,7 +30,7 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="SignUp" component={SignUp} />
       <AppStack.Screen name="Main" component={Main} />
       <AppStack.Screen name="CompleteVideo" component={CompleteVideo} />
-      <AppStack.Screen name="OthersProfile" component={OthersProfile} />
+      {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
       <AppStack.Screen name="TagProduct" component={TagProduct} />
     </AppStack.Navigator>
   );

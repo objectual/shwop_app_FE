@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     position: 'absolute',
     top: 0,
-    bottom: Metrics.ratio(55),
+    bottom: Metrics.ratio(47),
     right: 0,
     left: 0,
     zIndex: -1,

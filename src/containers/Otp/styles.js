@@ -46,29 +46,31 @@ export default StyleSheet.create({
     height: 45,
   },
 
-  borderStyleHighLighted: {
-    borderColor: '#03DAC6',
-  },
-
   underlineStyleBase: {
     width: 30,
     height: 45,
     borderWidth: 0,
     borderBottomWidth: 1,
   },
-
-  underlineStyleHighLighted: {
-    borderColor: '#03DAC6',
-  },
   otpView: {marginTop: Metrics.ratio(20)},
   gradientButtonContainer: {
     marginTop: Metrics.ratio(50),
     marginBottom: Metrics.ratio(0),
   },
-  textInputStyle: {
-    borderRadius: Metrics.ratio(30),
-    borderWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: '#dddddd',
+  cellViewStyle: {
+    borderWidth: 1,
+    borderRadius: 24,
+    borderColor: Colors.Mercury,
+    backgroundColor: Colors.White,
+    marginLeft: Metrics.ratio(7),
+    marginRight: Metrics.ratio(7),
+  },
+  cellViewFocused: {
+    borderColor: Colors.Affair,
+  },
+  txtStyle: {
+    fontSize: Metrics.ratio(24),
+    color: Colors.Mercury,
+    fontFamily: Fonts.type.Nunito,
   },
 });

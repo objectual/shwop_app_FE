@@ -173,7 +173,7 @@ const Layout = props => {
       <CustomModalize
         modalizeType={'children'}
         modalizeRef={modalizeRef}
-        modalTopOffset={Metrics.screenHeight * 0.25}
+        modalTopOffset={Metrics.screenHeight * 0.3}
         headerComponent={renderHeaderComponent()}>
         {!showSignUp ? renderLoginPop() : renderSignUpPop()}
       </CustomModalize>

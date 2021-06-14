@@ -23,7 +23,7 @@ const VideoBuyCard = () => {
       <TouchableOpacity style={styles.close}>
         <MaterialCommunityIcons
           name="close"
-          size={Metrics.ratio(15)}
+          size={Metrics.ratio(11)}
           color={Colors.Black}
         />
       </TouchableOpacity>

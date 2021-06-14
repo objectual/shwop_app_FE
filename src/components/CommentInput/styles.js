@@ -1,21 +1,20 @@
 import {StyleSheet} from 'react-native';
 import {Fonts, Metrics, Colors} from '../../theme';
 
-const {ratio} = Metrics;
-
 const styles = StyleSheet.create({
   mainView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: Metrics.ratio(10),
+    marginBottom: Metrics.ratio(20),
   },
   mainContainer: {
-    width: '78%',
-    height: Metrics.ratio(50),
+    width: '82%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.White,
     borderRadius: Metrics.ratio(50),
-    margin: Metrics.ratio(10),
   },
   nestedContainer: {
     flexDirection: 'row',
@@ -34,18 +33,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputView: {
-    width: Metrics.ratio(50),
-    height: Metrics.ratio(50),
+    width: Metrics.screenHeight * 0.085,
+    height: Metrics.screenHeight * 0.085,
+    backgroundColor: Colors.White,
     alignContent: 'center',
     justifyContent: 'center',
     borderRadius: Metrics.ratio(30),
-    alignSelf: 'center',
-    marginTop: Metrics.ratio(14),
-    marginRight: Metrics.ratio(10),
+    marginRight: Metrics.ratio(0),
+    overflow: 'hidden',
   },
   imageSend: {
-    width: Metrics.screenHeight * 0.085,
-    height: Metrics.screenHeight * 0.085,
+    width: Metrics.ratio(30),
+    height: Metrics.ratio(30),
+    alignSelf: 'center',
+  },
+  smileImg: {
+    width: Metrics.screenHeight * 0.04,
+    height: Metrics.screenHeight * 0.04,
   },
   sendIcon: {
     color: Colors.White,
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginRight: Metrics.ratio(10),
+    marginRight: Metrics.ratio(5),
     borderRadius: Metrics.ratio(30),
   },
   smileIcon: {

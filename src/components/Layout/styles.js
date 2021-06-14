@@ -5,7 +5,6 @@ import {Metrics, Colors, Fonts} from '../../theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.Concrete,
   },
   bottomBar: {
     flexDirection: 'row',
@@ -17,6 +16,9 @@ export default StyleSheet.create({
     left: 0,
     height: Metrics.ratio(55),
     backgroundColor: Colors.White,
+    paddingHorizontal: Metrics.ratio(16),
+    borderTopLeftRadius: Metrics.ratio(10),
+    borderTopRightRadius: Metrics.ratio(10),
   },
   tabBarBtn: {
     flex: 1,
@@ -52,8 +54,8 @@ export default StyleSheet.create({
     backgroundColor: Colors.Razzmatazz,
   },
   loginArea: {
-    marginLeft: Metrics.ratio(40),
-    marginRight: Metrics.ratio(40),
+    marginLeft: Metrics.ratio(20),
+    marginRight: Metrics.ratio(20),
     marginTop: Metrics.ratio(20),
     alignItems: 'center',
   },
@@ -65,8 +67,8 @@ export default StyleSheet.create({
   socialImg: {
     width: Metrics.screenHeight * 0.07,
     height: Metrics.screenHeight * 0.07,
-    marginLeft: Metrics.ratio(8),
-    marginRight: Metrics.ratio(8),
+    marginLeft: Metrics.ratio(14),
+    marginRight: Metrics.ratio(14),
   },
   RegisterTag: {
     flexDirection: 'row',
@@ -85,7 +87,6 @@ export default StyleSheet.create({
     fontSize: Metrics.ratio(15),
     fontFamily: Fonts.type.NunitoBold,
     color: Colors.Affair,
-    marginBottom: Metrics.ratio(10),
   },
   Orarea: {
     alignItems: 'center',

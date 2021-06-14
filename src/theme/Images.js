@@ -73,6 +73,7 @@ const product = require('../assets/images/backgrounds/product.png');
 const play_purple = require('../assets/images/icons/play_purple.png');
 const wishlist = require('../assets/images/icons/wishlist.png');
 const empty_star = require('../assets/images/icons/empty_star.png');
+const smiling_face = require('../assets/images/icons/smiling_face.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -150,4 +151,5 @@ export default {
   play_purple,
   wishlist,
   empty_star,
+  smiling_face,
 };

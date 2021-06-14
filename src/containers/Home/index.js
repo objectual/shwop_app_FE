@@ -123,7 +123,7 @@ const Home = props => {
         handleStyle={{...styles.handleStyle}}
         noCloseBtn={true}
         footerComponent={renderCommentBox}
-        modalTopOffset={Metrics.screenHeight * 0.25}
+        modalTopOffset={Metrics.screenHeight * 0.45}
         renderItem={renderCommentMsg}
       />
 

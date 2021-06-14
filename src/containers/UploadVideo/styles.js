@@ -10,7 +10,7 @@ export default StyleSheet.create({
     borderBottomRightRadius: Metrics.ratio(10),
   },
   contentScrollView: {
-    marginTop: Metrics.ratio(-40),
+    marginTop: Metrics.ratio(-65),
     marginBottom: Metrics.ratio(55),
   },
   uploadBtnContainer: {
