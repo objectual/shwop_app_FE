@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, ScrollView, View, Image} from 'react-native';
-import OTPTextInput from 'react-native-otp-textinput';
 import {Header, GradientButton} from '../../components';
-import {Images} from '../../theme';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import {Images, Colors, Metrics, Fonts} from '../../theme';
 
 import styles from './styles';
 
 const Otp = props => {
+  const [code, setCode] = useState();
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
   };
@@ -34,10 +35,16 @@ const Otp = props => {
             Enter Verification Code which is sent on your mobile
           </Text>
           <View style={styles.otpView}>
-            <OTPTextInput
-              //  handleTextChange={()=>{}}
-              tintColor="#8A49A1"
-              textInputStyle={{...styles.textInputStyle}}
+            <SmoothPinCodeInput
+              placeholder="X"
+              cellStyle={{...styles.cellViewStyle}}
+              cellStyleFocused={{...styles.cellViewFocused}}
+              textStyle={{...styles.txtStyle}}
+              textStyleFocused={{
+                color: Colors.Affair,
+              }}
+              value={code}
+              onTextChange={_code => setCode(_code)}
             />
           </View>
           <GradientButton

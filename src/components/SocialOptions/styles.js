@@ -6,11 +6,10 @@ export default StyleSheet.create({
   homeOptions: {
     backgroundColor: Colors.White,
     borderRadius: 40,
-    height: Metrics.screenHeight * 0.42,
     overflow: 'hidden',
     width: Metrics.screenHeight * 0.09,
     position: 'absolute',
-    right: Metrics.ratio(16),
+    right: Metrics.ratio(25),
     bottom: Metrics.ratio(232),
   },
   userImgView: {
@@ -28,10 +27,12 @@ export default StyleSheet.create({
     width: Metrics.screenHeight * 0.03,
     height: Metrics.screenHeight * 0.03,
     borderRadius: 30,
-    alignItems: 'center',
+    alignSelf: 'center',
     position: 'absolute',
     bottom: Metrics.ratio(-8),
-    left: Metrics.ratio(18),
+  },
+  plusIcon: {
+    alignSelf: 'center',
   },
   UserImageView: {
     width: Metrics.screenHeight * 0.09,

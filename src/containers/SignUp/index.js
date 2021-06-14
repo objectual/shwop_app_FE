@@ -256,7 +256,7 @@ const SignUp = props => {
           }}
           emailError={shwoopIDError}
         />
-        <View style={{...styles.titleContainer}}>
+        <View>
           <TextInput
             value={bio}
             onChangeText={onChangeTitle}
@@ -387,19 +387,22 @@ const SignUp = props => {
                 }
               />
             </View>
-
-            <TouchableOpacity style={styles.uploadBtn}>
-              <Image style={styles.upload} source={Images.upload} />
-              <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
-                Upload Image
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => selectImage()}
-              style={styles.buyBtn}>
-              <Image style={styles.upload} source={Images.camera} />
-              <Text style={styles.BuyBtnText}>Take Image</Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity style={styles.uploadBtn}>
+                <Image style={styles.upload} source={Images.upload} />
+                <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
+                  Upload Image
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                onPress={() => selectImage()}
+                style={styles.buyBtn}>
+                <Image style={styles.upload} source={Images.camera} />
+                <Text style={styles.BuyBtnText}>Take Image</Text>
+              </TouchableOpacity>
+            </View>
             {imageError ? (
               <Text style={styles.errormsg}> {imageError}</Text>
             ) : null}

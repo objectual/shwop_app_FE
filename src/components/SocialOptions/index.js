@@ -23,6 +23,7 @@ const SocialOptions = props => {
             name="plus"
             size={Metrics.ratio(16)}
             color={Colors.White}
+            style={{...styles.plusIcon}}
           />
         </TouchableOpacity>
       </View>
@@ -46,7 +47,7 @@ const SocialOptions = props => {
         </TouchableOpacity>
         <Text style={styles.optionText}>24.5k</Text>
       </View>
-      <View style={styles.UserOptions}>
+      <View style={{...styles.UserOptions, marginBottom: Metrics.ratio(20)}}>
         <TouchableOpacity>
           <Image
             style={styles.optionImg}

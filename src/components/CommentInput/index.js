@@ -31,10 +31,10 @@ const CommentInput = props => {
         <View style={[styles.nestedContainer, nestedStyling]}>
           {righticon && (
             <View style={styles.smileView}>
-              <MaterialCommunityIcons
-                name="emoticon-happy"
-                size={Metrics.ratio(25)}
-                color={Colors.Charade}
+              <Image
+                style={{...styles.smileImg}}
+                source={Images.smiling_face}
+                resizeMode="contain"
               />
             </View>
           )}
@@ -45,7 +45,7 @@ const CommentInput = props => {
             style={[styles.inputContainer, input]}
             placeholder={placeholder}
             secureTextEntry={secureTextEntry}
-            placeholderTextColor="#757575"
+            placeholderTextColor={Colors.silver}
           />
         </View>
       </View>

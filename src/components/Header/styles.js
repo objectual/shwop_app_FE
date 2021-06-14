@@ -55,8 +55,8 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   iconImage: {
-    width: Metrics.ratio(20),
-    height: Metrics.ratio(20),
+    width: Metrics.ratio(25),
+    height: Metrics.ratio(25),
   },
   centerView: {
     flex: 1,
@@ -71,7 +71,7 @@ export default StyleSheet.create({
     marginRight: Metrics.ratio(16),
   },
   headerText: {
-    fontSize: Metrics.ratio(18),
+    fontSize: Metrics.ratio(20),
     color: Colors.Charade,
     fontFamily: Fonts.type.NunitoBold,
     textTransform: 'capitalize',

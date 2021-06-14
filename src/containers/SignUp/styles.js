@@ -12,12 +12,10 @@ export default StyleSheet.create({
   buyBtn: {
     backgroundColor: Colors.Affair,
     borderRadius: Metrics.ratio(20),
-    padding: Metrics.ratio(10),
-    paddingLeft: Metrics.ratio(15),
-    paddingRight: Metrics.ratio(15),
+    paddingVertical: Metrics.ratio(10),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: Metrics.ratio(10),
+    marginTop: Metrics.ratio(15),
     width: Metrics.ratio(140),
     flexDirection: 'row',
   },
@@ -58,7 +56,6 @@ export default StyleSheet.create({
     color: Colors.White,
     fontFamily: Fonts.type.NunitoBold,
     fontSize: Metrics.ratio(12),
-    flex: 1,
     marginLeft: Metrics.ratio(10),
   },
   upload: {
@@ -68,9 +65,6 @@ export default StyleSheet.create({
   uploadArea: {
     alignItems: 'center',
     marginBottom: Metrics.ratio(15),
-  },
-  titleContainer: {
-    marginTop: Metrics.ratio(16),
   },
   titleTextInput: {
     backgroundColor: Colors.White,
