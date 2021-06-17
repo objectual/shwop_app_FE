@@ -1,7 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {StatusBar} from 'react-native';
 
 import {Images, Metrics} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 
 import styles from './styles';
 
@@ -53,23 +54,29 @@ const videoUrl =
   'https://static.videezy.com/system/resources/previews/000/043/977/original/DSC_8447_V1-0010.mp4';
 
 const AfterSplash = props => {
+  const [isOpen] = useKeyboardStatus();
+
   const modalizeRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const [modalTopOffset, setModalTopOffset] = useState(
+    Metrics.screenHeight * 0.45,
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      setModalTopOffset(Metrics.screenHeight * 0.1);
+    } else {
+      setModalTopOffset(Metrics.screenHeight * 0.45);
+    }
+  }, [isOpen]);
 
   const openModalize = () => {
     modalizeRef.current?.open();
   };
 
-  const handleComment = () => {
-    // const payload = {
-    //   data: Commentdata,
-    //   token: loginResponse?.data?.data?.access_token,
-    // };
-    // dispatch(Add_Comment_Request(payload));
-    // handleEmail('');
-  };
+  const handleComment = () => {};
 
   const renderCommentBox = () => {
     return (
@@ -105,10 +112,9 @@ const AfterSplash = props => {
         rightBtnPress={() => props.navigation.goBack()}
         headerTextStyle={styles.headerTextStyle}
       />
+      {!isLoading && !isOpen && <SocialOptions onPress={openModalize} />}
 
-      {!isLoading && <SocialOptions onPress={openModalize} />}
-
-      {!isLoading && <VideoBuyCard />}
+      {!isLoading && !isOpen && <VideoBuyCard />}
 
       <CustomVideoPlayer
         source={{uri: videoUrl}}
@@ -123,7 +129,7 @@ const AfterSplash = props => {
         handleStyle={{...styles.handleStyle}}
         noCloseBtn={true}
         footerComponent={renderCommentBox}
-        modalTopOffset={Metrics.screenHeight * 0.45}
+        modalTopOffset={modalTopOffset}
         renderItem={renderCommentMsg}
       />
 

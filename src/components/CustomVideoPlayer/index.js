@@ -9,7 +9,7 @@ import styles from './styles';
 
 import {Metrics, Colors} from '../../theme';
 
-const progressBarWidth = Metrics.screenWidth * 0.8;
+const progressBarWidth = Metrics.screenWidth * 0.77;
 
 const CustomVideoPlayer = props => {
   const {source, onBuffering} = props;
@@ -83,7 +83,7 @@ const CustomVideoPlayer = props => {
             <MaterialCommunityIcons
               name={paused ? 'play' : 'pause'}
               color={Colors.White}
-              size={Metrics.ratio(20)}
+              size={Metrics.ratio(18)}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleProgressPress}>
@@ -93,7 +93,7 @@ const CustomVideoPlayer = props => {
               unfilledColor={Colors.White}
               borderWidth={0}
               width={progressBarWidth}
-              height={Metrics.ratio(6)}
+              height={Metrics.ratio(4)}
             />
           </TouchableOpacity>
         </View>

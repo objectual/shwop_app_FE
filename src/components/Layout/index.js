@@ -1,9 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Images, Metrics, Colors} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 import {
   CustomModalize,
   CustomPhoneInput,
@@ -14,9 +15,23 @@ import styles from './styles';
 
 const Layout = props => {
   const {children, isLogedIn} = props;
+
+  const [isOpen] = useKeyboardStatus();
+
   const modalizeRef = useRef(null);
   const phoneInput = useRef(null);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [modalTopOffset, setModalTopOffset] = useState(
+    Metrics.screenHeight * 0.25,
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      setModalTopOffset(Metrics.screenHeight * 0.1);
+    } else {
+      setModalTopOffset(Metrics.screenHeight * 0.25);
+    }
+  }, [isOpen]);
 
   const closeModalize = () => {
     modalizeRef.current?.close();
@@ -178,7 +193,7 @@ const Layout = props => {
         <CustomModalize
           modalizeType={'children'}
           modalizeRef={modalizeRef}
-          modalTopOffset={Metrics.screenHeight * 0.25}
+          modalTopOffset={modalTopOffset}
           headerComponent={renderHeaderComponent()}>
           {!showSignUp ? renderLoginPop() : renderSignUpPop()}
         </CustomModalize>

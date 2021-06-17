@@ -3,7 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {
   AfterSplash,
-  Search,
   UploadVideo,
   Chat,
   Profile,
@@ -12,8 +11,12 @@ import {
   RecordVideo,
   Main,
   CompleteVideo,
+  // OrdersListing,
   // OthersProfile,
-  TagProduct,
+  // TagProduct,
+  // ProductInfo,
+  // MyProducts,
+  // Search,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -21,7 +24,6 @@ const AppStackScreen = ({screenNavigate}) => {
   return (
     <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
-      <AppStack.Screen name="Search" component={Search} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />
       <AppStack.Screen name="Profile" component={Profile} />
@@ -31,7 +33,11 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Main" component={Main} />
       <AppStack.Screen name="CompleteVideo" component={CompleteVideo} />
       {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
-      <AppStack.Screen name="TagProduct" component={TagProduct} />
+      {/* <AppStack.Screen name="TagProduct" component={TagProduct} /> */}
+      {/* <AppStack.Screen name="ProductInfo" component={ProductInfo} /> */}
+      {/* <AppStack.Screen name="MyProducts" component={MyProducts} /> */}
+      {/* <AppStack.Screen name="Search" component={Search} /> */}
+      {/* <AppStack.Screen name="OrdersListing" component={OrdersListing} /> */}
     </AppStack.Navigator>
   );
 };

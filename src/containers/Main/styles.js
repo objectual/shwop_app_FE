@@ -4,10 +4,12 @@ import {Colors, Metrics, Fonts} from '../../theme';
 
 export default StyleSheet.create({
   MainContainer: {
-    paddingHorizontal: Metrics.ratio(8),
+    paddingHorizontal: Metrics.ratio(14),
     flexWrap: 'wrap',
     flexDirection: 'row',
+    marginTop: Metrics.ratio(8),
     marginBottom: Metrics.ratio(70),
+    justifyContent: 'space-between',
   },
   headerMain: {
     marginTop: Metrics.ratio(24),

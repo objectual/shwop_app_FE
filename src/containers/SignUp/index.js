@@ -313,7 +313,7 @@ const SignUp = props => {
         });
       }
     } catch (err) {
-      console.warn(err);
+      console.log(err);
     }
   };
 
@@ -341,7 +341,6 @@ const SignUp = props => {
           maxWidth: 200,
         },
         response => {
-          console.log('response', response);
           if (response.didCancel) {
           } else if (response.error) {
           } else if (response.customButton) {
@@ -374,9 +373,9 @@ const SignUp = props => {
         headerTextStyle={styles.headerTextStyle}
       />
       <ScrollView>
-        <View style={styles.imageView}>
-          <View style={styles.uploadArea}>
-            <View style={styles.ImageUserView}>
+        <View style={{...styles.imageView}}>
+          <View style={{...styles.uploadArea}}>
+            <View style={{...styles.ImageUserView}}>
               <Image
                 style={
                   placeholderImage.uri ? styles.image : styles.imageDefault
@@ -387,29 +386,29 @@ const SignUp = props => {
                 }
               />
             </View>
-            <View>
-              <TouchableOpacity style={styles.uploadBtn}>
-                <Image style={styles.upload} source={Images.upload} />
-                <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
-                  Upload Image
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => selectImage()}
-                style={styles.buyBtn}>
-                <Image style={styles.upload} source={Images.camera} />
-                <Text style={styles.BuyBtnText}>Take Image</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={{...styles.uploadBtn}}>
+              <Image style={styles.upload} source={Images.upload} />
+              <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
+                Upload Image
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => selectImage()}
+              style={{...styles.buyBtn}}>
+              <Image style={styles.upload} source={Images.camera} />
+              <Text style={styles.BuyBtnText}>Take Image</Text>
+            </TouchableOpacity>
             {imageError ? (
               <Text style={styles.errormsg}> {imageError}</Text>
             ) : null}
           </View>
           {renderSignupFields()}
           <View style={styles.tagArea}>
-            <TextInput style={styles.inputTag} />
+            <TextInput
+              style={styles.inputTag}
+              placeholder={'Social Media Link'}
+              placeholderTextColor={Colors.Mercury}
+            />
             <TouchableOpacity style={styles.purpleBtn}>
               <Text style={styles.BtnText}>ADD</Text>
             </TouchableOpacity>

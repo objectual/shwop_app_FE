@@ -7,7 +7,6 @@ import DrawerContent from './DrawerContent';
 import AppStack from '../AppStack';
 
 import {
-  MyProducts,
   Shop,
   TermsAndConditions,
   ReturnPolicy,
@@ -33,11 +32,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Home"
         component={AppStack}
-        options={{...drawerScreenOptions}}
-      />
-      <Drawer.Screen
-        name="MyProducts"
-        component={MyProducts}
         options={{...drawerScreenOptions}}
       />
       <Drawer.Screen

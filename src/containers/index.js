@@ -16,6 +16,8 @@ import Main from './Main';
 import CompleteVideo from './CompleteVideo';
 import OthersProfile from './OthersProfile';
 import TagProduct from './TagProduct';
+import ProductInfo from './ProductInfo';
+import OrdersListing from './OrdersListing';
 
 export {
   Chat,
@@ -36,4 +38,6 @@ export {
   CompleteVideo,
   OthersProfile,
   TagProduct,
+  ProductInfo,
+  OrdersListing,
 };

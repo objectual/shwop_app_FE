@@ -9,10 +9,24 @@ const styles = StyleSheet.create({
     marginTop: Metrics.ratio(16),
     marginHorizontal: Metrics.ratio(16),
     flexDirection: 'row',
+    height: Metrics.ratio(110),
+  },
+  productImgContainer: {
+    width: Metrics.ratio(110),
+    height: Metrics.ratio(110),
+    borderRadius: Metrics.ratio(8),
+    overflow: 'hidden',
   },
   productImg: {
-    width: Metrics.screenWidth * 0.3,
-    height: Metrics.screenWidth * 0.3,
+    width: '100%',
+    height: '100%',
+  },
+  productNameAndIconContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  productNameContainer: {
+    flex: 1,
   },
   takesMainContainer: {
     flexDirection: 'row',
@@ -20,24 +34,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   takeImg: {
-    width: Metrics.ratio(15),
-    height: Metrics.ratio(15),
+    width: Metrics.ratio(12),
+    height: Metrics.ratio(12),
   },
   takeTxt: {
     fontFamily: Fonts.type.NunitoSemiBold,
     fontSize: Metrics.ratio(12),
-    marginLeft: Metrics.ratio(5),
+    marginLeft: Metrics.ratio(6),
     color: Colors.Affair,
   },
   ratingContainer: {
     flexDirection: 'row',
-    paddingVertical: Metrics.ratio(15),
+    paddingTop: Metrics.ratio(8),
+    paddingBottom: Metrics.ratio(12),
     alignItems: 'center',
-    flex: 1,
   },
   ratingImg: {
-    width: Metrics.ratio(15),
-    height: Metrics.ratio(15),
+    width: Metrics.ratio(13),
+    height: Metrics.ratio(13),
     marginRight: Metrics.ratio(4),
   },
   productTitle: {
@@ -56,28 +70,24 @@ const styles = StyleSheet.create({
   },
   takesContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   price: {
     fontFamily: Fonts.type.NunitoBold,
-    fontSize: Metrics.ratio(14),
+    fontSize: Metrics.ratio(12),
     color: Colors.Charade,
   },
   priceContainer: {
     backgroundColor: Colors.Concrete,
     paddingHorizontal: Metrics.ratio(8),
     paddingVertical: Metrics.ratio(2),
-    borderRadius: Metrics.ratio(5),
+    borderRadius: Metrics.ratio(6),
     borderColor: Colors.Affair,
     borderWidth: 1,
   },
-  wishlistContainer: {
-    position: 'absolute',
-    top: Metrics.ratio(5),
-    right: Metrics.ratio(10),
-  },
   wishlist_img: {
-    width: Metrics.ratio(20),
-    height: Metrics.ratio(20),
+    width: Metrics.ratio(25),
+    height: Metrics.ratio(25),
   },
 });
 

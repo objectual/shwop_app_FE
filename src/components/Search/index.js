@@ -1,18 +1,36 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, TouchableOpacity, TextInput, Image} from 'react-native';
 import PropTypes from 'prop-types';
 
-import {Images} from '../../theme';
-
 import styles from './style';
 
+import {Images} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
+
 const Search = props => {
-  const {value, placeholder, onChangeText, onPressSearch, onPressRemove} =
-    props;
+  const {
+    value,
+    placeholder,
+    onChangeText,
+    onPressSearch,
+    onPressRemove,
+    searchContainerStyle,
+  } = props;
+
+  const textInputRef = useRef();
+
+  const [isOpen] = useKeyboardStatus();
+
+  useEffect(() => {
+    if (!isOpen) {
+      textInputRef.current.blur();
+    }
+  }, [isOpen]);
 
   return (
-    <View style={{...styles.searchContainer}}>
+    <View style={{...styles.searchContainer, ...searchContainerStyle}}>
       <TextInput
+        ref={textInputRef}
         value={value}
         onChangeText={onChangeText}
         style={{...styles.searchInput}}
@@ -40,6 +58,7 @@ Search.defaultProps = {
   onChangeText: undefined,
   onPressSearch: undefined,
   onPressRemove: undefined,
+  searchContainerStyle: {},
 };
 
 Search.propTypes = {
@@ -48,6 +67,7 @@ Search.propTypes = {
   onChangeText: PropTypes.func,
   onPressSearch: PropTypes.func,
   onPressRemove: PropTypes.func,
+  searchContainerStyle: PropTypes.object,
 };
 
 export default Search;

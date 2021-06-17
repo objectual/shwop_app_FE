@@ -27,7 +27,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingRight: Metrics.ratio(8),
-    marginHorizontal: Metrics.ratio(16),
+    paddingRight: Metrics.ratio(7),
+    marginHorizontal: Metrics.ratio(24),
   },
 });

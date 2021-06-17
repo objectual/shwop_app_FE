@@ -15,21 +15,57 @@ const ProductCard = props => {
     isRating,
     rating,
     price,
-    rightIcon,
     onPressRightIcon,
     onPressCard,
     isWishlist,
+    isEdit,
     isPrice,
+    containerStyle,
   } = props;
 
   const totalRating = [1, 2, 3, 4, 5];
 
   return (
-    <TouchableOpacity onPress={onPressCard} style={{...styles.searchContainer}}>
-      <Image style={{...styles.productImg}} source={image} />
+    <TouchableOpacity
+      onPress={onPressCard}
+      disabled={onPressCard == null ? true : false}
+      style={{...styles.searchContainer, ...containerStyle}}>
+      <View style={{...styles.productImgContainer}}>
+        <Image
+          resizeMode={'cover'}
+          style={{...styles.productImg}}
+          source={image}
+        />
+      </View>
       <View style={{...styles.cardMain}}>
-        <Text style={{...styles.productTitle}}>{title}</Text>
-        <Text style={{...styles.productDesc}}>{brand}</Text>
+        <View style={{...styles.productNameAndIconContainer}}>
+          <View style={{...styles.productNameContainer}}>
+            <Text style={{...styles.productTitle}} numberOfLines={1}>
+              {title}
+            </Text>
+            <Text style={{...styles.productDesc}} numberOfLines={1}>
+              {brand}
+            </Text>
+          </View>
+          {isWishlist && (
+            <TouchableOpacity onPress={onPressRightIcon}>
+              <Image
+                resizeMode="contain"
+                style={{...styles.wishlist_img}}
+                source={Images.wishlist}
+              />
+            </TouchableOpacity>
+          )}
+          {isEdit && (
+            <TouchableOpacity onPress={onPressRightIcon}>
+              <Image
+                resizeMode="contain"
+                style={{...styles.wishlist_img}}
+                source={Images.edit_btn}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
 
         <View style={{...styles.ratingContainer}}>
           {isRating &&
@@ -49,31 +85,34 @@ const ProductCard = props => {
               resizeMode="contain"
               source={Images.play_purple}
             />
-            <Text style={{...styles.takeTxt}}>{takes}</Text>
+            <Text style={{...styles.takeTxt}}>{`${takes} Takes`}</Text>
           </View>
           {isPrice ? (
             <View style={{...styles.priceContainer}}>
-              <Text style={{...styles.price}}>{price}</Text>
+              <Text style={{...styles.price}}>{`$${price}`}</Text>
             </View>
           ) : null}
         </View>
       </View>
-      {isWishlist ? (
-        <TouchableOpacity
-          onPress={onPressRightIcon}
-          style={{...styles.wishlistContainer}}>
-          <Image
-            resizeMode="contain"
-            style={{...styles.wishlist_img}}
-            source={rightIcon}
-          />
-        </TouchableOpacity>
-      ) : null}
     </TouchableOpacity>
   );
 };
 
-ProductCard.defaultProps = {};
+ProductCard.defaultProps = {
+  title: '',
+  brand: '',
+  takes: 0,
+  isRating: false,
+  rating: 0,
+  price: 0,
+  onPressRightIcon: undefined,
+  onPressCard: undefined,
+  isWishlist: false,
+  isEdit: false,
+  isPrice: false,
+  containerStyle: {},
+};
+
 ProductCard.propTypes = {
   image: PropTypes.object || PropTypes.number,
   title: PropTypes.any,
@@ -83,10 +122,11 @@ ProductCard.propTypes = {
   isRating: PropTypes.bool,
   isPrice: PropTypes.bool,
   isWishlist: PropTypes.bool,
+  isEdit: PropTypes.bool,
   price: PropTypes.number,
-  rightIcon: PropTypes.object || PropTypes.number,
   onPressRightIcon: PropTypes.func,
   onPressCard: PropTypes.func,
+  containerStyle: PropTypes.object,
 };
 
 export default ProductCard;

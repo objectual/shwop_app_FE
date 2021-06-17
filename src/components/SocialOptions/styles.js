@@ -9,8 +9,8 @@ export default StyleSheet.create({
     overflow: 'hidden',
     width: Metrics.screenHeight * 0.09,
     position: 'absolute',
-    right: Metrics.ratio(25),
-    bottom: Metrics.ratio(232),
+    right: Metrics.ratio(12),
+    bottom: Metrics.ratio(240),
   },
   userImgView: {
     borderRadius: Metrics.screenHeight * 0.045,
@@ -24,15 +24,14 @@ export default StyleSheet.create({
   },
   follow: {
     backgroundColor: Colors.Razzmatazz,
-    width: Metrics.screenHeight * 0.03,
-    height: Metrics.screenHeight * 0.03,
+    width: Metrics.screenHeight * 0.031,
+    height: Metrics.screenHeight * 0.031,
     borderRadius: 30,
     alignSelf: 'center',
     position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
     bottom: Metrics.ratio(-8),
-  },
-  plusIcon: {
-    alignSelf: 'center',
   },
   UserImageView: {
     width: Metrics.screenHeight * 0.09,

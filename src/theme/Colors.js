@@ -15,6 +15,7 @@ const Macaroni_And_Cheese = '#FFC273';
 const Cream_Brulee = '#FFDF9E';
 const Silver_Chalice = '#9F9F9F';
 const Snuff = '#E8DAEC';
+const Radical_Red = '#FF346E';
 
 export default {
   // Solid Colors
@@ -34,4 +35,5 @@ export default {
   Cream_Brulee,
   Silver_Chalice,
   Snuff,
+  Radical_Red,
 };

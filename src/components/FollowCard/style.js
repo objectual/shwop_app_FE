@@ -5,13 +5,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: Colors.White,
     borderRadius: Metrics.ratio(13),
-    width: Metrics.screenWidth * 0.433,
-    marginHorizontal: Metrics.ratio(8),
+    width: Metrics.screenWidth * 0.44,
     marginBottom: Metrics.ratio(10),
     overflow: 'hidden',
   },
   bannerView: {
-    width: Metrics.screenWidth * 0.433,
+    width: Metrics.screenWidth * 0.44,
     height: Metrics.screenWidth * 0.452,
     borderRadius: Metrics.ratio(13),
     overflow: 'hidden',

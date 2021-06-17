@@ -152,7 +152,7 @@ const Main = props => {
         <TouchableOpacity onPress={showMenu} style={{...styles.TouchableMenu}}>
           <Image
             source={Images.filterBlack}
-            style={[styles.iconImage]}
+            style={{...styles.iconImage}}
             resizeMode={'contain'}
           />
         </TouchableOpacity>

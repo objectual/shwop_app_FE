@@ -18,7 +18,7 @@ const FollowCard = props => {
     <TouchableOpacity style={styles.mainContainer}>
       <View style={styles.bannerView}>
         <Image
-          resizeMode="contain"
+          resizeMode={'cover'}
           style={styles.followImg}
           source={bannerImg}
         />

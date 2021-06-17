@@ -75,6 +75,13 @@ const wishlist = require('../assets/images/icons/wishlist.png');
 const empty_star = require('../assets/images/icons/empty_star.png');
 const your_take_is_live_popup = require('../assets/images/backgrounds/your_take_is_live_popup.png');
 const smiling_face = require('../assets/images/icons/smiling_face.png');
+const clock_product_info = require('../assets/images/icons/clock_product_info.png');
+const edit_product_info = require('../assets/images/icons/edit_product_info.png');
+const delete_product_info = require('../assets/images/icons/delete_product_info.png');
+const plus_floating_btn = require('../assets/images/icons/plus_floating_btn.png');
+const search_bg = require('../assets/images/backgrounds/search_bg.png');
+const search_brand_1 = require('../assets/images/backgrounds/search_brand_1.png');
+const search_brand_2 = require('../assets/images/backgrounds/search_brand_2.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -154,4 +161,11 @@ export default {
   empty_star,
   your_take_is_live_popup,
   smiling_face,
+  clock_product_info,
+  edit_product_info,
+  delete_product_info,
+  plus_floating_btn,
+  search_bg,
+  search_brand_1,
+  search_brand_2,
 };

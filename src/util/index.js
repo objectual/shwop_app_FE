@@ -45,7 +45,7 @@ class Util {
 
   showAlertWithDelay({title, message}) {
     setTimeout(() => {
-      this.showCommonMessage(title, message);
+      this.showCommonMessage({title, message});
     }, 150);
   }
 

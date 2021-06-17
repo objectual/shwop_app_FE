@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, TextInput, Image} from 'react-native';
 import styles from './styles';
 import PropTypes from 'prop-types';
@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import {Colors, Images, Metrics} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 
 const CommentInput = props => {
   const {
@@ -25,12 +26,21 @@ const CommentInput = props => {
     onPress,
   } = props;
 
+  const [isOpen] = useKeyboardStatus();
+  const ref = useRef();
+
+  useEffect(() => {
+    if (!isOpen) {
+      ref.current.blur();
+    }
+  }, [isOpen]);
+
   return (
-    <View style={styles.mainView}>
-      <View style={[styles.mainContainer, container]}>
-        <View style={[styles.nestedContainer, nestedStyling]}>
+    <View style={{...styles.mainView}}>
+      <View style={{...styles.mainContainer, ...container}}>
+        <View style={{...styles.nestedContainer, ...nestedStyling}}>
           {righticon && (
-            <View style={styles.smileView}>
+            <View style={{...styles.smileView}}>
               <Image
                 style={{...styles.smileImg}}
                 source={Images.smiling_face}
@@ -39,10 +49,11 @@ const CommentInput = props => {
             </View>
           )}
           <TextInput
+            ref={ref}
             value={value}
             keyboardType={keyboardType}
             onChangeText={text => onChangeText(text)}
-            style={[styles.inputContainer, input]}
+            style={{...styles.inputContainer, ...input}}
             placeholder={placeholder}
             secureTextEntry={secureTextEntry}
             placeholderTextColor={Colors.silver}
@@ -51,10 +62,10 @@ const CommentInput = props => {
       </View>
       {isIcons && (
         <TouchableOpacity
-          style={[styles.inputView, iconView]}
+          style={{...styles.inputView, ...iconView}}
           onPress={onPress}>
           <Image
-            style={styles.imageSend}
+            style={{...styles.imageSend}}
             resizeMode="contain"
             source={Images.send}
           />

@@ -23,7 +23,6 @@ const SocialOptions = props => {
             name="plus"
             size={Metrics.ratio(16)}
             color={Colors.White}
-            style={{...styles.plusIcon}}
           />
         </TouchableOpacity>
       </View>
