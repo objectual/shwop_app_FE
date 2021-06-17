@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import {Text, ScrollView, View, Image} from 'react-native';
 import {Header, GradientButton} from '../../components';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import {Images, Colors, Metrics, Fonts} from '../../theme';
+import {Images, Colors} from '../../theme';
 
 import styles from './styles';
 
 const Otp = props => {
   const [code, setCode] = useState();
+
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
   };
@@ -50,7 +51,7 @@ const Otp = props => {
           <GradientButton
             label={'Confirm'}
             containerStyle={{...styles.gradientButtonContainer}}
-            onPress={() => handleNavigation('UploadVideo')}
+            onPress={() => {}}
           />
         </View>
       </ScrollView>

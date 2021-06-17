@@ -15,27 +15,27 @@ const orders = [
   },
   {
     id: 2,
-    orderNum: 1,
+    orderNum: 2,
     name: 'Nipe - Shoes',
-    price: 32.18,
+    price: 50,
   },
   {
     id: 3,
-    orderNum: 1,
+    orderNum: 3,
     name: 'Nipe - Shoes',
-    price: 32.18,
+    price: 23,
   },
   {
     id: 4,
-    orderNum: 1,
+    orderNum: 4,
     name: 'Nipe - Shoes',
-    price: 32.18,
+    price: 45.09,
   },
   {
     id: 5,
-    orderNum: 1,
+    orderNum: 5,
     name: 'Nipe - Shoes',
-    price: 32.18,
+    price: 67.34,
   },
 ];
 
@@ -54,6 +54,30 @@ const OrdersListing = props => {
           {label}
         </Text>
       </TouchableOpacity>
+    );
+  };
+
+  const renderOrderCard = item => {
+    return (
+      <View style={{...styles.orderCardContainer}}>
+        <View style={{...styles.detailContainer}}>
+          <Text style={{...styles.orderNum}}>{`Order ${item.orderNum}`}</Text>
+          <Text style={{...styles.orderName}}>{item.name}</Text>
+          <View style={{...styles.priceContainer}}>
+            <Text style={{...styles.priceText}}>{`$${item.price.toFixed(
+              2,
+            )}`}</Text>
+          </View>
+        </View>
+        <View style={{...styles.buttonContainer}}>
+          <TouchableOpacity style={{...styles.completeBtn}}>
+            <Text style={{...styles.completeBtnText}}>Complete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{...styles.cancelBtn}}>
+            <Text style={{...styles.cancelBtnText}}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   };
 
@@ -89,18 +113,9 @@ const OrdersListing = props => {
 
       <FlatList
         data={orders}
+        contentContainerStyle={{...styles.contentContainerStyle}}
         keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <View>
-            <View>
-              <Text>Order 1</Text>
-              <Text>Nipe - Shoes</Text>
-              <View>
-                <Text>{`$${9}`}</Text>
-              </View>
-            </View>
-          </View>
-        )}
+        renderItem={({item}) => renderOrderCard(item)}
       />
     </Layout>
   );

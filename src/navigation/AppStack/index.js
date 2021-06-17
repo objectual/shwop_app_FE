@@ -11,9 +11,9 @@ import {
   RecordVideo,
   Main,
   CompleteVideo,
+  TagProduct,
   // OrdersListing,
   // OthersProfile,
-  // TagProduct,
   // ProductInfo,
   // MyProducts,
   // Search,
@@ -35,15 +35,15 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="SignUp" component={SignUp} />
       <AppStack.Screen name="Main" component={Main} />
       <AppStack.Screen name="CompleteVideo" component={CompleteVideo} />
+      <AppStack.Screen name="TagProduct" component={TagProduct} />
       {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
-      {/* <AppStack.Screen name="TagProduct" component={TagProduct} /> */}
       {/* <AppStack.Screen name="ProductInfo" component={ProductInfo} /> */}
       {/* <AppStack.Screen name="MyProducts" component={MyProducts} /> */}
       {/* <AppStack.Screen name="Search" component={Search} /> */}
       {/* <AppStack.Screen name="OrdersListing" component={OrdersListing} /> */}
       {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
-      {/* <AppStack.Screen name="AddProducts" component={AddProducts} />
-      <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
+      {/* <AppStack.Screen name="AddProducts" component={AddProducts} /> */}
+      {/* <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
     </AppStack.Navigator>
   );
 };

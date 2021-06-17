@@ -57,6 +57,7 @@ const EditProducts = props => {
     newUploadImge.splice(index, 1);
     setUploadImage([...newUploadImge]);
   };
+
   const handleValidation = async () => {
     if (uploadImage.length === 0) {
       setImageError('Image is required.');
@@ -104,6 +105,7 @@ const EditProducts = props => {
       value.current.focus();
     }
   };
+
   const placeholder = {
     label: 'Category',
     value: null,
@@ -350,7 +352,7 @@ const EditProducts = props => {
       <Header
         {...props}
         leftIcon={Images.back_arrow_nav}
-        rightIcon={Images.Images.delete_product_info}
+        rightIcon={Images.delete_product_info}
         isLeftIconImg={true}
         isRightIconImg={true}
         headerText={'Edit Product'}

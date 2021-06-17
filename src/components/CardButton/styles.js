@@ -11,7 +11,7 @@ export default StyleSheet.create({
     padding: Metrics.ratio(12),
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
+    shadowColor: Colors.Black,
     shadowOffset: {
       width: 0,
       height: 2,

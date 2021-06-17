@@ -16,6 +16,7 @@ const Cream_Brulee = '#FFDF9E';
 const Silver_Chalice = '#9F9F9F';
 const Snuff = '#E8DAEC';
 const Radical_Red = '#FF346E';
+const Gun_Powder = '#3F3D56';
 
 export default {
   // Solid Colors
@@ -36,4 +37,5 @@ export default {
   Silver_Chalice,
   Snuff,
   Radical_Red,
+  Gun_Powder,
 };

@@ -40,7 +40,7 @@ export default StyleSheet.create({
   backarrowView: {
     backgroundColor: '#F7F7FA',
     borderRadius: Metrics.ratio(25),
-    shadowColor: '#000',
+    shadowColor: Colors.Black,
     shadowOffset: {
       width: 0,
       height: 4,

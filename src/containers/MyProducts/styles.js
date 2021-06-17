@@ -53,7 +53,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: Metrics.ratio(66),
     right: Metrics.ratio(25),
-    shadowColor: '#000',
+    shadowColor: Colors.Black,
     shadowOffset: {
       width: 0,
       height: 3,

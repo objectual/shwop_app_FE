@@ -23,6 +23,10 @@ const ProductInfo = props => {
 
   const totalRating = [1, 2, 3, 4, 5];
 
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   return (
     <View style={{...styles.container}}>
       <StatusBar
@@ -39,7 +43,7 @@ const ProductInfo = props => {
         headerText={'Product Info'}
         rightIcon={Images.edit_product_info}
         isRightIconImg={true}
-        rightBtnPress={() => {}}
+        rightBtnPress={() => handleNavigation('EditProducts')}
         rightSecIcon={Images.delete_product_info}
         isRightSecIconImg={true}
         rightSecBtnPress={() => {}}

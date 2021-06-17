@@ -56,6 +56,7 @@ const MyProducts = props => {
         price={item.price.toFixed(2)}
         rating={item.rating}
         onPressCard={() => handleNavigation('ProductInfo')}
+        onPressRightIcon={() => handleNavigation('EditProducts')}
       />
     );
   };
@@ -94,7 +95,9 @@ const MyProducts = props => {
         renderItem={({item}) => renderProduct(item)}
       />
 
-      <TouchableOpacity style={{...styles.addProductBtn}}>
+      <TouchableOpacity
+        style={{...styles.addProductBtn}}
+        onPress={() => handleNavigation('AddProducts')}>
         <Image
           source={Images.plus_floating_btn}
           style={{...styles.addProductImage}}
