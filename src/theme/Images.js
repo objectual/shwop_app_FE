@@ -75,6 +75,7 @@ const wishlist = require('../assets/images/icons/wishlist.png');
 const empty_star = require('../assets/images/icons/empty_star.png');
 const your_take_is_live_popup = require('../assets/images/backgrounds/your_take_is_live_popup.png');
 const smiling_face = require('../assets/images/icons/smiling_face.png');
+const picker_arrow = require('../assets/images/icons/picker_arrow.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -154,4 +155,5 @@ export default {
   empty_star,
   your_take_is_live_popup,
   smiling_face,
+  picker_arrow,
 };

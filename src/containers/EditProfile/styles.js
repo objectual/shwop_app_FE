@@ -70,13 +70,12 @@ export default StyleSheet.create({
     backgroundColor: Colors.White,
     textAlignVertical: 'top',
     borderRadius: Metrics.ratio(16),
-    padding: Metrics.ratio(16),
+    padding: Metrics.ratio(12),
     fontSize: Metrics.ratio(14),
     fontFamily: Fonts.type.NunitoLight,
     color: Colors.Black,
     borderColor: Colors.Mercury,
     borderWidth: Metrics.ratio(1),
-    paddingHorizontal: Metrics.ratio(20),
   },
   titleCount: {
     fontSize: Metrics.ratio(10),
@@ -139,13 +138,5 @@ export default StyleSheet.create({
     fontSize: Fonts.size.fourteen,
     fontFamily: Fonts.type.Nunito,
     marginHorizontal: Metrics.ratio(15),
-  },
-  labelTopText: {
-    position: 'absolute',
-    color: Colors.Affair,
-    top: 3,
-    left: 20,
-    fontSize: 10,
-    zIndex: 2,
   },
 });

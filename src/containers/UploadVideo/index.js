@@ -28,6 +28,7 @@ import util from '../../util';
 const UploadVideo = props => {
   const [title, setTitle] = useState('');
   const [showYourTakePopup, setShowYourTakePopup] = useState(false);
+  const [floatLabel, setFloatLabel] = useState(false);
 
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
@@ -140,6 +141,9 @@ const UploadVideo = props => {
 
         <View style={{...styles.formContainer}}>
           <View style={{...styles.titleContainer}}>
+            {floatLabel ? (
+              <Text style={{...styles.labelTopText}}>Title</Text>
+            ) : null}
             <TextInput
               value={title}
               onChangeText={onChangeTitle}
@@ -148,6 +152,12 @@ const UploadVideo = props => {
               placeholderTextColor={Colors.Mercury}
               multiline={true}
               numberOfLines={9}
+              onFocus={() => setFloatLabel(true)}
+              onBlur={() => {
+                let isFloatLabel =
+                  title == '' || title == undefined ? false : true;
+                setFloatLabel(isFloatLabel);
+              }}
             />
             <Text
               style={{

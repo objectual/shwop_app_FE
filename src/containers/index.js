@@ -16,6 +16,9 @@ import Main from './Main';
 import CompleteVideo from './CompleteVideo';
 import OthersProfile from './OthersProfile';
 import TagProduct from './TagProduct';
+import EditProfile from './EditProfile';
+import AddProducts from './AddProducts';
+import EditProducts from './EditProducts';
 
 export {
   Chat,
@@ -36,4 +39,7 @@ export {
   CompleteVideo,
   OthersProfile,
   TagProduct,
+  EditProfile,
+  AddProducts,
+  EditProducts,
 };

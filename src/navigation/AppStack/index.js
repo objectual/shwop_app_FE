@@ -14,12 +14,15 @@ import {
   CompleteVideo,
   // OthersProfile,
   TagProduct,
+  // EditProfile,
+  // AddProducts,
+  // EditProducts,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
+    <AppStack.Navigator headerMode="none" initialRouteName="EditProfile">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="Search" component={Search} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
@@ -31,7 +34,10 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Main" component={Main} />
       <AppStack.Screen name="CompleteVideo" component={CompleteVideo} />
       {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
+      {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
       <AppStack.Screen name="TagProduct" component={TagProduct} />
+      {/* <AppStack.Screen name="AddProducts" component={AddProducts} />
+      <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
     </AppStack.Navigator>
   );
 };

@@ -3,16 +3,15 @@ import {Colors, Metrics, Fonts} from '../../theme';
 
 export default StyleSheet.create({
   imageView: {
-    paddingHorizontal: Metrics.ratio(15),
     backgroundColor: Colors.White,
     marginHorizontal: Metrics.ratio(16),
     borderRadius: Metrics.ratio(10),
-    marginTop: Metrics.ratio(90),
+    paddingBottom: Metrics.ratio(15),
   },
   buyBtn: {
     backgroundColor: Colors.Affair,
     borderRadius: Metrics.ratio(20),
-    paddingVertical: Metrics.ratio(10),
+    paddingVertical: Metrics.ratio(7),
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Metrics.ratio(15),
@@ -22,27 +21,25 @@ export default StyleSheet.create({
   uploadBtn: {
     backgroundColor: Colors.Affair,
     borderRadius: Metrics.ratio(20),
-    padding: Metrics.ratio(10),
+    paddingVertical: Metrics.ratio(7),
     paddingLeft: Metrics.ratio(15),
     paddingRight: Metrics.ratio(15),
     justifyContent: 'center',
     alignItems: 'center',
     width: Metrics.ratio(140),
     flexDirection: 'row',
-    marginTop: Metrics.ratio(70),
+    marginTop: Metrics.ratio(15),
   },
   ImageUserView: {
-    alignItems: 'center',
-    backgroundColor: Colors.White,
-    position: 'absolute',
-    top: Metrics.ratio(-70),
-    justifyContent: 'center',
-    borderRadius: Metrics.screenHeight * 0.22,
-    height: Metrics.screenHeight * 0.22,
-    width: Metrics.screenHeight * 0.22,
+    backgroundColor: Colors.Affair,
+    borderRadius: Metrics.screenHeight * 0.018,
+    height: Metrics.screenHeight * 0.113,
+    width: Metrics.screenHeight * 0.113,
     borderWidth: Metrics.ratio(1),
     borderColor: Colors.Mercury,
     overflow: 'hidden',
+    marginTop: Metrics.ratio(10),
+    marginHorizontal: Metrics.ratio(5),
   },
   image: {
     height: '100%',
@@ -58,25 +55,38 @@ export default StyleSheet.create({
     fontSize: Metrics.ratio(12),
     marginLeft: Metrics.ratio(10),
   },
+  pickerView: {
+    height: Metrics.ratio(45),
+    marginRight: Metrics.ratio(20),
+    marginTop: Metrics.ratio(4),
+    justifyContent: 'center',
+  },
   upload: {
     height: Metrics.ratio(15),
     width: Metrics.ratio(15),
   },
+  picker_arrow: {
+    height: Metrics.ratio(15),
+    width: Metrics.ratio(15),
+  },
   uploadArea: {
-    alignItems: 'center',
-    marginBottom: Metrics.ratio(15),
+    paddingHorizontal: Metrics.ratio(15),
+
+    justifyContent: 'space-between',
+    marginBottom: Metrics.ratio(5),
+    flexDirection: 'row',
   },
   titleTextInput: {
     backgroundColor: Colors.White,
     textAlignVertical: 'top',
     borderRadius: Metrics.ratio(16),
     padding: Metrics.ratio(16),
+    paddingHorizontal: Metrics.ratio(20),
     fontSize: Metrics.ratio(14),
     fontFamily: Fonts.type.NunitoLight,
     color: Colors.Black,
     borderColor: Colors.Mercury,
     borderWidth: Metrics.ratio(1),
-    paddingHorizontal: Metrics.ratio(20),
   },
   titleCount: {
     fontSize: Metrics.ratio(10),
@@ -89,6 +99,9 @@ export default StyleSheet.create({
   facebookIcon: {
     height: Metrics.ratio(15),
     width: Metrics.ratio(15),
+  },
+  pickerContainer: {
+    marginBottom: Metrics.ratio(20),
   },
   fbTxt: {
     fontSize: Metrics.ratio(12),
@@ -140,6 +153,10 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.Nunito,
     marginHorizontal: Metrics.ratio(15),
   },
+  gradientButtonContainer: {
+    marginTop: Metrics.ratio(25),
+    marginBottom: Metrics.ratio(100),
+  },
   labelTopText: {
     position: 'absolute',
     color: Colors.Affair,
@@ -147,5 +164,25 @@ export default StyleSheet.create({
     left: 20,
     fontSize: 10,
     zIndex: 2,
+  },
+  close: {
+    backgroundColor: Colors.White,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: Metrics.screenHeight * 0.025,
+    height: Metrics.screenHeight * 0.025,
+    borderRadius: Metrics.ratio(30),
+    position: 'absolute',
+    right: Metrics.ratio(5),
+    top: Metrics.ratio(5),
+  },
+  imgMainContainer: {
+    paddingHorizontal: Metrics.ratio(10),
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+  },
+  fieldsContainer: {
+    marginTop: Metrics.ratio(10),
+    paddingHorizontal: Metrics.ratio(15),
   },
 });
