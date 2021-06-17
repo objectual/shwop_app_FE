@@ -22,7 +22,7 @@ import {
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="EditProfile">
+    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="Search" component={Search} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
