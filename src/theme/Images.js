@@ -82,6 +82,7 @@ const plus_floating_btn = require('../assets/images/icons/plus_floating_btn.png'
 const search_bg = require('../assets/images/backgrounds/search_bg.png');
 const search_brand_1 = require('../assets/images/backgrounds/search_brand_1.png');
 const search_brand_2 = require('../assets/images/backgrounds/search_brand_2.png');
+const picker_arrow = require('../assets/images/icons/picker_arrow.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -168,4 +169,5 @@ export default {
   search_bg,
   search_brand_1,
   search_brand_2,
+  picker_arrow,
 };

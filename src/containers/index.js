@@ -18,6 +18,9 @@ import OthersProfile from './OthersProfile';
 import TagProduct from './TagProduct';
 import ProductInfo from './ProductInfo';
 import OrdersListing from './OrdersListing';
+import EditProfile from './EditProfile';
+import AddProducts from './AddProducts';
+import EditProducts from './EditProducts';
 
 export {
   Chat,
@@ -40,4 +43,7 @@ export {
   TagProduct,
   ProductInfo,
   OrdersListing,
+  EditProfile,
+  AddProducts,
+  EditProducts,
 };

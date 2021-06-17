@@ -17,6 +17,9 @@ import {
   // ProductInfo,
   // MyProducts,
   // Search,
+  // EditProfile,
+  // AddProducts,
+  // EditProducts,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -38,6 +41,9 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="MyProducts" component={MyProducts} /> */}
       {/* <AppStack.Screen name="Search" component={Search} /> */}
       {/* <AppStack.Screen name="OrdersListing" component={OrdersListing} /> */}
+      {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
+      {/* <AppStack.Screen name="AddProducts" component={AddProducts} />
+      <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
     </AppStack.Navigator>
   );
 };

@@ -15,11 +15,25 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
+  InputFloatView: {
+    paddingHorizontal: Metrics.ratio(15),
+    borderRadius: Metrics.ratio(30),
+    height: Metrics.ratio(50),
+    borderColor: Colors.Mercury,
+    borderWidth: 0.5,
+    fontFamily: Fonts.type.Nunito,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+
   labelTopText: {
     position: 'absolute',
-    color: '#BBBBBB',
-    top: 3,
-    left: 30,
+    color: Colors.Affair,
+    top: 8,
+    left: 20,
     fontSize: 10,
   },
   textInputStyle: {

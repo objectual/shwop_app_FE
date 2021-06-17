@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {View, Image, TextInput, TouchableOpacity, Text} from 'react-native';
+import {Colors} from '../../theme';
 
 import styles from './styles';
 
 const CustomTextInput = props => {
+  const [floatLabel, setFloatLabel] = useState(false);
   const {
     refrence,
     returnKeyType,
@@ -24,11 +26,16 @@ const CustomTextInput = props => {
     TextInputPaddingStyle,
     secureTextEntry,
     onPressEye,
+    floatingLabel,
   } = props;
 
   return (
     <View>
-      <View style={[styles.InputView, customInputStyle]}>
+      <View
+        style={[
+          floatLabel ? styles.InputFloatView : styles.InputView,
+          customInputStyle,
+        ]}>
         {inputLeftIcon && (
           <Image
             style={styles.inputIcon}
@@ -36,7 +43,11 @@ const CustomTextInput = props => {
             source={inputLeftIcon}
           />
         )}
-        <Text style={styles.labelTopText}>{topLabelText}</Text>
+
+        {floatingLabel && floatLabel ? (
+          <Text style={styles.labelTopText}>{placeholder}</Text>
+        ) : null}
+
         <TextInput
           secureTextEntry={secureTextEntry}
           returnKeyType={returnKeyType}
@@ -45,8 +56,14 @@ const CustomTextInput = props => {
           placeholder={placeholder}
           editable={isEditable}
           ref={refrence}
+          placeholderTextColor={Colors.Mercury}
           value={value}
           autoCapitalize={'none'}
+          onFocus={() => setFloatLabel(true)}
+          onBlur={() => {
+            let isFloatLabel = value == '' || value == undefined ? false : true;
+            setFloatLabel(isFloatLabel);
+          }}
           onChangeText={onChangeText}
           onSubmitEditing={() => {
             onSubmit(onSubmitRef);
@@ -83,6 +100,7 @@ CustomTextInput.defaultProps = {
   TextInputPaddingStyle: undefined,
   CustomTextInputStyle: undefined,
   onPressEye: undefined,
+  floatingLabel: undefined,
 };
 
 CustomTextInput.propTypes = {
@@ -103,6 +121,7 @@ CustomTextInput.propTypes = {
   customInputStyle: PropTypes.object,
   TextInputPaddingStyle: PropTypes.object,
   CustomTextInputStyle: PropTypes.object,
+  floatingLabel: PropTypes.bool,
 };
 
 export default CustomTextInput;
