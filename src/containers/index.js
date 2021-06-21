@@ -21,6 +21,10 @@ import OrdersListing from './OrdersListing';
 import EditProfile from './EditProfile';
 import AddProducts from './AddProducts';
 import EditProducts from './EditProducts';
+import AddTermsAndConditions from './AddTermsAndConditions';
+import AddReturnPolicy from './AddReturnPolicy';
+import EditTermsAndConditions from './EditTermsAndConditions';
+import EditReturnPolicy from './EditReturnPolicy';
 
 export {
   Chat,
@@ -46,4 +50,8 @@ export {
   EditProfile,
   AddProducts,
   EditProducts,
+  AddTermsAndConditions,
+  AddReturnPolicy,
+  EditTermsAndConditions,
+  EditReturnPolicy,
 };

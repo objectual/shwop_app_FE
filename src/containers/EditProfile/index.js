@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   ScrollView,
@@ -14,6 +14,7 @@ import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {nameRegex, validate} from '../../services/Validation';
 import {Header, CustomTextInput, PurpleButton} from '../../components';
 import {Images, Colors} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 
 import styles from './styles';
 
@@ -30,6 +31,16 @@ const EditProfile = props => {
   const [imageError, setImageError] = useState('');
   const [bioError, setBioError] = useState('');
   const [placeholderImage, setPlaceholderImage] = useState({});
+
+  const textInputRef = useRef();
+
+  const [isOpen] = useKeyboardStatus();
+
+  useEffect(() => {
+    if (!isOpen) {
+      textInputRef.current.blur();
+    }
+  }, [isOpen]);
 
   let errors = {
     fullNameErr: 'Full name is required.',
@@ -133,6 +144,8 @@ const EditProfile = props => {
             placeholderTextColor={Colors.Mercury}
             multiline={true}
             numberOfLines={9}
+            ref={textInputRef}
+            maxLength={120}
           />
           <Text
             style={{

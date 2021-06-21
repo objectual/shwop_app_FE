@@ -83,6 +83,8 @@ const search_bg = require('../assets/images/backgrounds/search_bg.png');
 const search_brand_1 = require('../assets/images/backgrounds/search_brand_1.png');
 const search_brand_2 = require('../assets/images/backgrounds/search_brand_2.png');
 const picker_arrow = require('../assets/images/icons/picker_arrow.png');
+const terms = require('../assets/images/backgrounds/terms.png');
+const returnPolicy = require('../assets/images/backgrounds/returnPolicy.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -170,4 +172,6 @@ export default {
   search_brand_1,
   search_brand_2,
   picker_arrow,
+  terms,
+  returnPolicy,
 };

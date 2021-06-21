@@ -20,12 +20,18 @@ import {
   // EditProfile,
   // AddProducts,
   // EditProducts,
+  // AddTermsAndConditions,
+  // TermsAndConditions,
+  // AddReturnPolicy,
+  // ReturnPolicy,
+  // EditTermsAndConditions,
+  // EditReturnPolicy,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
+    <AppStack.Navigator headerMode="none" initialRouteName="SignUp">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />
@@ -42,8 +48,23 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="Search" component={Search} /> */}
       {/* <AppStack.Screen name="OrdersListing" component={OrdersListing} /> */}
       {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
-      {/* <AppStack.Screen name="AddProducts" component={AddProducts} />
-      <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
+      {/* <AppStack.Screen name="AddProducts" component={AddProducts} /> */}
+      {/* <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
+      {/* <AppStack.Screen
+        name="AddTermsAndConditions"
+        component={AddTermsAndConditions}
+      />
+      <AppStack.Screen
+        name="TermsAndConditions"
+        component={TermsAndConditions}
+      />
+      <AppStack.Screen name="AddReturnPolicy" component={AddReturnPolicy} />
+      <AppStack.Screen name="ReturnPolicy" component={ReturnPolicy} />
+      <AppStack.Screen
+        name="EditTermsAndConditions"
+        component={EditTermsAndConditions}
+      />
+      <AppStack.Screen name="EditReturnPolicy" component={EditReturnPolicy} /> */}
     </AppStack.Navigator>
   );
 };

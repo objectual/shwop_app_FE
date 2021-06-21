@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   ScrollView,
@@ -22,6 +22,7 @@ import {
   Layout,
 } from '../../components';
 import {Images, Colors, Metrics, Fonts} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 
 import styles from './styles';
 
@@ -46,6 +47,16 @@ const EditProducts = props => {
   const [imageError, setImageError] = useState('');
   const [bioError, setBioError] = useState('');
   const [uploadImage, setUploadImage] = useState([]);
+
+  const textInputRef = useRef();
+
+  const [isOpen] = useKeyboardStatus();
+
+  useEffect(() => {
+    if (!isOpen) {
+      textInputRef.current.blur();
+    }
+  }, [isOpen]);
 
   let errors = {
     titleError: 'Title is required.',
@@ -268,8 +279,10 @@ const EditProducts = props => {
             style={{...styles.titleTextInput}}
             placeholder={'Description'}
             placeholderTextColor={Colors.Mercury}
+            maxLength={120}
             multiline={true}
-            numberOfLines={15}
+            ref={textInputRef}
+            numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => {
               let isFloatLabel = bio == '' || bio == undefined ? false : true;
@@ -344,19 +357,21 @@ const EditProducts = props => {
     <Layout {...props} isLogedIn={true}>
       <StatusBar
         translucent
-        backgroundColor={'transparent'}
+        backgroundColor={Colors.Black}
         barStyle="dark-content"
       />
       <Header
         {...props}
         leftIcon={Images.back_arrow_nav}
-        rightIcon={Images.Images.delete_product_info}
+        rightIcon={Images.delete_product_info}
         isLeftIconImg={true}
         isRightIconImg={true}
         headerText={'Edit Product'}
         leftBtnPress={() => props.navigation.goBack()}
         rightBtnPress={() => props.navigation.goBack()}
         headerTextStyle={styles.headerTextStyle}
+        isDropShadow={false}
+        headerBgColor={Colors.White}
       />
       <ScrollView>
         <View style={{...styles.imageView}}>
