@@ -17,6 +17,7 @@ const Header = props => {
     leftBtnPress,
     leftIconStyle,
     leftIconCircleStyle,
+    leftIconImageStyle,
     leftIconSize,
     headerLogo,
     headerLogoStyle,
@@ -28,6 +29,7 @@ const Header = props => {
     rightIconStyle,
     rightBtnPress,
     rightIconSize,
+    rightIconImageStyle,
     rightText,
     isSearchBar,
     searchBarStyle,
@@ -42,6 +44,7 @@ const Header = props => {
     isRightSecIconImg,
     rightSecIconSize,
     rightSecIconColor,
+    rightSecIconImageStyle,
   } = props;
 
   return (
@@ -58,7 +61,7 @@ const Header = props => {
           <View style={(styles.backarrowView, leftIconCircleStyle)}>
             <Image
               source={leftIcon}
-              style={[styles.iconImage]}
+              style={{...styles.iconImage, ...leftIconImageStyle}}
               resizeMode={'contain'}
             />
           </View>
@@ -109,7 +112,7 @@ const Header = props => {
         {rightIcon && isRightIconImg ? (
           <Image
             source={rightIcon}
-            style={[styles.iconImage]}
+            style={{...styles.iconImage, ...rightIconImageStyle}}
             resizeMode={'contain'}
           />
         ) : (
@@ -134,7 +137,7 @@ const Header = props => {
           {rightSecIcon && isRightSecIconImg ? (
             <Image
               source={rightSecIcon}
-              style={[styles.iconImage]}
+              style={{...styles.iconImage, ...rightSecIconImageStyle}}
               resizeMode={'contain'}
             />
           ) : (
@@ -218,6 +221,9 @@ Header.propTypes = {
   isRightSecIconImg: PropTypes.bool,
   rightSecIconSize: PropTypes.number,
   rightSecIconColor: PropTypes.string,
+  leftIconImageStyle: PropTypes.object,
+  rightIconImageStyle: PropTypes.object,
+  rightSecIconImageStyle: PropTypes.object,
 };
 
 export default Header;

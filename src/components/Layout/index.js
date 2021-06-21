@@ -14,7 +14,7 @@ import {
 import styles from './styles';
 
 const Layout = props => {
-  const {children, isLogedIn} = props;
+  const {children, isLogedIn, isModalizeOpen} = props;
 
   const [isOpen] = useKeyboardStatus();
 
@@ -194,18 +194,22 @@ const Layout = props => {
           modalizeType={'children'}
           modalizeRef={modalizeRef}
           modalTopOffset={modalTopOffset}
-          headerComponent={renderHeaderComponent()}>
+          headerComponent={renderHeaderComponent()}
+          onOpened={() => isModalizeOpen(true)}
+          onClosed={() => isModalizeOpen(false)}>
           {!showSignUp ? renderLoginPop() : renderSignUpPop()}
         </CustomModalize>
       )}
 
-      <View style={{...styles.bottomBar}}>
-        {renderTabBar(Images.Home_Bottom_Tab, 'Main')}
-        {renderTabBar(Images.Search_Bottom_Tab, 'Search')}
-        {renderUploadVideoBtn()}
-        {renderTabBar(Images.Chat_Bottom_Tab, 'Chat')}
-        {renderTabBar(Images.Profile_Bottom_Tab, 'Profile')}
-      </View>
+      {!isOpen && (
+        <View style={{...styles.bottomBar}}>
+          {renderTabBar(Images.Home_Bottom_Tab, 'Main')}
+          {renderTabBar(Images.Search_Bottom_Tab, 'Search')}
+          {renderUploadVideoBtn()}
+          {renderTabBar(Images.Chat_Bottom_Tab, 'Chat')}
+          {renderTabBar(Images.Profile_Bottom_Tab, 'Profile')}
+        </View>
+      )}
     </View>
   );
 };
@@ -218,6 +222,7 @@ Layout.defaultProps = {
 Layout.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   isLogedIn: PropTypes.bool.isRequired,
+  isModalizeOpen: PropTypes.func,
 };
 
 export default Layout;

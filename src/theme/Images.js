@@ -83,6 +83,9 @@ const search_bg = require('../assets/images/backgrounds/search_bg.png');
 const search_brand_1 = require('../assets/images/backgrounds/search_brand_1.png');
 const search_brand_2 = require('../assets/images/backgrounds/search_brand_2.png');
 const picker_arrow = require('../assets/images/icons/picker_arrow.png');
+const right_arrow_settings = require('../assets/images/icons/right_arrow_settings.png');
+const logout_settings = require('../assets/images/icons/logout_settings.png');
+const down_arrow_settings = require('../assets/images/icons/down_arrow_settings.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -170,4 +173,7 @@ export default {
   search_brand_1,
   search_brand_2,
   picker_arrow,
+  right_arrow_settings,
+  logout_settings,
+  down_arrow_settings,
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -24,11 +24,22 @@ import {
 } from '../../components';
 import {Images, Colors} from '../../theme';
 import util from '../../util';
+import {useKeyboardStatus} from '../../hooks';
 
 const UploadVideo = props => {
+  const textInputRef = useRef();
+
+  const [isOpen] = useKeyboardStatus();
+
   const [title, setTitle] = useState('');
   const [showYourTakePopup, setShowYourTakePopup] = useState(false);
   const [floatLabel, setFloatLabel] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      textInputRef.current.blur();
+    }
+  }, [isOpen]);
 
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
@@ -145,13 +156,15 @@ const UploadVideo = props => {
               <Text style={{...styles.labelTopText}}>Title</Text>
             ) : null}
             <TextInput
+              ref={textInputRef}
+              maxLength={120}
               value={title}
               onChangeText={onChangeTitle}
               style={{...styles.titleTextInput}}
               placeholder={'Title'}
               placeholderTextColor={Colors.Mercury}
               multiline={true}
-              numberOfLines={9}
+              numberOfLines={10}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => {
                 let isFloatLabel =

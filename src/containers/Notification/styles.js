@@ -1,0 +1,54 @@
+import {StyleSheet} from 'react-native';
+
+import {Colors, Metrics, Fonts} from '../../theme';
+
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.Concrete,
+  },
+
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: Metrics.ratio(12),
+    paddingVertical: Metrics.ratio(8),
+  },
+  cardImage: {
+    width: Metrics.ratio(50),
+    height: Metrics.ratio(50),
+    borderRadius: Metrics.ratio(25),
+  },
+  detailRow: {
+    flex: 1,
+    marginLeft: Metrics.ratio(12),
+  },
+  headingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  unreadHeadingText: {
+    fontSize: Metrics.ratio(16),
+    fontFamily: Fonts.type.NunitoBold,
+    color: Colors.Black,
+    width: Metrics.screenWidth * 0.7,
+  },
+  readHeadingText: {
+    fontSize: Metrics.ratio(16),
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Black,
+  },
+  unreadIcon: {
+    width: Metrics.ratio(12),
+    height: Metrics.ratio(12),
+    backgroundColor: Colors.Web_Orange,
+    borderRadius: Metrics.ratio(6),
+  },
+  timeText: {
+    fontSize: Metrics.ratio(12),
+    fontFamily: Fonts.type.Arial,
+    color: Colors.Silver_Chalice,
+    marginTop: Metrics.ratio(4),
+  },
+});

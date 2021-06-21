@@ -27,4 +27,12 @@ export default StyleSheet.create({
   handleStyle: {
     backgroundColor: Colors.Concrete,
   },
+  leftIconImageStyle: {
+    width: Metrics.ratio(20),
+    height: Metrics.ratio(20),
+  },
+  rightIconImageStyle: {
+    width: Metrics.ratio(20),
+    height: Metrics.ratio(20),
+  },
 });

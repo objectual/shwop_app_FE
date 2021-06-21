@@ -17,6 +17,8 @@ const Silver_Chalice = '#9F9F9F';
 const Snuff = '#E8DAEC';
 const Radical_Red = '#FF346E';
 const Gun_Powder = '#3F3D56';
+const Alizarin_Crimson = '#EC2B2B';
+const Web_Orange = '#FFAA00';
 
 export default {
   // Solid Colors
@@ -38,4 +40,6 @@ export default {
   Snuff,
   Radical_Red,
   Gun_Powder,
+  Alizarin_Crimson,
+  Web_Orange,
 };

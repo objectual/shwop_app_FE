@@ -21,6 +21,8 @@ import OrdersListing from './OrdersListing';
 import EditProfile from './EditProfile';
 import AddProducts from './AddProducts';
 import EditProducts from './EditProducts';
+import Notification from './Notification';
+import ManageAccounts from './ManageAccounts';
 
 export {
   Chat,
@@ -46,4 +48,6 @@ export {
   EditProfile,
   AddProducts,
   EditProducts,
+  Notification,
+  ManageAccounts,
 };

@@ -20,6 +20,9 @@ import {
   // EditProfile,
   // AddProducts,
   // EditProducts,
+  // Settings,
+  // Notification,
+  // ManageAccounts,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -44,6 +47,9 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
       {/* <AppStack.Screen name="AddProducts" component={AddProducts} /> */}
       {/* <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
+      {/* <AppStack.Screen name="Settings" component={Settings} /> */}
+      {/* <AppStack.Screen name="Notification" component={Notification} /> */}
+      {/* <AppStack.Screen name="ManageAccounts" component={ManageAccounts} /> */}
     </AppStack.Navigator>
   );
 };

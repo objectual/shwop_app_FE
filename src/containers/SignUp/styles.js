@@ -127,7 +127,7 @@ export default StyleSheet.create({
     borderRightWidth: 0,
   },
   inputTag: {
-    flex: 1,
+    width: Metrics.screenWidth * 0.58,
     height: Metrics.ratio(40),
     borderTopLeftRadius: Metrics.ratio(30),
     borderBottomLeftRadius: Metrics.ratio(30),

@@ -218,7 +218,7 @@ const RecordVideo = props => {
       </View>
 
       <View style={{...styles.actionButtonsContainer}}>
-        {!isRecording && !recordedVideoUri && (
+        {!isRecording && !recordedVideoUri && !showTimer && (
           <React.Fragment>
             <TouchableOpacity
               style={{...styles.actionButton}}
@@ -244,7 +244,7 @@ const RecordVideo = props => {
                 resizeMode={'contain'}
                 style={{...styles.actionButtonImage}}
               />
-              <Text style={{...styles.actionButtonText}}>Timer</Text>
+              <Text style={{...styles.actionButtonText}}>Flash</Text>
             </TouchableOpacity>
           </React.Fragment>
         )}
@@ -300,7 +300,7 @@ const RecordVideo = props => {
         />
       </View>
 
-      {!recordedVideoUri && (
+      {!recordedVideoUri && !showTimer && (
         <View style={{...styles.recorderContainer}}>
           {!isRecording && (
             <TouchableOpacity onPress={handleCameraType}>
@@ -330,27 +330,29 @@ const RecordVideo = props => {
         </View>
       )}
 
-      <View style={{...styles.timelineContainer}}>
-        <View style={{...styles.timelineTimerContainer}}>
-          <Text style={{...styles.timelineTimerText}}>
-            {moment.utc(progress * 1000).format('mm:ss')}
-          </Text>
-          <Text style={{...styles.timelineTimerText}}>
-            {moment.utc(timeline * 1000).format('mm:ss')}
-          </Text>
+      {!showTimer && (
+        <View style={{...styles.timelineContainer}}>
+          <View style={{...styles.timelineTimerContainer}}>
+            <Text style={{...styles.timelineTimerText}}>
+              {moment.utc(progress * 1000).format('mm:ss')}
+            </Text>
+            <Text style={{...styles.timelineTimerText}}>
+              {moment.utc(timeline * 1000).format('mm:ss')}
+            </Text>
+          </View>
+
+          <Progress.Bar
+            progress={progress / timeline}
+            color={Colors.Charade}
+            unfilledColor={Colors.White}
+            borderWidth={0}
+            width={progressBarWidth}
+            height={Metrics.ratio(6)}
+          />
         </View>
+      )}
 
-        <Progress.Bar
-          progress={progress / timeline}
-          color={Colors.Charade}
-          unfilledColor={Colors.White}
-          borderWidth={0}
-          width={progressBarWidth}
-          height={Metrics.ratio(6)}
-        />
-      </View>
-
-      {!recordedVideoUri && !isRecording && (
+      {!recordedVideoUri && !isRecording && !showTimer && (
         <View style={{...styles.videoTimingsContainer}}>
           {videoTimings.map(item => (
             <TouchableOpacity

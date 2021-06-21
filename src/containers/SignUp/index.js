@@ -123,7 +123,6 @@ const SignUp = props => {
   };
 
   const onSubmit = value => {
-    // alert('sa');
     if (value === 'onDone') {
       handleValidation();
     } else {
@@ -267,6 +266,7 @@ const SignUp = props => {
             <Text style={{...styles.labelTopText}}>Bio</Text>
           ) : null}
           <TextInput
+            maxLength={120}
             value={bio}
             onChangeText={onChangeTitle}
             style={{...styles.titleTextInput}}

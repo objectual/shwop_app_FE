@@ -60,6 +60,7 @@ const AfterSplash = props => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const [isHideOptions, setIsHideOptions] = useState(false);
   const [modalTopOffset, setModalTopOffset] = useState(
     Metrics.screenHeight * 0.45,
   );
@@ -95,7 +96,10 @@ const AfterSplash = props => {
   };
 
   return (
-    <Layout {...props} isLogedIn={false}>
+    <Layout
+      {...props}
+      isLogedIn={false}
+      isModalizeOpen={value => setIsHideOptions(value)}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}
@@ -106,15 +110,20 @@ const AfterSplash = props => {
         {...props}
         leftIcon={Images.menu}
         isLeftIconImg={true}
+        leftIconImageStyle={{...styles.leftIconImageStyle}}
+        leftBtnPress={() => props.navigation.openDrawer()}
         isRightIconImg={true}
         rightIcon={Images.filter}
-        leftBtnPress={() => props.navigation.openDrawer()}
         rightBtnPress={() => props.navigation.goBack()}
         headerTextStyle={styles.headerTextStyle}
+        rightIconImageStyle={{...styles.leftIconImageStyle}}
       />
-      {!isLoading && !isOpen && <SocialOptions onPress={openModalize} />}
 
-      {!isLoading && !isOpen && <VideoBuyCard />}
+      {!isLoading && !isOpen && !isHideOptions && (
+        <SocialOptions onPress={openModalize} />
+      )}
+
+      {!isLoading && !isOpen && !isHideOptions && <VideoBuyCard />}
 
       <CustomVideoPlayer
         source={{uri: videoUrl}}
@@ -131,6 +140,8 @@ const AfterSplash = props => {
         footerComponent={renderCommentBox}
         modalTopOffset={modalTopOffset}
         renderItem={renderCommentMsg}
+        onOpened={() => setIsHideOptions(true)}
+        onClosed={() => setIsHideOptions(false)}
       />
 
       <OverlayLoader isLoading={isLoading} />

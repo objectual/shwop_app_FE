@@ -11,7 +11,6 @@ import {
   TermsAndConditions,
   ReturnPolicy,
   WishList,
-  Settings,
 } from '../../containers';
 
 const Drawer = createDrawerNavigator();
@@ -52,11 +51,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="WishList"
         component={WishList}
-        options={{...drawerScreenOptions}}
-      />
-      <Drawer.Screen
-        name="Settings"
-        component={Settings}
         options={{...drawerScreenOptions}}
       />
     </Drawer.Navigator>
