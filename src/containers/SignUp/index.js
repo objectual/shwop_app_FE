@@ -284,7 +284,6 @@ const SignUp = props => {
             placeholder={'Bio'}
             placeholderTextColor={Colors.Mercury}
             multiline={true}
-            maxLength={120}
             ref={textInputRef}
             numberOfLines={10}
             onFocus={() => setFloatLabel(true)}

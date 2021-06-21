@@ -34,7 +34,7 @@ import {
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="SignUp">
+    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />
