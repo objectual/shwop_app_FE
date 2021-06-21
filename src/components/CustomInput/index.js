@@ -71,7 +71,11 @@ const CustomTextInput = props => {
         />
         <TouchableOpacity onPress={onPressEye}>
           <Image
-            style={styles.rightIcon}
+            style={
+              floatingLabel && floatLabel
+                ? styles.rightFloatIcon
+                : styles.rightIcon
+            }
             resizeMode="contain"
             source={secureTextEntry ? inputRightIcon : inputRightHideIcon}
           />

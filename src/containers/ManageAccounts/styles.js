@@ -6,7 +6,7 @@ export default StyleSheet.create({
   headerSeparator: {
     backgroundColor: Colors.White,
     width: '100%',
-    height: Metrics.ratio(50),
+    height: Metrics.ratio(30),
     borderBottomLeftRadius: Metrics.ratio(10),
     borderBottomRightRadius: Metrics.ratio(10),
   },

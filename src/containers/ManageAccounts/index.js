@@ -33,6 +33,7 @@ const ManageAccounts = props => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [secureText, setSecureText] = useState(true);
 
   const [fullNameError, setFullNameError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
@@ -45,6 +46,10 @@ const ManageAccounts = props => {
     } else {
       value.current.focus();
     }
+  };
+
+  const handleSecureTextEntry = () => {
+    setSecureText(!secureText);
   };
 
   const onChangeInput = (value, state, errorState, regex, errorMessage) => {
@@ -137,8 +142,12 @@ const ManageAccounts = props => {
             ) : null}
 
             <CustomTextInput
-              returnKeyType="next"
               enablesReturnKeyAutomaticallly={true}
+              inputRightIcon={Images.eyeShowPass}
+              inputRightHideIcon={Images.eyeHidePass}
+              secureTextEntry={secureText}
+              onPressEye={handleSecureTextEntry}
+              returnKeyType="next"
               placeholder="Password"
               editable={true}
               refrence={createRef.passwordRef}
@@ -163,6 +172,10 @@ const ManageAccounts = props => {
             <CustomTextInput
               returnKeyType="done"
               enablesReturnKeyAutomaticallly={true}
+              inputRightIcon={Images.eyeShowPass}
+              inputRightHideIcon={Images.eyeHidePass}
+              secureTextEntry={secureText}
+              onPressEye={handleSecureTextEntry}
               placeholder="Confirm Password"
               editable={true}
               refrence={createRef.confirmPasswordRef}

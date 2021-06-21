@@ -55,4 +55,9 @@ export default StyleSheet.create({
     width: Metrics.ratio(20),
     marginRight: Metrics.ratio(10),
   },
+  rightFloatIcon: {
+    marginTop: Metrics.ratio(-10),
+    width: Metrics.ratio(20),
+    marginRight: Metrics.ratio(10),
+  },
 });
