@@ -17,11 +17,7 @@ import RNFS from 'react-native-fs';
 
 import styles from './styles';
 
-import {
-  RecordingButton,
-  CustomModalize,
-  CameraCountdown,
-} from '../../components';
+import {RecordingButton, CameraCountdown} from '../../components';
 import {Images, Colors, Metrics, Fonts} from '../../theme';
 import util from '../../util';
 
@@ -30,7 +26,6 @@ let _progress = 0;
 
 const RecordVideo = props => {
   const cameraRef = useRef(null);
-  const modalizeRef = useRef(null);
 
   const [videoTimings] = useState([15, 60, 90]);
   const [timer] = useState([5, 10, 15]);
@@ -42,6 +37,7 @@ const RecordVideo = props => {
   const [progress, setProgress] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideoUri, setRecordedVideoUri] = useState(false);
+  const [showTimerModal, setShowTimerModal] = useState(false);
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
@@ -82,11 +78,11 @@ const RecordVideo = props => {
   };
 
   const closeModalize = () => {
-    modalizeRef.current?.close();
+    setShowTimerModal(false);
   };
 
   const openModalize = () => {
-    modalizeRef.current?.open();
+    setShowTimerModal(true);
   };
 
   const handleCloseBtn = () => {
@@ -284,7 +280,7 @@ const RecordVideo = props => {
           style={{...styles.camera}}
           type={cameraType}
           flashMode={flashMode}
-          captureAudi={true}
+          captureAudio={true}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
@@ -375,30 +371,34 @@ const RecordVideo = props => {
         </View>
       )}
 
-      <CustomModalize
-        modalizeType={'children'}
-        modalizeRef={modalizeRef}
-        modalTopOffset={Metrics.screenHeight * 0.65}
-        headerComponent={renderHeaderComponent()}>
-        <View style={{...styles.timerContainer}}>
-          <View style={{...styles.timerItemsRow}}>
-            {timer.map(item => (
+      {showTimerModal && (
+        <View style={{...styles.modilzeOverlayStyle}}>
+          <View style={{...styles.modilzeContainer}}>
+            {renderHeaderComponent()}
+            <View style={{...styles.timerContainer}}>
+              <View style={{...styles.timerItemsRow}}>
+                {timer.map(item => (
+                  <TouchableOpacity
+                    onPress={() => setSelectedTimer(item)}
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    style={{
+                      ...styles.timerItem,
+                      borderWidth:
+                        item === selectedTimer ? Metrics.ratio(1) : 0,
+                    }}>
+                    <Text style={{...styles.timerItemText}}>{`${item}s`}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
               <TouchableOpacity
-                onPress={() => setSelectedTimer(item)}
-                // eslint-disable-next-line react-native/no-inline-styles
-                style={{
-                  ...styles.timerItem,
-                  borderWidth: item === selectedTimer ? Metrics.ratio(1) : 0,
-                }}>
-                <Text style={{...styles.timerItemText}}>{`${item}s`}</Text>
+                onPress={closeModalize}
+                style={{...styles.doneBtn}}>
+                <Text style={{...styles.doneBtnText}}>Done</Text>
               </TouchableOpacity>
-            ))}
+            </View>
           </View>
-          <TouchableOpacity onPress={closeModalize} style={{...styles.doneBtn}}>
-            <Text style={{...styles.doneBtnText}}>Done</Text>
-          </TouchableOpacity>
         </View>
-      </CustomModalize>
+      )}
       <CameraCountdown duration={selectedTimer} isPlaying={showTimer} />
     </View>
   );

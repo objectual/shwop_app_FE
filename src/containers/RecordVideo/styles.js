@@ -191,4 +191,22 @@ export default StyleSheet.create({
     fontSize: Metrics.ratio(14),
     color: Colors.White,
   },
+  modilzeOverlayStyle: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    bottom: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'flex-end',
+    zIndex: 1,
+  },
+  modilzeContainer: {
+    backgroundColor: Colors.White,
+    paddingTop: Metrics.ratio(16),
+    paddingBottom: Metrics.ratio(32),
+    borderTopRightRadius: Metrics.ratio(16),
+    borderTopLeftRadius: Metrics.ratio(16),
+    height: Metrics.screenHeight * 0.32,
+  },
 });
