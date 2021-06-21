@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   ScrollView,
@@ -19,6 +19,7 @@ import {
   PurpleButton,
 } from '../../components';
 import {Images, Colors} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 
 import styles from './styles';
 
@@ -51,6 +52,16 @@ const SignUp = props => {
   const [secureText, setSecureText] = useState(true);
   const [secureTextConfirm, setSecureTextConfirm] = useState(true);
   const [floatLabel, setFloatLabel] = useState(false);
+
+  const textInputRef = useRef();
+
+  const [isOpen] = useKeyboardStatus();
+
+  useEffect(() => {
+    if (!isOpen) {
+      textInputRef.current.blur();
+    }
+  }, [isOpen]);
 
   let errors = {
     fullNameErr: 'Full name is required.',
@@ -273,7 +284,9 @@ const SignUp = props => {
             placeholder={'Bio'}
             placeholderTextColor={Colors.Mercury}
             multiline={true}
-            numberOfLines={9}
+            maxLength={120}
+            ref={textInputRef}
+            numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => {
               let isFloatLabel = bio == '' || bio == undefined ? false : true;

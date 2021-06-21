@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   Text,
   ScrollView,
@@ -22,6 +22,7 @@ import {
   Layout,
 } from '../../components';
 import {Images, Colors, Metrics, Fonts} from '../../theme';
+import {useKeyboardStatus} from '../../hooks';
 
 import styles from './styles';
 
@@ -46,6 +47,16 @@ const AddProducts = props => {
   const [imageError, setImageError] = useState('');
   const [bioError, setBioError] = useState('');
   const [uploadImage, setUploadImage] = useState([]);
+
+  const textInputRef = useRef();
+
+  const [isOpen] = useKeyboardStatus();
+
+  useEffect(() => {
+    if (!isOpen) {
+      textInputRef.current.blur();
+    }
+  }, [isOpen]);
 
   console.log(uploadImage, 'uploadImage');
 
@@ -271,7 +282,9 @@ const AddProducts = props => {
             placeholder={'Description'}
             placeholderTextColor={Colors.Mercury}
             multiline={true}
-            numberOfLines={15}
+            ref={textInputRef}
+            numberOfLines={10}
+            maxLength={120}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => {
               let isFloatLabel = bio == '' || bio == undefined ? false : true;
@@ -346,7 +359,7 @@ const AddProducts = props => {
     <Layout {...props} isLogedIn={true}>
       <StatusBar
         translucent
-        backgroundColor={'transparent'}
+        backgroundColor={Colors.White}
         barStyle="dark-content"
       />
       <Header
@@ -357,6 +370,8 @@ const AddProducts = props => {
         leftBtnPress={() => props.navigation.goBack()}
         rightBtnPress={() => props.navigation.goBack()}
         headerTextStyle={styles.headerTextStyle}
+        isDropShadow={false}
+        headerBgColor={Colors.White}
       />
       <ScrollView>
         <View style={{...styles.imageView}}>

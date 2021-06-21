@@ -4,9 +4,10 @@ import {Colors, Metrics, Fonts} from '../../theme';
 export default StyleSheet.create({
   imageView: {
     backgroundColor: Colors.White,
-    marginHorizontal: Metrics.ratio(16),
+    marginHorizontal: Metrics.ratio(14),
     borderRadius: Metrics.ratio(10),
     paddingBottom: Metrics.ratio(15),
+    marginTop: Metrics.ratio(15),
   },
   buyBtn: {
     backgroundColor: Colors.Affair,
@@ -15,7 +16,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Metrics.ratio(15),
-    width: Metrics.ratio(140),
+    width: Metrics.ratio(120),
     flexDirection: 'row',
   },
   uploadBtn: {
@@ -26,7 +27,7 @@ export default StyleSheet.create({
     paddingRight: Metrics.ratio(15),
     justifyContent: 'center',
     alignItems: 'center',
-    width: Metrics.ratio(140),
+    width: Metrics.ratio(120),
     flexDirection: 'row',
     marginTop: Metrics.ratio(15),
   },
@@ -52,7 +53,7 @@ export default StyleSheet.create({
   BuyBtnText: {
     color: Colors.White,
     fontFamily: Fonts.type.NunitoBold,
-    fontSize: Metrics.ratio(12),
+    fontSize: Metrics.ratio(10),
     marginLeft: Metrics.ratio(10),
   },
   pickerView: {
@@ -62,8 +63,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   upload: {
-    height: Metrics.ratio(15),
-    width: Metrics.ratio(15),
+    height: Metrics.ratio(12),
+    width: Metrics.ratio(12),
   },
   picker_arrow: {
     height: Metrics.ratio(15),
@@ -71,7 +72,6 @@ export default StyleSheet.create({
   },
   uploadArea: {
     paddingHorizontal: Metrics.ratio(15),
-
     justifyContent: 'space-between',
     marginBottom: Metrics.ratio(5),
     flexDirection: 'row',

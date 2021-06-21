@@ -23,6 +23,10 @@ import AddProducts from './AddProducts';
 import EditProducts from './EditProducts';
 import Notification from './Notification';
 import ManageAccounts from './ManageAccounts';
+import AddTermsAndConditions from './AddTermsAndConditions';
+import AddReturnPolicy from './AddReturnPolicy';
+import EditTermsAndConditions from './EditTermsAndConditions';
+import EditReturnPolicy from './EditReturnPolicy';
 
 export {
   Chat,
@@ -50,4 +54,8 @@ export {
   EditProducts,
   Notification,
   ManageAccounts,
+  AddTermsAndConditions,
+  AddReturnPolicy,
+  EditTermsAndConditions,
+  EditReturnPolicy,
 };

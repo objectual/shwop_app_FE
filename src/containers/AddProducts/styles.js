@@ -4,10 +4,12 @@ import {Colors, Metrics, Fonts} from '../../theme';
 export default StyleSheet.create({
   imageView: {
     backgroundColor: Colors.White,
-    marginHorizontal: Metrics.ratio(16),
+    marginHorizontal: Metrics.ratio(14),
     borderRadius: Metrics.ratio(10),
     paddingBottom: Metrics.ratio(15),
+    marginTop: Metrics.ratio(15),
   },
+
   buyBtn: {
     backgroundColor: Colors.Affair,
     borderRadius: Metrics.ratio(20),

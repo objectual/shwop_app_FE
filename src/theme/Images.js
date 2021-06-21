@@ -86,6 +86,8 @@ const picker_arrow = require('../assets/images/icons/picker_arrow.png');
 const right_arrow_settings = require('../assets/images/icons/right_arrow_settings.png');
 const logout_settings = require('../assets/images/icons/logout_settings.png');
 const down_arrow_settings = require('../assets/images/icons/down_arrow_settings.png');
+const terms = require('../assets/images/backgrounds/terms.png');
+const returnPolicy = require('../assets/images/backgrounds/returnPolicy.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -176,4 +178,6 @@ export default {
   right_arrow_settings,
   logout_settings,
   down_arrow_settings,
+  terms,
+  returnPolicy,
 };
