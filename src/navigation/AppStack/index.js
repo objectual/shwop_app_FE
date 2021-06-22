@@ -12,6 +12,7 @@ import {
   Main,
   CompleteVideo,
   TagProduct,
+  // VideoTrimmer,
   // OrdersListing,
   // OthersProfile,
   // ProductInfo,
@@ -71,6 +72,7 @@ const AppStackScreen = ({screenNavigate}) => {
         component={EditTermsAndConditions}
       />
       <AppStack.Screen name="EditReturnPolicy" component={EditReturnPolicy} /> */}
+      {/* <AppStack.Screen name="VideoTrimmer" component={VideoTrimmer} /> */}
     </AppStack.Navigator>
   );
 };

@@ -27,6 +27,7 @@ import AddTermsAndConditions from './AddTermsAndConditions';
 import AddReturnPolicy from './AddReturnPolicy';
 import EditTermsAndConditions from './EditTermsAndConditions';
 import EditReturnPolicy from './EditReturnPolicy';
+import VideoTrimmer from './VideoTrimmer';
 
 export {
   Chat,
@@ -58,4 +59,5 @@ export {
   AddReturnPolicy,
   EditTermsAndConditions,
   EditReturnPolicy,
+  VideoTrimmer,
 };
