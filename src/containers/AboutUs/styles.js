@@ -15,6 +15,7 @@ export default StyleSheet.create({
   formContainer: {
     paddingHorizontal: Metrics.ratio(16),
   },
+
   gradientButtonContainer: {
     marginTop: Metrics.ratio(25),
     marginBottom: Metrics.ratio(40),

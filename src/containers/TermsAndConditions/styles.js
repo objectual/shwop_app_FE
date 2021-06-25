@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 import {Colors, Metrics, Fonts} from '../../theme';
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   headerSeparator: {
     backgroundColor: Colors.White,
     width: '100%',
@@ -9,13 +12,9 @@ export default StyleSheet.create({
     borderBottomLeftRadius: Metrics.ratio(10),
     borderBottomRightRadius: Metrics.ratio(10),
   },
-  contentScrollView: {
-    marginBottom: Metrics.ratio(55),
-  },
   formContainer: {
     paddingHorizontal: Metrics.ratio(16),
   },
-
   gradientButtonContainer: {
     marginTop: Metrics.ratio(25),
     marginBottom: Metrics.ratio(40),

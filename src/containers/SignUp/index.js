@@ -11,7 +11,12 @@ import {
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
-import {nameRegex, passwordRegex, validate} from '../../services/Validation';
+import {
+  nameRegex,
+  fullNameRegex,
+  passwordRegex,
+  validate,
+} from '../../services/Validation';
 import {
   Header,
   CustomTextInput,
@@ -165,7 +170,7 @@ const SignUp = props => {
               value,
               setFullname,
               setFullnameError,
-              nameRegex,
+              fullNameRegex,
               fullnameError,
             )
           }
@@ -255,6 +260,7 @@ const SignUp = props => {
         <CustomPhoneInput
           handlePhoneInput={handlePhoneInput}
           phoneInputTxt={phoneInput}
+          isHelpText={true}
         />
         {phoneError ? <Text style={styles.errormsg}> {phoneError}</Text> : null}
 
@@ -288,10 +294,7 @@ const SignUp = props => {
             ref={textInputRef}
             numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
-            onBlur={() => {
-              let isFloatLabel = bio == '' || bio == undefined ? false : true;
-              setFloatLabel(isFloatLabel);
-            }}
+            onBlur={() => setFloatLabel(bio !== '')}
           />
           <Text
             style={{

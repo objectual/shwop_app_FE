@@ -3,7 +3,7 @@ import {View, Text, Image, StatusBar, ScrollView} from 'react-native';
 
 import styles from './styles';
 
-import {Layout, Header} from '../../components';
+import {Header} from '../../components';
 import {Images, Colors} from '../../theme';
 
 const TermsAndConditions = props => {
@@ -12,7 +12,7 @@ const TermsAndConditions = props => {
   };
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <View style={{...styles.container}}>
       <StatusBar
         translucent
         backgroundColor={Colors.Concrete}
@@ -30,7 +30,7 @@ const TermsAndConditions = props => {
         headerText={'Term & Conditions'}
       />
 
-      <ScrollView style={{...styles.contentScrollView}}>
+      <ScrollView>
         <View style={{...styles.formContainer}}>
           <Image
             resizeMode="contain"
@@ -66,7 +66,7 @@ const TermsAndConditions = props => {
           </View>
         </View>
       </ScrollView>
-    </Layout>
+    </View>
   );
 };
 

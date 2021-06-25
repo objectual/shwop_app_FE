@@ -15,9 +15,6 @@ export default StyleSheet.create({
   formContainer: {
     paddingHorizontal: Metrics.ratio(16),
   },
-  titleContainer: {
-    marginTop: Metrics.ratio(16),
-  },
   titleTextInput: {
     backgroundColor: Colors.White,
     textAlignVertical: 'top',
@@ -59,5 +56,8 @@ export default StyleSheet.create({
     color: 'red',
     fontSize: Fonts.size.fourteen,
     fontFamily: Fonts.type.Nunito,
+  },
+  customPhoneInputContainer: {
+    marginBottom: Metrics.ratio(16),
   },
 });

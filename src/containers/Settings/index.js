@@ -171,12 +171,12 @@ const Settings = props => {
 
         {renderButton({
           label: 'About Us',
-          onPress: () => {},
+          onPress: () => handleNavigation('AboutUs'),
         })}
 
         {renderButton({
           label: 'Contact Us',
-          onPress: () => {},
+          onPress: () => handleNavigation('ContactUs'),
         })}
 
         <View style={{...styles.logoutContainer}}>

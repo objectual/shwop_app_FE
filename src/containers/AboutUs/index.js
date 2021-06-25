@@ -6,11 +6,7 @@ import styles from './styles';
 import {Header} from '../../components';
 import {Images, Colors} from '../../theme';
 
-const ReturnPolicy = props => {
-  const handleNavigation = (screenName, params) => {
-    props.navigation.navigate(screenName, {...params});
-  };
-
+const AboutUs = props => {
   return (
     <View style={{...styles.container}}>
       <StatusBar
@@ -18,17 +14,12 @@ const ReturnPolicy = props => {
         backgroundColor={Colors.Concrete}
         barStyle="dark-content"
       />
-
       <Header
-        {...props}
-        isDropShadow={false}
         leftIcon={Images.back_arrow_nav}
-        rightIcon={Images.edit_product_info}
         isLeftIconImg={true}
-        isRightIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
-        rightBtnPress={() => handleNavigation('EditReturnPolicy')}
-        headerText={'Return Policy'}
+        headerText={'About Us'}
+        isDropShadow={false}
       />
 
       <ScrollView>
@@ -36,8 +27,9 @@ const ReturnPolicy = props => {
           <Image
             resizeMode="contain"
             style={styles.terms_bg}
-            source={Images.terms}
+            source={Images.about_us}
           />
+
           <View style={{...styles.descriptionContainer}}>
             <Text style={{...styles.descriptionText}}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -71,8 +63,8 @@ const ReturnPolicy = props => {
   );
 };
 
-ReturnPolicy.defaultProps = {};
+AboutUs.defaultProps = {};
 
-ReturnPolicy.propTypes = {};
+AboutUs.propTypes = {};
 
-export default ReturnPolicy;
+export default AboutUs;

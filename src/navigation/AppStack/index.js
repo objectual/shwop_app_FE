@@ -28,6 +28,8 @@ import {
   // ManageAccounts,
   // EditProfile,
   // Notification,
+  // AboutUs,
+  // ContactUs,
   // VideoTrimmer,
   // OthersProfile,
 } from '../../containers';
@@ -71,6 +73,8 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="ManageAccounts" component={ManageAccounts} /> */}
       {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
       {/* <AppStack.Screen name="Notification" component={Notification} /> */}
+      {/* <AppStack.Screen name="AboutUs" component={AboutUs} /> */}
+      {/* <AppStack.Screen name="ContactUs" component={ContactUs} /> */}
       {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
       {/* <AppStack.Screen name="VideoTrimmer" component={VideoTrimmer} /> */}
     </AppStack.Navigator>

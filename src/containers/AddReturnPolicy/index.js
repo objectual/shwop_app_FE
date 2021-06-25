@@ -10,7 +10,7 @@ import {
 
 import styles from './styles';
 
-import {Layout, Header, GradientButton} from '../../components';
+import {Header, GradientButton} from '../../components';
 import {Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
 
@@ -41,12 +41,13 @@ const AddReturnPolicy = props => {
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <View style={{...styles.container}}>
       <StatusBar
         translucent
         backgroundColor={Colors.Concrete}
         barStyle="dark-content"
       />
+
       <Header
         {...props}
         isDropShadow={false}
@@ -56,7 +57,7 @@ const AddReturnPolicy = props => {
         headerText={'Return Policy'}
       />
 
-      <ScrollView style={{...styles.contentScrollView}}>
+      <ScrollView>
         <View style={{...styles.formContainer}}>
           <Image
             resizeMode="contain"
@@ -78,11 +79,7 @@ const AddReturnPolicy = props => {
               numberOfLines={10}
               maxLength={120}
               onFocus={() => setFloatLabel(true)}
-              onBlur={() => {
-                let isFloatLabel =
-                  title == '' || title == undefined ? false : true;
-                setFloatLabel(isFloatLabel);
-              }}
+              onBlur={() => setFloatLabel(title !== '')}
             />
             <Text
               style={{
@@ -99,7 +96,7 @@ const AddReturnPolicy = props => {
           />
         </View>
       </ScrollView>
-    </Layout>
+    </View>
   );
 };
 

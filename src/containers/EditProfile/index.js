@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
-import {nameRegex, validate} from '../../services/Validation';
+import {nameRegex, fullNameRegex, validate} from '../../services/Validation';
 import {Header, CustomTextInput, PurpleButton} from '../../components';
 import {Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
@@ -103,7 +103,7 @@ const EditProfile = props => {
               value,
               setFullname,
               setFullnameError,
-              nameRegex,
+              fullNameRegex,
               fullnameError,
             )
           }

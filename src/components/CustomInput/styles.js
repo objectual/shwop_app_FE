@@ -14,7 +14,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
-
   InputFloatView: {
     paddingHorizontal: Metrics.ratio(15),
     borderRadius: Metrics.ratio(30),
@@ -28,7 +27,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
   },
-
   labelTopText: {
     position: 'absolute',
     color: Colors.Affair,

@@ -287,10 +287,7 @@ const EditProducts = props => {
             ref={textInputRef}
             numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
-            onBlur={() => {
-              let isFloatLabel = bio == '' || bio == undefined ? false : true;
-              setFloatLabel(isFloatLabel);
-            }}
+            onBlur={() => setFloatLabel(bio !== '')}
           />
           <Text
             style={{

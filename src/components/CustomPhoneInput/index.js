@@ -20,7 +20,7 @@ const CustomPhoneInput = props => {
   };
 
   return (
-    <View>
+    <View style={{...props.containerStyle}}>
       <PhoneInput
         ref={props.phoneInputTxt}
         defaultValue={value}
@@ -43,9 +43,13 @@ const CustomPhoneInput = props => {
         }}
         // withShadow
       />
-      <Text style={{...styles.verificationText}}>
-        Verification code will be sent to you on the number you added above!
-      </Text>
+
+      {props.isHelpText ? (
+        <Text style={{...styles.verificationText}}>
+          Verification code will be sent to you on the number you added above!
+        </Text>
+      ) : null}
+
       {props.phoneInputTxt.current?.isValidNumber(value) ? (
         <View style={{...styles.warningTextView}}>
           <Text style={{...styles.warningText}}>

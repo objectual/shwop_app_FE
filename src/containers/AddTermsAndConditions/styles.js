@@ -2,15 +2,15 @@ import {StyleSheet} from 'react-native';
 import {Colors, Metrics, Fonts} from '../../theme';
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   headerSeparator: {
     backgroundColor: Colors.White,
     width: '100%',
     height: Metrics.ratio(50),
     borderBottomLeftRadius: Metrics.ratio(10),
     borderBottomRightRadius: Metrics.ratio(10),
-  },
-  contentScrollView: {
-    marginBottom: Metrics.ratio(55),
   },
   formContainer: {
     paddingHorizontal: Metrics.ratio(16),

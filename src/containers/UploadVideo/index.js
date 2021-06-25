@@ -166,11 +166,7 @@ const UploadVideo = props => {
               multiline={true}
               numberOfLines={10}
               onFocus={() => setFloatLabel(true)}
-              onBlur={() => {
-                let isFloatLabel =
-                  title == '' || title == undefined ? false : true;
-                setFloatLabel(isFloatLabel);
-              }}
+              onBlur={() => setFloatLabel(title !== '')}
             />
             <Text
               style={{

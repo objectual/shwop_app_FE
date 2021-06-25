@@ -28,6 +28,8 @@ import AddReturnPolicy from './AddReturnPolicy';
 import EditTermsAndConditions from './EditTermsAndConditions';
 import EditReturnPolicy from './EditReturnPolicy';
 import VideoTrimmer from './VideoTrimmer';
+import AboutUs from './AboutUs';
+import ContactUs from './ContactUs';
 
 export {
   Chat,
@@ -60,4 +62,6 @@ export {
   EditTermsAndConditions,
   EditReturnPolicy,
   VideoTrimmer,
+  AboutUs,
+  ContactUs,
 };

@@ -17,7 +17,11 @@ import {
 } from '../../components';
 import {Metrics, Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
-import {nameRegex, passwordRegex, validate} from '../../services/Validation';
+import {
+  fullNameRegex,
+  passwordRegex,
+  validate,
+} from '../../services/Validation';
 
 const ManageAccounts = props => {
   const [isOpen] = useKeyboardStatus();
@@ -122,7 +126,7 @@ const ManageAccounts = props => {
                   value,
                   setFullName,
                   setFullNameError,
-                  nameRegex,
+                  fullNameRegex,
                   fullNameError,
                 );
               }}
@@ -136,6 +140,7 @@ const ManageAccounts = props => {
             <CustomPhoneInput
               handlePhoneInput={setPhoneNumber}
               phoneInputTxt={createRef.phoneNumberRef}
+              isHelpText={false}
             />
             {phoneNumberError ? (
               <Text style={styles.errormsg}> {phoneNumberError}</Text>

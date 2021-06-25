@@ -10,7 +10,7 @@ import {
 
 import styles from './styles';
 
-import {Layout, Header, GradientButton} from '../../components';
+import {Header, GradientButton} from '../../components';
 import {Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
 
@@ -41,7 +41,7 @@ const EditTermsAndConditions = props => {
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <View style={{...styles.container}}>
       <StatusBar
         translucent
         backgroundColor={Colors.Concrete}
@@ -56,7 +56,7 @@ const EditTermsAndConditions = props => {
         headerText={'Edit Term & Conditions'}
       />
 
-      <ScrollView style={{...styles.contentScrollView}}>
+      <ScrollView>
         <View style={{...styles.formContainer}}>
           <Image
             resizeMode="contain"
@@ -78,11 +78,7 @@ const EditTermsAndConditions = props => {
               maxLength={120}
               numberOfLines={10}
               onFocus={() => setFloatLabel(true)}
-              onBlur={() => {
-                let isFloatLabel =
-                  title == '' || title == undefined ? false : true;
-                setFloatLabel(isFloatLabel);
-              }}
+              onBlur={() => setFloatLabel(title !== '')}
             />
             <Text
               style={{
@@ -99,7 +95,7 @@ const EditTermsAndConditions = props => {
           />
         </View>
       </ScrollView>
-    </Layout>
+    </View>
   );
 };
 

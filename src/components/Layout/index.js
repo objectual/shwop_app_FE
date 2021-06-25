@@ -103,6 +103,7 @@ const Layout = props => {
           <CustomPhoneInput
             handlePhoneInput={handlePhoneInput}
             phoneInputTxt={phoneInput}
+            isHelpText={true}
           />
         </View>
         <GradientButton
@@ -148,6 +149,7 @@ const Layout = props => {
           <CustomPhoneInput
             handlePhoneInput={handlePhoneInput}
             phoneInputTxt={phoneInput}
+            isHelpText={true}
           />
         </View>
         <GradientButton
