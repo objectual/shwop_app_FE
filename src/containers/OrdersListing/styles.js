@@ -36,7 +36,7 @@ export default StyleSheet.create({
     color: Colors.Charade,
   },
   contentContainerStyle: {
-    paddingBottom: Metrics.ratio(75),
+    paddingBottom: Metrics.ratio(80),
   },
   orderCardContainer: {
     backgroundColor: Colors.White,

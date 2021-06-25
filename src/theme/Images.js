@@ -88,6 +88,7 @@ const logout_settings = require('../assets/images/icons/logout_settings.png');
 const down_arrow_settings = require('../assets/images/icons/down_arrow_settings.png');
 const terms = require('../assets/images/backgrounds/terms.png');
 const returnPolicy = require('../assets/images/backgrounds/returnPolicy.png');
+const orders_drawer = require('../assets/images/icons/orders_drawer.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -180,4 +181,5 @@ export default {
   down_arrow_settings,
   terms,
   returnPolicy,
+  orders_drawer,
 };

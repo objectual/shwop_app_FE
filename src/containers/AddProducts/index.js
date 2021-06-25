@@ -23,6 +23,7 @@ import {
 } from '../../components';
 import {Images, Colors, Metrics, Fonts} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
+import util from '../../util';
 
 import styles from './styles';
 
@@ -316,10 +317,14 @@ const AddProducts = props => {
         Platform.OS === 'android' &&
         granted !== PermissionsAndroid.RESULTS.GRANTED
       ) {
-        alert('Storage permission denied');
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: 'Storage permission denied',
+        });
       } else {
         ImagePicker.openPicker({
           multiple: true,
+          mediaType: 'photo',
         }).then(images => {
           setUploadImage([...images, ...uploadImage]);
         });
@@ -343,7 +348,10 @@ const AddProducts = props => {
       Platform.OS === 'android' &&
       granted !== PermissionsAndroid.RESULTS.GRANTED
     ) {
-      alert('Camera permission denied');
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: 'Camera permission denied',
+      });
     } else {
       ImagePicker.openCamera({
         width: 300,
@@ -386,7 +394,7 @@ const AddProducts = props => {
             </View>
             <View>
               <TouchableOpacity style={{...styles.uploadBtn}}>
-                <Image style={styles.upload} source={Images.upload} />
+                <Image style={{...styles.upload}} source={Images.upload} />
                 <Text
                   onPress={() => pickImage()}
                   style={{...styles.BuyBtnText}}>

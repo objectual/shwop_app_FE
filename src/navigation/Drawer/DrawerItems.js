@@ -32,6 +32,11 @@ const DrawerItems = [
     screenName: 'WishList',
   },
   {
+    image: Images.orders_drawer,
+    label: 'Orders',
+    screenName: 'OrdersListing',
+  },
+  {
     image: Images.settings_drawer,
     label: 'Settings',
     screenName: 'Settings',

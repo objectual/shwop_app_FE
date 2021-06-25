@@ -65,15 +65,13 @@ const EditReturnPolicy = props => {
           />
           <View style={{...styles.titleContainer}}>
             {floatLabel ? (
-              <Text style={{...styles.labelTopText}}>
-                Enter Term and Conditions
-              </Text>
+              <Text style={{...styles.labelTopText}}>Return Policy</Text>
             ) : null}
             <TextInput
               value={title}
               onChangeText={onChangeTitle}
               style={{...styles.titleTextInput}}
-              placeholder={'Enter Term and Conditions'}
+              placeholder={'Enter Return Policy'}
               placeholderTextColor={Colors.Mercury}
               multiline={true}
               ref={textInputRef}

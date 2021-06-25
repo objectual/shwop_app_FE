@@ -6,12 +6,7 @@ import DrawerContent from './DrawerContent';
 
 import AppStack from '../AppStack';
 
-import {
-  Shop,
-  TermsAndConditions,
-  ReturnPolicy,
-  WishList,
-} from '../../containers';
+import {Shop, WishList} from '../../containers';
 
 const Drawer = createDrawerNavigator();
 
@@ -36,16 +31,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Shop"
         component={Shop}
-        options={{...drawerScreenOptions}}
-      />
-      <Drawer.Screen
-        name="TermsAndConditions"
-        component={TermsAndConditions}
-        options={{...drawerScreenOptions}}
-      />
-      <Drawer.Screen
-        name="ReturnPolicy"
-        component={ReturnPolicy}
         options={{...drawerScreenOptions}}
       />
       <Drawer.Screen

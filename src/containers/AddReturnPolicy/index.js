@@ -65,7 +65,7 @@ const AddReturnPolicy = props => {
           />
           <View style={{...styles.titleContainer}}>
             {floatLabel ? (
-              <Text style={{...styles.labelTopText}}>Enter Return Policy</Text>
+              <Text style={{...styles.labelTopText}}>Return Policy</Text>
             ) : null}
             <TextInput
               value={title}

@@ -13,7 +13,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: Metrics.ratio(16),
-    paddingBottom: Metrics.ratio(75),
+    paddingBottom: Metrics.ratio(80),
   },
   brandContainer: {
     marginTop: Metrics.ratio(12),

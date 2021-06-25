@@ -7,6 +7,10 @@ import {Layout, Header} from '../../components';
 import {Images, Colors} from '../../theme';
 
 const TermsAndConditions = props => {
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   return (
     <Layout {...props} isLogedIn={true}>
       <StatusBar
@@ -22,7 +26,7 @@ const TermsAndConditions = props => {
         isLeftIconImg={true}
         isRightIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
-        rightBtnPress={() => props.navigation.goBack()}
+        rightBtnPress={() => handleNavigation('EditTermsAndConditions')}
         headerText={'Term & Conditions'}
       />
 

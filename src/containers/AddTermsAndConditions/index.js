@@ -65,9 +65,7 @@ const AddTermsAndConditions = props => {
           />
           <View style={{...styles.titleContainer}}>
             {floatLabel ? (
-              <Text style={{...styles.labelTopText}}>
-                Enter Term and Conditions
-              </Text>
+              <Text style={{...styles.labelTopText}}>Term and Conditions</Text>
             ) : null}
             <TextInput
               value={title}

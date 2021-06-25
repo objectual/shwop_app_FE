@@ -17,7 +17,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Metrics.ratio(15),
-    width: Metrics.ratio(140),
+    width: Metrics.ratio(120),
     flexDirection: 'row',
   },
   uploadBtn: {
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     paddingRight: Metrics.ratio(15),
     justifyContent: 'center',
     alignItems: 'center',
-    width: Metrics.ratio(140),
+    width: Metrics.ratio(120),
     flexDirection: 'row',
     marginTop: Metrics.ratio(15),
   },
@@ -54,7 +54,7 @@ export default StyleSheet.create({
   BuyBtnText: {
     color: Colors.White,
     fontFamily: Fonts.type.NunitoBold,
-    fontSize: Metrics.ratio(12),
+    fontSize: Metrics.ratio(10),
     marginLeft: Metrics.ratio(10),
   },
   pickerView: {
@@ -64,8 +64,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   upload: {
-    height: Metrics.ratio(15),
-    width: Metrics.ratio(15),
+    height: Metrics.ratio(12),
+    width: Metrics.ratio(12),
   },
   picker_arrow: {
     height: Metrics.ratio(15),

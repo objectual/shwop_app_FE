@@ -12,24 +12,24 @@ import {
   Main,
   CompleteVideo,
   TagProduct,
-  // VideoTrimmer,
-  // OrdersListing,
-  // OthersProfile,
-  // ProductInfo,
-  // MyProducts,
-  // Search,
-  // EditProfile,
-  // AddProducts,
-  // EditProducts,
-  // Settings,
-  // Notification,
-  // ManageAccounts,
+  MyProducts,
+  ProductInfo,
+  AddProducts,
+  EditProducts,
+  Search,
+  OrdersListing,
   // AddTermsAndConditions,
-  // TermsAndConditions,
+  TermsAndConditions,
+  EditTermsAndConditions,
   // AddReturnPolicy,
-  // ReturnPolicy,
-  // EditTermsAndConditions,
+  ReturnPolicy,
   // EditReturnPolicy,
+  // Settings,
+  // ManageAccounts,
+  // EditProfile,
+  // Notification,
+  // VideoTrimmer,
+  // OthersProfile,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -46,32 +46,32 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Main" component={Main} />
       <AppStack.Screen name="CompleteVideo" component={CompleteVideo} />
       <AppStack.Screen name="TagProduct" component={TagProduct} />
-      {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
-      {/* <AppStack.Screen name="ProductInfo" component={ProductInfo} /> */}
-      {/* <AppStack.Screen name="MyProducts" component={MyProducts} /> */}
-      {/* <AppStack.Screen name="Search" component={Search} /> */}
-      {/* <AppStack.Screen name="OrdersListing" component={OrdersListing} /> */}
-      {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
-      {/* <AppStack.Screen name="AddProducts" component={AddProducts} /> */}
-      {/* <AppStack.Screen name="EditProducts" component={EditProducts} /> */}
-      {/* <AppStack.Screen name="Settings" component={Settings} /> */}
-      {/* <AppStack.Screen name="Notification" component={Notification} /> */}
-      {/* <AppStack.Screen name="ManageAccounts" component={ManageAccounts} /> */}
+      <AppStack.Screen name="MyProducts" component={MyProducts} />
+      <AppStack.Screen name="ProductInfo" component={ProductInfo} />
+      <AppStack.Screen name="AddProducts" component={AddProducts} />
+      <AppStack.Screen name="EditProducts" component={EditProducts} />
+      <AppStack.Screen name="Search" component={Search} />
+      <AppStack.Screen name="OrdersListing" component={OrdersListing} />
       {/* <AppStack.Screen
         name="AddTermsAndConditions"
         component={AddTermsAndConditions}
-      />
+      /> */}
       <AppStack.Screen
         name="TermsAndConditions"
         component={TermsAndConditions}
       />
-      <AppStack.Screen name="AddReturnPolicy" component={AddReturnPolicy} />
-      <AppStack.Screen name="ReturnPolicy" component={ReturnPolicy} />
       <AppStack.Screen
         name="EditTermsAndConditions"
         component={EditTermsAndConditions}
       />
-      <AppStack.Screen name="EditReturnPolicy" component={EditReturnPolicy} /> */}
+      {/* <AppStack.Screen name="AddReturnPolicy" component={AddReturnPolicy} /> */}
+      <AppStack.Screen name="ReturnPolicy" component={ReturnPolicy} />
+      {/* <AppStack.Screen name="EditReturnPolicy" component={EditReturnPolicy} /> */}
+      {/* <AppStack.Screen name="Settings" component={Settings} /> */}
+      {/* <AppStack.Screen name="ManageAccounts" component={ManageAccounts} /> */}
+      {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
+      {/* <AppStack.Screen name="Notification" component={Notification} /> */}
+      {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
       {/* <AppStack.Screen name="VideoTrimmer" component={VideoTrimmer} /> */}
     </AppStack.Navigator>
   );

@@ -7,6 +7,10 @@ import {Layout, Header} from '../../components';
 import {Images, Colors} from '../../theme';
 
 const ReturnPolicy = props => {
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   return (
     <Layout {...props} isLogedIn={true}>
       <StatusBar
@@ -22,7 +26,7 @@ const ReturnPolicy = props => {
         isLeftIconImg={true}
         isRightIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
-        rightBtnPress={() => props.navigation.goBack()}
+        rightBtnPress={() => handleNavigation('EditReturnPolicy')}
         headerText={'Return Policy'}
       />
 

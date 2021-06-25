@@ -20,6 +20,7 @@ import {
 } from '../../components';
 import {Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
+import util from '../../util';
 
 import styles from './styles';
 
@@ -317,14 +318,20 @@ const SignUp = props => {
         Platform.OS === 'android' &&
         granted !== PermissionsAndroid.RESULTS.GRANTED
       ) {
-        alert('Storage permission denied');
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: 'Storage permission denied',
+        });
       } else {
         let options = {};
         launchImageLibrary(options, response => {
           if (response.didCancel) {
           } else if (response.error) {
           } else if (response.customButton) {
-            alert(response.customButton);
+            util.showAlertWithDelay({
+              title: 'Error',
+              message: response.customButton,
+            });
           } else {
             const image = {
               uri: response.assets[0].uri,
@@ -356,7 +363,10 @@ const SignUp = props => {
       Platform.OS === 'android' &&
       granted !== PermissionsAndroid.RESULTS.GRANTED
     ) {
-      alert('Camera permission denied');
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: 'Camera permission denied',
+      });
     } else {
       launchCamera(
         {
@@ -369,7 +379,10 @@ const SignUp = props => {
           if (response.didCancel) {
           } else if (response.error) {
           } else if (response.customButton) {
-            alert(response.customButton);
+            util.showAlertWithDelay({
+              title: 'Error',
+              message: response.customButton,
+            });
           } else {
             const image = {
               uri: response.assets[0].uri,

@@ -51,6 +51,10 @@ const Profile = props => {
     },
   ];
 
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   const handleUploads = () => {
     setActive(0);
     setActiveForYou(0);
@@ -68,14 +72,15 @@ const Profile = props => {
       />
       <Header
         {...props}
-        headerBgColor={Colors.White}
         isDropShadow={false}
         leftIcon={Images.back_arrow_nav}
-        rightIcon={Images.edit_btn}
-        isRightIconImg={true}
         isLeftIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
+        headerBgColor={Colors.White}
         headerText={'Emma Norman'}
+        rightIcon={Images.edit_btn}
+        isRightIconImg={true}
+        rightBtnPress={() => handleNavigation('EditProfile')}
       />
 
       <View style={{...styles.headerSeparator}} />
