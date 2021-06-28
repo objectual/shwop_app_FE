@@ -36,7 +36,7 @@ const ReturnPolicy = props => {
           <Image
             resizeMode="contain"
             style={styles.terms_bg}
-            source={Images.terms}
+            source={Images.returnPolicy}
           />
           <View style={{...styles.descriptionContainer}}>
             <Text style={{...styles.descriptionText}}>

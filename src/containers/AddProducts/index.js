@@ -385,13 +385,13 @@ const AddProducts = props => {
               <TouchableOpacity
                 onPress={() => selectImage()}
                 style={{...styles.buyBtn}}>
-                <Image style={{...styles.upload}} source={Images.camera} />
+                <Image style={{...styles.upload}} resizeMode={'contain'} source={Images.camera} />
                 <Text style={{...styles.BuyBtnText}}>Take Image</Text>
               </TouchableOpacity>
             </View>
             <View>
               <TouchableOpacity style={{...styles.uploadBtn}}>
-                <Image style={{...styles.upload}} source={Images.upload} />
+                <Image style={{...styles.upload}} resizeMode={'contain'} source={Images.upload} />
                 <Text
                   onPress={() => pickImage()}
                   style={{...styles.BuyBtnText}}>

@@ -47,7 +47,7 @@ const RecordVideo = props => {
     setCameraType(cameraType === 'back' ? 'front' : 'back');
 
   const startRecording = () => {
-    if (cameraRef) {
+    if (cameraRef?.current?.state?.isAuthorized) {
       setShowTimer(selectedTimer ? true : false);
       setTimeout(async () => {
         setIsRecording(true);
@@ -68,6 +68,11 @@ const RecordVideo = props => {
         setIsRecording(false);
         setRecordedVideoUri(uri);
       }, selectedTimer * 1000);
+    } else {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: 'Video and Audio recording permission denied',
+      });
     }
   };
 

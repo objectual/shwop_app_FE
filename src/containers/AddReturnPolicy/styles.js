@@ -22,7 +22,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.White,
     textAlignVertical: 'top',
     borderRadius: Metrics.ratio(16),
-    padding: Metrics.ratio(16),
+    padding: Metrics.ratio(20),
     paddingHorizontal: Metrics.ratio(20),
     fontSize: Metrics.ratio(14),
     fontFamily: Fonts.type.NunitoLight,
@@ -46,7 +46,7 @@ export default StyleSheet.create({
   labelTopText: {
     position: 'absolute',
     color: Colors.Affair,
-    top: Metrics.ratio(3),
+    top: Metrics.ratio(4),
     left: Metrics.ratio(20),
     fontSize: Metrics.ratio(10),
     zIndex: Metrics.ratio(2),

@@ -49,6 +49,7 @@ const CommentInput = props => {
             </View>
           )}
           <TextInput
+            multiline
             ref={ref}
             value={value}
             keyboardType={keyboardType}
