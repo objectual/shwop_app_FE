@@ -30,6 +30,8 @@ import EditReturnPolicy from './EditReturnPolicy';
 import VideoTrimmer from './VideoTrimmer';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
+import VideoPlaying from './VideoPlaying';
+import VideoSharing from './VideoSharing';
 
 export {
   Chat,
@@ -64,4 +66,6 @@ export {
   VideoTrimmer,
   AboutUs,
   ContactUs,
+  VideoPlaying,
+  VideoSharing,
 };

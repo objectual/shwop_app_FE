@@ -91,6 +91,10 @@ const returnPolicy = require('../assets/images/backgrounds/returnPolicy.png');
 const orders_drawer = require('../assets/images/icons/orders_drawer.png');
 const about_us = require('../assets/images/backgrounds/about_us.png');
 const contact_us = require('../assets/images/backgrounds/contact_us.png');
+const whatsapp = require('../assets/images/icons/whatsapp.png');
+const report_share_modal = require('../assets/images/icons/report_share_modal.png');
+const copy_share_modal = require('../assets/images/icons/copy_share_modal.png');
+const download_share_modal = require('../assets/images/icons/download_share_modal.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -186,4 +190,8 @@ export default {
   orders_drawer,
   about_us,
   contact_us,
+  whatsapp,
+  report_share_modal,
+  copy_share_modal,
+  download_share_modal,
 };

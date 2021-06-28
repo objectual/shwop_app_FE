@@ -120,7 +120,16 @@ const AfterSplash = props => {
       />
 
       {!isLoading && !isOpen && !isHideOptions && (
-        <SocialOptions onPress={openModalize} />
+        <SocialOptions
+          userImage={Images.user}
+          onPressFollow={() => {}}
+          onPressLike={() => {}}
+          totalLikes={'24.5k'}
+          onPressComment={openModalize}
+          totalComments={'24.5k'}
+          onPressShare={() => {}}
+          totalShares={'24.5k'}
+        />
       )}
 
       {!isLoading && !isOpen && !isHideOptions && <VideoBuyCard />}
