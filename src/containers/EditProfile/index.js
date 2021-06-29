@@ -231,7 +231,6 @@ const EditProfile = props => {
           maxWidth: 200,
         },
         response => {
-          console.log('response', response);
           if (response.didCancel) {
           } else if (response.error) {
           } else if (response.customButton) {

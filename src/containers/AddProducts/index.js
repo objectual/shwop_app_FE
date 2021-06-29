@@ -59,8 +59,6 @@ const AddProducts = props => {
     }
   }, [isOpen]);
 
-  console.log(uploadImage, 'uploadImage');
-
   let errors = {
     titleError: 'Title is required.',
     priceError: 'Price is required.',

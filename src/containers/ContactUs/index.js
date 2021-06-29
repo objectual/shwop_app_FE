@@ -185,7 +185,6 @@ const ContactUs = props => {
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(issue !== '')}
             />
-            {console.log(issue, 'issue')}
             <Text
               style={{
                 ...styles.titleCount,
