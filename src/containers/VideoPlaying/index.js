@@ -1,10 +1,14 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {StatusBar, View, Text, TouchableOpacity, Image} from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { StatusBar, AppState, View, Text, TouchableOpacity, Image } from 'react-native';
+import Share from 'react-native-share';
+import RNFetchBlob from 'react-native-fetch-blob';
+// import { createThumbnail } from "react-native-create-thumbnail";
 
 import styles from './styles';
 
-import {Images, Metrics} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
+import { Images, Metrics } from '../../theme';
+import util from '../../util';
+import { useKeyboardStatus } from '../../hooks';
 import {
   Layout,
   Header,
@@ -57,13 +61,30 @@ const VideoPlaying = props => {
 
   const commentModalizeRef = useRef(null);
   const socialShareModalizeRef = useRef(null);
+  const appState = useRef(AppState.currentState);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(true);
   const [message, setMessage] = useState('');
   const [isHideOptions, setIsHideOptions] = useState(false);
   const [modalTopOffset, setModalTopOffset] = useState(
     Metrics.screenHeight * 0.45,
   );
+
+  useEffect(() => {
+    AppState.addEventListener("change", handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener("change", handleAppStateChange);
+    };
+  }, []);
+
+  const handleAppStateChange = (nextAppState) => {
+    if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+      setShowVideoPlayer(true);
+    }
+    appState.current = nextAppState;
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -72,6 +93,10 @@ const VideoPlaying = props => {
       setModalTopOffset(Metrics.screenHeight * 0.45);
     }
   }, [isOpen]);
+
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, { ...params });
+  };
 
   const openCommentModalize = () => {
     commentModalizeRef.current?.open();
@@ -85,7 +110,109 @@ const VideoPlaying = props => {
     socialShareModalizeRef.current?.close();
   };
 
-  const handleComment = () => {};
+  const handleComment = () => { };
+
+  const handleShare = async ({ packageName, shareOptions, }) => {
+    try {
+      setIsLoading(true);
+      const { isInstalled } = await Share.isPackageInstalled(packageName);
+      if (isInstalled) {
+        setShowVideoPlayer(false)
+        await Share.shareSingle(shareOptions);
+        setIsLoading(false);
+        closeSocialShareModalize();
+      } else {
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: "You do not have the application.",
+        });
+        setIsLoading(false);
+        closeSocialShareModalize();
+      }
+    } catch (error) {
+      console.log({ error })
+      setIsLoading(false);
+      closeSocialShareModalize();
+    }
+  }
+
+  const handleFacebookShare = async () => {
+    try {
+      setIsLoading(true);
+
+      // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
+      // console.log(thumbnail.path);
+
+      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let base64Str = res.base64();
+      let { headers } = res.info();
+
+      const shareOptions = {
+        social: Share.Social.FACEBOOK,
+        title: 'Dummy Title',
+        message: 'Dummy text message here...',
+        url: `data:${headers['content-type']};base64,${base64Str}`,
+      };
+
+      handleShare({ packageName: 'com.facebook.katana', shareOptions, })
+    } catch (error) {
+      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      setIsLoading(false);
+      console.log({ error }, 'onPressFaceFeed')
+    }
+  }
+
+  const handleTwitterShare = async () => {
+    try {
+      setIsLoading(true);
+
+      // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
+      // console.log(thumbnail.path);
+
+      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let base64Str = res.base64();
+      let { headers } = res.info();
+
+      const shareOptions = {
+        social: Share.Social.TWITTER,
+        title: 'Dummy Title',
+        message: 'Dummy text message here...',
+        url: `data:${headers['content-type']};base64,${base64Str}`,
+      };
+
+      handleShare({ packageName: 'com.twitter.android', shareOptions, })
+    } catch (error) {
+      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      setIsLoading(false);
+      console.log({ error })
+    }
+  }
+
+  const handleWhatsAppShare = async () => {
+    try {
+      setIsLoading(true);
+
+      // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
+      // console.log(thumbnail.path);
+
+      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let base64Str = res.base64();
+      let { headers } = res.info();
+
+      const shareOptions = {
+        social: Share.Social.WHATSAPP,
+        title: 'Dummy Title',
+        message: 'Dummy text message here...',
+        url: `data:${headers['content-type']};base64,${base64Str}`,
+      };
+
+      handleShare({ packageName: 'com.whatsapp', shareOptions, })
+    } catch (error) {
+      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      setIsLoading(false);
+      console.log({ error })
+    }
+  }
 
   const renderCommentBox = () => {
     return (
@@ -98,37 +225,37 @@ const VideoPlaying = props => {
     );
   };
 
-  const renderCommentMsg = ({item}) => {
-    const {comment, time, img} = item;
+  const renderCommentMsg = ({ item }) => {
+    const { comment, time, img } = item;
     return <Comment description={comment} time={time} img={img} />;
   };
 
   const renderHeaderComponent = () => {
     return (
-      <View style={{...styles.headerComponentContainer}}>
-        <Text style={{...styles.headerText}}>{'Share to'}</Text>
+      <View style={{ ...styles.headerComponentContainer }}>
+        <Text style={{ ...styles.headerText }}>{'Share to'}</Text>
       </View>
     );
   };
 
-  const renderSocialButton = ({isImage, image, label, onPress}) => {
+  const renderSocialButton = ({ isImage, image, label, onPress }) => {
     return (
       <React.Fragment>
         {isImage ? (
           <TouchableOpacity
             onPress={onPress}
-            style={{...styles.socailIconContainer}}>
-            <Image source={image} style={{...styles.socailIconImage}} />
-            <Text style={{...styles.socailIconLabel}}>{label}</Text>
+            style={{ ...styles.socailIconContainer }}>
+            <Image source={image} style={{ ...styles.socailIconImage }} />
+            <Text style={{ ...styles.socailIconLabel }}>{label}</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={onPress}
-            style={{...styles.socailIconContainer}}>
-            <View style={{...styles.socailCustomIconContainer}}>
-              <Image source={image} style={{...styles.socailCustomIconImage}} />
+            style={{ ...styles.socailIconContainer }}>
+            <View style={{ ...styles.socailCustomIconContainer }}>
+              <Image source={image} style={{ ...styles.socailCustomIconImage }} />
             </View>
-            <Text style={{...styles.socailIconLabel}}>{label}</Text>
+            <Text style={{ ...styles.socailIconLabel }}>{label}</Text>
           </TouchableOpacity>
         )}
       </React.Fragment>
@@ -138,61 +265,55 @@ const VideoPlaying = props => {
   const renderSocialShareContent = () => {
     return (
       <React.Fragment>
-        <View style={{...styles.socialModalContent}}>
+        <View style={{ ...styles.socialModalContent }}>
           {renderSocialButton({
             isImage: true,
             image: Images.facebook,
             label: 'Facebook',
-            onPress: () => {},
-          })}
-          {renderSocialButton({
-            isImage: true,
-            image: Images.google,
-            label: 'Google Plus',
-            onPress: () => {},
+            onPress: handleFacebookShare,
           })}
           {renderSocialButton({
             isImage: true,
             image: Images.instagram,
             label: 'Instagram',
-            onPress: () => {},
+            onPress: () => handleNavigation('VideoSharing', { videoUrl, shareType: 'instagram' }),
           })}
           {renderSocialButton({
             isImage: true,
             image: Images.twitter,
             label: 'Twitter',
-            onPress: () => {},
+            onPress: handleTwitterShare,
           })}
           {renderSocialButton({
             isImage: true,
             image: Images.whatsapp,
             label: 'Whatsapp',
-            onPress: () => {},
+            onPress: handleWhatsAppShare,
           })}
           {renderSocialButton({
             isImage: false,
             image: Images.download_share_modal,
             label: 'Save',
-            onPress: () => {},
+            onPress: () => { },
           })}
           {renderSocialButton({
             isImage: false,
             image: Images.copy_share_modal,
             label: 'Copy Link',
-            onPress: () => {},
+            onPress: () => { },
           })}
           {renderSocialButton({
             isImage: false,
             image: Images.report_share_modal,
             label: 'Report',
-            onPress: () => {},
+            onPress: () => { },
           })}
         </View>
 
         <TouchableOpacity
           onPress={closeSocialShareModalize}
-          style={{...styles.socialCancelButton}}>
-          <Text style={{...styles.socialCancelText}}>Cancel</Text>
+          style={{ ...styles.socialCancelButton }}>
+          <Text style={{ ...styles.socialCancelText }}>Cancel</Text>
         </TouchableOpacity>
       </React.Fragment>
     );
@@ -219,8 +340,8 @@ const VideoPlaying = props => {
       {!isLoading && !isOpen && !isHideOptions && (
         <SocialOptions
           userImage={Images.user}
-          onPressFollow={() => {}}
-          onPressLike={() => {}}
+          onPressFollow={() => { }}
+          onPressLike={() => { }}
           totalLikes={'24.5k'}
           onPressComment={openCommentModalize}
           totalComments={'24.5k'}
@@ -231,17 +352,19 @@ const VideoPlaying = props => {
 
       {!isLoading && !isOpen && !isHideOptions && <VideoBuyCard />}
 
-      <CustomVideoPlayer
-        source={{uri: videoUrl}}
-        onBuffering={isBuffering => setIsLoading(isBuffering)}
-      />
+      {showVideoPlayer && (
+        <CustomVideoPlayer
+          source={{ uri: videoUrl }}
+          onBuffering={isBuffering => setIsLoading(isBuffering)}
+        />
+      )}
 
       <CustomModalize
         data={comments}
         modalizeType="flatList"
         modalizeRef={commentModalizeRef}
-        modalStyle={{...styles.modalStyle}}
-        handleStyle={{...styles.handleStyle}}
+        modalStyle={{ ...styles.modalStyle }}
+        handleStyle={{ ...styles.handleStyle }}
         noCloseBtn={true}
         footerComponent={renderCommentBox}
         modalTopOffset={modalTopOffset}

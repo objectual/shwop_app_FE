@@ -95,6 +95,8 @@ const whatsapp = require('../assets/images/icons/whatsapp.png');
 const report_share_modal = require('../assets/images/icons/report_share_modal.png');
 const copy_share_modal = require('../assets/images/icons/copy_share_modal.png');
 const download_share_modal = require('../assets/images/icons/download_share_modal.png');
+const story_video_sharing = require('../assets/images/icons/story_video_sharing.png');
+const feed_video_sharing = require('../assets/images/icons/feed_video_sharing.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -194,4 +196,6 @@ export default {
   report_share_modal,
   copy_share_modal,
   download_share_modal,
+  story_video_sharing,
+  feed_video_sharing,
 };

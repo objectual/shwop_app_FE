@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {Colors, Metrics, Fonts} from '../../theme';
+import { StyleSheet } from 'react-native';
+
+import { Colors, Metrics } from '../../theme';
 
 export default StyleSheet.create({
   container: {
@@ -12,25 +13,25 @@ export default StyleSheet.create({
     borderBottomLeftRadius: Metrics.ratio(10),
     borderBottomRightRadius: Metrics.ratio(10),
   },
-  formContainer: {
-    paddingHorizontal: Metrics.ratio(16),
+  videoContainer: {
+    height: Metrics.screenHeight * 0.71,
+    marginHorizontal: Metrics.ratio(16),
+    marginTop: Metrics.ratio(-40),
+    borderRadius: Metrics.ratio(8),
+    overflow: 'hidden',
   },
-  gradientButtonContainer: {
-    marginTop: Metrics.ratio(25),
-    marginBottom: Metrics.ratio(40),
-  },
-  terms_bg: {
+  videoStyle: {
     width: '100%',
-    height: Metrics.ratio(190),
-    marginVertical: Metrics.ratio(15),
+    height: '100%',
   },
-  descriptionContainer: {
-    paddingVertical: Metrics.ratio(12),
-    marginBottom: Metrics.ratio(20),
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -Metrics.screenHeight * 0.12,
   },
-  descriptionText: {
-    fontSize: Metrics.ratio(12),
-    fontFamily: Fonts.type.Nunito,
-    color: Colors.Charade,
-  },
+  cardImageStyle: {
+    width: Metrics.ratio(30),
+    height: Metrics.ratio(30),
+  }
 });
