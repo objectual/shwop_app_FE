@@ -4,6 +4,8 @@ import Share from 'react-native-share';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { useSelector } from 'react-redux';
 import CameraRoll from "@react-native-community/cameraroll";
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-simple-toast';
 // import { createThumbnail } from "react-native-create-thumbnail";
 
 import styles from './styles';
@@ -21,6 +23,7 @@ import {
   CommentInput,
   Comment,
   OverlayLoader,
+  SuccessOrErrorModal,
 } from '../../components';
 
 const comments = [
@@ -71,6 +74,13 @@ const VideoPlaying = props => {
   const [showVideoPlayer, setShowVideoPlayer] = useState(true);
   const [message, setMessage] = useState('');
   const [isHideOptions, setIsHideOptions] = useState(false);
+  const [isSuccessOrError, setIsSuccessOrError] = useState(false);
+  const [successOrErrorDetail, setSuccessOrErrorDetail] = useState({
+    modalType: '',
+    headingText: '',
+    messageText: '',
+    onPressConfirm: null,
+  });
   const [modalTopOffset, setModalTopOffset] = useState(Metrics.screenHeight * 0.45);
 
   useEffect(() => {
@@ -266,6 +276,27 @@ const VideoPlaying = props => {
     }
   };
 
+  const handleCopyLink = () => {
+    Clipboard.setString(videoUrl);
+    Toast.showWithGravity('Link copied', Toast.LONG, Toast.CENTER);
+  };
+
+  const handleReport = () => {
+    setIsLoading(true);
+    closeSocialShareModalize();
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSuccessOrError(true)
+      const modalDetails = {
+        modalType: 'success',
+        headingText: 'Thanks for letting us know',
+        messageText: 'Your feedback is important in helping us keep the Showpp community safe.',
+        onPressConfirm: () => setIsSuccessOrError(false),
+      }
+      setSuccessOrErrorDetail({ ...modalDetails });
+    }, 3000);
+  }
+
   const renderCommentBox = () => {
     return (
       <CommentInput
@@ -352,13 +383,13 @@ const VideoPlaying = props => {
             isImage: false,
             image: Images.copy_share_modal,
             label: 'Copy Link',
-            onPress: () => { },
+            onPress: handleCopyLink,
           })}
           {renderSocialButton({
             isImage: false,
             image: Images.report_share_modal,
             label: 'Report',
-            onPress: () => { },
+            onPress: handleReport,
           })}
         </View>
 
@@ -436,6 +467,13 @@ const VideoPlaying = props => {
       </CustomModalize>
 
       <OverlayLoader isLoading={isLoading} />
+
+      <SuccessOrErrorModal
+        visible={isSuccessOrError}
+        modalType={successOrErrorDetail.modalType}
+        headingText={successOrErrorDetail.headingText}
+        messageText={successOrErrorDetail.messageText}
+        onPressConfirm={successOrErrorDetail.onPressConfirm} />
     </Layout>
   );
 };

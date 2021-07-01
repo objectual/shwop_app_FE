@@ -19,6 +19,9 @@ const Radical_Red = '#FF346E';
 const Gun_Powder = '#3F3D56';
 const Alizarin_Crimson = '#EC2B2B';
 const Web_Orange = '#FFAA00';
+const Eucalyptus = '#28A745';
+const Punch = '#DC3545';
+const Amber = '#FFC107';
 
 export default {
   // Solid Colors
@@ -42,4 +45,7 @@ export default {
   Gun_Powder,
   Alizarin_Crimson,
   Web_Orange,
+  Eucalyptus,
+  Punch,
+  Amber,
 };

@@ -76,10 +76,15 @@ const Main = props => {
     },
   ];
 
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   const handleFollowing = () => {
     setActive(0);
     setActiveForYou(0);
   };
+
   const handleForYou = () => {
     setActiveForYou(1);
     setActive(2);
@@ -98,6 +103,7 @@ const Main = props => {
       </MenuItem>
     );
   };
+  
   return (
     <Layout {...props} isLogedIn={true}>
       <StatusBar
@@ -212,6 +218,7 @@ const Main = props => {
                 like={like}
                 subscriber={subscriber}
                 duration={duration}
+                onPress={() => handleNavigation('VideoPlaying')}
               />
             );
           })}

@@ -13,9 +13,10 @@ const FollowCard = props => {
     like,
     subscriber,
     duration,
+    onPress,
   } = props;
   return (
-    <TouchableOpacity style={styles.mainContainer}>
+    <TouchableOpacity onPress={onPress} style={styles.mainContainer}>
       <View style={styles.bannerView}>
         <Image
           resizeMode={'cover'}

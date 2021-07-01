@@ -19,6 +19,7 @@ import Search from './Search';
 import ProductCard from './ProductCard';
 import CustomPopup from './CustomPopup';
 import CustomRating from './CustomRating';
+import SuccessOrErrorModal from './SuccessOrErrorModal';
 
 export {
   CustomTextInput,
@@ -42,4 +43,5 @@ export {
   ProductCard,
   CustomPopup,
   CustomRating,
+  SuccessOrErrorModal,
 };
