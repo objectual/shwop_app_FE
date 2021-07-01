@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { StatusBar, AppState, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StatusBar, AppState, View, Text, TouchableOpacity, Image, Platform } from 'react-native';
 import Share from 'react-native-share';
 import RNFetchBlob from 'react-native-fetch-blob';
+import { useSelector } from 'react-redux';
+import CameraRoll from "@react-native-community/cameraroll";
 // import { createThumbnail } from "react-native-create-thumbnail";
 
 import styles from './styles';
@@ -57,6 +59,8 @@ const videoUrl =
   'https://static.videezy.com/system/resources/previews/000/043/977/original/DSC_8447_V1-0010.mp4';
 
 const VideoPlaying = props => {
+  const networkInfoResponse = useSelector(state => state.networkInfo);
+
   const [isOpen] = useKeyboardStatus();
 
   const commentModalizeRef = useRef(null);
@@ -67,9 +71,7 @@ const VideoPlaying = props => {
   const [showVideoPlayer, setShowVideoPlayer] = useState(true);
   const [message, setMessage] = useState('');
   const [isHideOptions, setIsHideOptions] = useState(false);
-  const [modalTopOffset, setModalTopOffset] = useState(
-    Metrics.screenHeight * 0.45,
-  );
+  const [modalTopOffset, setModalTopOffset] = useState(Metrics.screenHeight * 0.45);
 
   useEffect(() => {
     AppState.addEventListener("change", handleAppStateChange);
@@ -214,6 +216,56 @@ const VideoPlaying = props => {
     }
   }
 
+  const handleSave = () => {
+    const { isConnected } = networkInfoResponse.data;
+
+    let newVideoUri = videoUrl.lastIndexOf('/');
+    let videoName = videoUrl.substring(newVideoUri);
+
+    let dirs = RNFetchBlob.fs.dirs;
+    let path =
+      Platform.OS === 'ios'
+        ? dirs['MainBundleDir'] + videoName
+        : dirs.PictureDir + videoName;
+
+    if (isConnected) {
+      setIsLoading(true);
+      if (Platform.OS == 'android') {
+        RNFetchBlob.config({
+          fileCache: true,
+          appendExt: 'mp4',
+          indicator: true,
+          IOSBackgroundTask: true,
+          path: path,
+          addAndroidDownloads: {
+            useDownloadManager: true,
+            notification: true,
+            path: path,
+            description: 'Downloading Video',
+          },
+        })
+          .fetch('GET', videoUrl)
+          .then((res) => {
+            setIsLoading(false);
+            closeSocialShareModalize();
+          })
+          .catch((error) => {
+            setIsLoading(false);
+            closeSocialShareModalize();
+            console.log(error, 'error');
+          });
+      } else {
+        CameraRoll.saveToCameraRoll(imageUrl);
+        closeSocialShareModalize();
+      }
+    } else {
+      util.showAlertWithDelay({
+        title: 'No internet connection',
+        message: 'Please check your internet connection and try again.',
+      });
+    }
+  };
+
   const renderCommentBox = () => {
     return (
       <CommentInput
@@ -294,7 +346,7 @@ const VideoPlaying = props => {
             isImage: false,
             image: Images.download_share_modal,
             label: 'Save',
-            onPress: () => { },
+            onPress: handleSave,
           })}
           {renderSocialButton({
             isImage: false,
