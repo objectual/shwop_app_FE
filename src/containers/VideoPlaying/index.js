@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import CameraRoll from "@react-native-community/cameraroll";
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-simple-toast';
+import { useIsFocused } from '@react-navigation/native';
 // import { createThumbnail } from "react-native-create-thumbnail";
 
 import styles from './styles';
@@ -64,6 +65,7 @@ const videoUrl =
 const VideoPlaying = props => {
   const networkInfoResponse = useSelector(state => state.networkInfo);
 
+  const isFocused = useIsFocused();
   const [isOpen] = useKeyboardStatus();
 
   const commentModalizeRef = useRef(null);
@@ -91,13 +93,6 @@ const VideoPlaying = props => {
     };
   }, []);
 
-  const handleAppStateChange = (nextAppState) => {
-    if (appState.current.match(/inactive|background/) && nextAppState === "active") {
-      setShowVideoPlayer(true);
-    }
-    appState.current = nextAppState;
-  };
-
   useEffect(() => {
     if (isOpen) {
       setModalTopOffset(Metrics.screenHeight * 0.1);
@@ -105,6 +100,21 @@ const VideoPlaying = props => {
       setModalTopOffset(Metrics.screenHeight * 0.45);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isFocused) {
+      setShowVideoPlayer(true);
+    } else {
+      setShowVideoPlayer(false);
+    }
+  }, [isFocused]);
+
+  const handleAppStateChange = (nextAppState) => {
+    if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+      setShowVideoPlayer(true);
+    }
+    appState.current = nextAppState;
+  };
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, { ...params });
@@ -142,6 +152,7 @@ const VideoPlaying = props => {
         closeSocialShareModalize();
       }
     } catch (error) {
+      util.showAlertWithDelay({ title: 'Error', message: error?.error });
       console.log({ error })
       setIsLoading(false);
       closeSocialShareModalize();
@@ -170,7 +181,7 @@ const VideoPlaying = props => {
     } catch (error) {
       util.showAlertWithDelay({ title: 'Error', message: error?.message });
       setIsLoading(false);
-      console.log({ error }, 'onPressFaceFeed')
+      console.log({ error })
     }
   }
 
