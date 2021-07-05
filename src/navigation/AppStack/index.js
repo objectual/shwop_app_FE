@@ -34,6 +34,7 @@ import {
   // VideoSharing,
   // VideoTrimmer,
   // OthersProfile,
+  // FollowingAndFollowers,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -81,6 +82,10 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="VideoSharing" component={VideoSharing} /> */}
       {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
       {/* <AppStack.Screen name="VideoTrimmer" component={VideoTrimmer} /> */}
+      {/* <AppStack.Screen
+        name="FollowingAndFollowers"
+        component={FollowingAndFollowers}
+      /> */}
     </AppStack.Navigator>
   );
 };

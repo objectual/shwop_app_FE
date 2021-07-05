@@ -32,6 +32,7 @@ import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import VideoPlaying from './VideoPlaying';
 import VideoSharing from './VideoSharing';
+import FollowingAndFollowers from './FollowingAndFollowers';
 
 export {
   Chat,
@@ -68,4 +69,5 @@ export {
   ContactUs,
   VideoPlaying,
   VideoSharing,
+  FollowingAndFollowers,
 };

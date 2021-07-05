@@ -20,6 +20,7 @@ import ProductCard from './ProductCard';
 import CustomPopup from './CustomPopup';
 import CustomRating from './CustomRating';
 import SuccessOrErrorModal from './SuccessOrErrorModal';
+import FollowingFollowerCard from './FollowingFollowerCard';
 
 export {
   CustomTextInput,
@@ -44,4 +45,5 @@ export {
   CustomPopup,
   CustomRating,
   SuccessOrErrorModal,
+  FollowingFollowerCard,
 };

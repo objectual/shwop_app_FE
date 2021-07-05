@@ -97,6 +97,7 @@ const copy_share_modal = require('../assets/images/icons/copy_share_modal.png');
 const download_share_modal = require('../assets/images/icons/download_share_modal.png');
 const story_video_sharing = require('../assets/images/icons/story_video_sharing.png');
 const feed_video_sharing = require('../assets/images/icons/feed_video_sharing.png');
+const more_following_and_followers = require('../assets/images/icons/more_following_and_followers.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -198,4 +199,5 @@ export default {
   download_share_modal,
   story_video_sharing,
   feed_video_sharing,
+  more_following_and_followers,
 };
