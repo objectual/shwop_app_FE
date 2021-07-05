@@ -21,6 +21,7 @@ import CustomPopup from './CustomPopup';
 import CustomRating from './CustomRating';
 import SuccessOrErrorModal from './SuccessOrErrorModal';
 import FollowingFollowerCard from './FollowingFollowerCard';
+import ImageSlider from './ImageSlider';
 
 export {
   CustomTextInput,
@@ -46,4 +47,5 @@ export {
   CustomRating,
   SuccessOrErrorModal,
   FollowingFollowerCard,
+  ImageSlider,
 };

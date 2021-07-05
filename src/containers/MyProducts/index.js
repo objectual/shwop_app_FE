@@ -55,7 +55,9 @@ const MyProducts = props => {
         isEdit={true}
         price={item.price.toFixed(2)}
         rating={item.rating}
-        onPressCard={() => handleNavigation('ProductInfo')}
+        onPressCard={() =>
+          handleNavigation('ProductInfo', {productType: 'own'})
+        }
         onPressRightIcon={() => handleNavigation('EditProducts')}
       />
     );

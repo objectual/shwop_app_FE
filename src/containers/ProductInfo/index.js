@@ -7,14 +7,15 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import {SliderBox} from 'react-native-image-slider-box';
 
-import {Header} from '../../components';
+import {Header, GradientButton, ImageSlider} from '../../components';
 import {Images, Colors, Metrics} from '../../theme';
 
 import styles from './styles';
 
 const ProductInfo = props => {
+  const {productType} = props.route.params;
+
   const images = [
     'https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
     'https://images.pexels.com/photos/1124466/pexels-photo-1124466.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -41,24 +42,21 @@ const ProductInfo = props => {
         isLeftIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
         headerText={'Product Info'}
-        rightIcon={Images.edit_product_info}
+        rightIcon={productType === 'own' ? Images.edit_product_info : null}
         isRightIconImg={true}
-        rightBtnPress={() => handleNavigation('EditProducts')}
-        rightSecIcon={Images.delete_product_info}
+        rightBtnPress={() =>
+          productType === 'own' ? handleNavigation('EditProducts') : null
+        }
+        rightSecIcon={productType === 'own' ? Images.delete_product_info : null}
         isRightSecIconImg={true}
-        rightSecBtnPress={() => {}}
+        rightSecBtnPress={() =>
+          productType === 'own' ? console.log('delete') : null
+        }
       />
       <ScrollView>
         <View style={{...styles.contentContainer}}>
-          <SliderBox
-            images={images}
-            sliderBoxHeight={Metrics.screenHeight * 0.35}
-            dotColor={Colors.White}
-            inactiveDotColor={'rgba(255, 255, 255, 0.2)'}
-            dotStyle={{...styles.dotStyle}}
-            resizeMode={'cover'}
-            imageLoadingColor={Colors.Affair}
-          />
+          <ImageSlider images={images} imageWidth={Metrics.screenWidth} />
+
           <View style={{...styles.detailContainer}}>
             <View style={{...styles.productNameContainer}}>
               <Text style={{...styles.productName}} numberOfLines={1}>
@@ -73,9 +71,11 @@ const ProductInfo = props => {
                 <Text style={{...styles.wishlistText}}>Add to Wishlist</Text>
               </TouchableOpacity>
             </View>
+
             <View style={{...styles.priceContainer}}>
               <Text style={{...styles.priceText}}>$32.18</Text>
             </View>
+
             <View style={{...styles.timeAndNameContainer}}>
               <Image
                 resizeMode={'contain'}
@@ -87,6 +87,7 @@ const ProductInfo = props => {
                 <Text style={{...styles.nameText}}>Emma Norman</Text>
               </Text>
             </View>
+
             <View style={{...styles.ratingAndReviewsContainer}}>
               <View style={{...styles.ratingContainer}}>
                 {totalRating.map(item => (
@@ -102,6 +103,7 @@ const ProductInfo = props => {
                 <Text style={{...styles.reviewViewBtn}}>View</Text>
               </TouchableOpacity>
             </View>
+
             <View style={{...styles.descriptionContainer}}>
               <Text style={{...styles.descriptionText}}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -129,19 +131,21 @@ const ProductInfo = props => {
                 nisi ut aliquip ex ea commodo consequat.
               </Text>
             </View>
-            {/* For Feature Use */}
-            {/* <View style={{...styles.buttonsRow}}>
-              <TouchableOpacity style={{...styles.chatBtn}}>
-                <Text style={{...styles.chatBtnText}}>Chat</Text>
-              </TouchableOpacity>
-              <GradientButton
-                label={'Buy Now'}
-                onPress={() => {}}
-                containerStyle={{...styles.gradientBtnContainer}}
-                gradientContainer={{...styles.gradientContainer}}
-                labelStyle={{...styles.gradientLabel}}
-              />
-            </View> */}
+
+            {productType === 'other' ? (
+              <View style={{...styles.buttonsRow}}>
+                <TouchableOpacity style={{...styles.chatBtn}}>
+                  <Text style={{...styles.chatBtnText}}>Chat</Text>
+                </TouchableOpacity>
+                <GradientButton
+                  label={'Buy Now'}
+                  onPress={() => {}}
+                  containerStyle={{...styles.gradientBtnContainer}}
+                  gradientContainer={{...styles.gradientContainer}}
+                  labelStyle={{...styles.gradientLabel}}
+                />
+              </View>
+            ) : null}
           </View>
         </View>
       </ScrollView>

@@ -35,6 +35,7 @@ import {
   // VideoTrimmer,
   // OthersProfile,
   // FollowingAndFollowers,
+  // Shop,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -86,6 +87,7 @@ const AppStackScreen = ({screenNavigate}) => {
         name="FollowingAndFollowers"
         component={FollowingAndFollowers}
       /> */}
+      {/* <AppStack.Screen name="Shop" component={Shop} /> */}
     </AppStack.Navigator>
   );
 };

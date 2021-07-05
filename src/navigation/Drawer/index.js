@@ -29,11 +29,6 @@ const DrawerNavigator = () => {
         options={{...drawerScreenOptions}}
       />
       <Drawer.Screen
-        name="Shop"
-        component={Shop}
-        options={{...drawerScreenOptions}}
-      />
-      <Drawer.Screen
         name="WishList"
         component={WishList}
         options={{...drawerScreenOptions}}
