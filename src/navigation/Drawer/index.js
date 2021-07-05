@@ -6,8 +6,6 @@ import DrawerContent from './DrawerContent';
 
 import AppStack from '../AppStack';
 
-import {Shop, WishList} from '../../containers';
-
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
@@ -26,11 +24,6 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Home"
         component={AppStack}
-        options={{...drawerScreenOptions}}
-      />
-      <Drawer.Screen
-        name="WishList"
-        component={WishList}
         options={{...drawerScreenOptions}}
       />
     </Drawer.Navigator>

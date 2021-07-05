@@ -36,6 +36,7 @@ import {
   // OthersProfile,
   // FollowingAndFollowers,
   // Shop,
+  // WishList,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -88,6 +89,7 @@ const AppStackScreen = ({screenNavigate}) => {
         component={FollowingAndFollowers}
       /> */}
       {/* <AppStack.Screen name="Shop" component={Shop} /> */}
+      {/* <AppStack.Screen name="WishList" component={WishList} /> */}
     </AppStack.Navigator>
   );
 };
