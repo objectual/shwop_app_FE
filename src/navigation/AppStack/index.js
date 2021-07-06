@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {BackHandler} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+
+import Util from '../../util';
 
 import {
   AfterSplash,
@@ -42,6 +45,23 @@ import {
 
 const AppStack = createStackNavigator();
 const AppStackScreen = ({screenNavigate}) => {
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, []);
+
+  const handleBackButton = () => {
+    Util.showYesNoMessage({
+      title: 'Exit App',
+      message: 'Exiting the application?',
+      onPressCancel: null,
+      onPressConfirm: () => BackHandler.exitApp(),
+    });
+    return true;
+  };
+
   return (
     <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
