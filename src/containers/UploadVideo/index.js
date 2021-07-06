@@ -222,6 +222,7 @@ const UploadVideo = props => {
 
       <CustomPopup
         visible={showYourTakePopup}
+        source={Images.your_take_is_live_popup}
         heading={'Your Take is'}
         highlightedHeading={'LIVE!'}
         description={

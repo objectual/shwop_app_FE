@@ -15,7 +15,10 @@ const CustomPopup = props => {
     headingStyle,
     highlightedHeadingStyle,
     descriptionStyle,
+    btnContainerStyle,
+    btnGradientContainerStyle,
     visible,
+    source,
     heading,
     highlightedHeading,
     description,
@@ -29,7 +32,7 @@ const CustomPopup = props => {
       customIndicator={
         <View style={{...styles.container, ...containerStyle}}>
           <Image
-            source={Images.your_take_is_live_popup}
+            source={source}
             resizeMode={'contain'}
             style={{...styles.image, ...imageStyle}}
           />
@@ -50,8 +53,11 @@ const CustomPopup = props => {
           </Text>
 
           <GradientButton
-            containerStyle={{...styles.btnContainerStyle}}
-            gradientContainer={{...styles.btnGradientContainer}}
+            containerStyle={{...styles.btnContainerStyle, ...btnContainerStyle}}
+            gradientContainer={{
+              ...styles.btnGradientContainer,
+              ...btnGradientContainerStyle,
+            }}
             labelStyle={{...styles.btnLabelStyle}}
             label={btnLabel}
             onPress={onPress}
@@ -68,6 +74,8 @@ CustomPopup.defaultProps = {
   headingStyle: {},
   highlightedHeadingStyle: {},
   descriptionStyle: {},
+  btnContainerStyle: {},
+  btnGradientContainerStyle: {},
   visible: false,
   heading: '',
   highlightedHeading: '',
@@ -82,7 +90,10 @@ CustomPopup.propTypes = {
   headingStyle: PropTypes.object,
   highlightedHeadingStyle: PropTypes.object,
   descriptionStyle: PropTypes.object,
+  btnContainerStyle: PropTypes.object,
+  btnGradientContainerStyle: PropTypes.object,
   visible: PropTypes.bool,
+  source: PropTypes.number,
   heading: PropTypes.string,
   highlightedHeading: PropTypes.string,
   description: PropTypes.string,

@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {View, Text, StatusBar, ScrollView, TextInput} from 'react-native';
+import {StackActions} from '@react-navigation/native';
 
 import styles from './styles';
 
@@ -9,8 +10,9 @@ import {
   CustomTextInput,
   CustomPhoneInput,
   ProductCard,
+  CustomPopup,
 } from '../../components';
-import {Images, Colors, Metrics, Fonts} from '../../theme';
+import {Images, Colors} from '../../theme';
 import {fullNameRegex, emailRegex, validate} from '../../services/Validation';
 
 const PlaceOrder = props => {
@@ -30,6 +32,7 @@ const PlaceOrder = props => {
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [emailAddressError, setEmailAddressError] = useState('');
   const [otherInfoError, setOtherInfoError] = useState('');
+  const [showYourTakePopup, setShowYourTakePopup] = useState(false);
 
   const [floatLabel, setFloatLabel] = useState(false);
 
@@ -38,6 +41,10 @@ const PlaceOrder = props => {
     phoneNumberError: 'Phone number is required.',
     emailAddressError: 'Email address is required.',
     otherInfoError: 'Issue is required.',
+  };
+
+  const handleReplaceNavigation = (screenName, params) => {
+    props.navigation.dispatch(StackActions.replace(screenName, {...params}));
   };
 
   const onSubmit = value => {
@@ -210,10 +217,26 @@ const PlaceOrder = props => {
           <GradientButton
             label={'Place Order'}
             containerStyle={{...styles.gradientButtonContainer}}
-            onPress={() => handleValidation()}
+            // onPress={() => handleValidation()}
+            onPress={() => setShowYourTakePopup(true)}
           />
         </View>
       </ScrollView>
+
+      <CustomPopup
+        visible={showYourTakePopup}
+        source={Images.order_placed}
+        imageStyle={{...styles.imageStyle}}
+        heading={'Your Order Has Been'}
+        highlightedHeading={'Placed'}
+        description={
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        }
+        btnLabel={'Shwoop Again'}
+        btnContainerStyle={{...styles.btnContainerStyle}}
+        btnGradientContainerStyle={{...styles.btnGradientContainerStyle}}
+        onPress={() => handleReplaceNavigation('Main')}
+      />
     </View>
   );
 };

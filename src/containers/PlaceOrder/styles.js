@@ -71,4 +71,14 @@ export default StyleSheet.create({
     color: Colors.Charade,
     marginBottom: Metrics.ratio(16),
   },
+  imageStyle: {
+    width: Metrics.ratio(200),
+    height: Metrics.ratio(150),
+  },
+  btnContainerStyle: {
+    width: Metrics.screenWidth * 0.4,
+  },
+  btnGradientContainerStyle: {
+    width: Metrics.screenWidth * 0.4,
+  },
 });
