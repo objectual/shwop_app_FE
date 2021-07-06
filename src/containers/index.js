@@ -33,6 +33,7 @@ import ContactUs from './ContactUs';
 import VideoPlaying from './VideoPlaying';
 import VideoSharing from './VideoSharing';
 import FollowingAndFollowers from './FollowingAndFollowers';
+import PlaceOrder from './PlaceOrder';
 
 export {
   Chat,
@@ -70,4 +71,5 @@ export {
   VideoPlaying,
   VideoSharing,
   FollowingAndFollowers,
+  PlaceOrder,
 };

@@ -50,9 +50,9 @@ const MyProducts = props => {
         brand={item.brand}
         takes={item.noOfTakes}
         isRating={true}
-        isWishlist={false}
         isPrice={true}
         isEdit={true}
+        isTake={true}
         price={item.price.toFixed(2)}
         rating={item.rating}
         onPressCard={() =>

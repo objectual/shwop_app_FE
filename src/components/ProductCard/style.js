@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   },
   takesMainContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   takeImg: {
@@ -88,6 +87,16 @@ const styles = StyleSheet.create({
   wishlist_img: {
     width: Metrics.ratio(25),
     height: Metrics.ratio(25),
+  },
+  stockContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  stockNumber: {
+    fontSize: Metrics.ratio(14),
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+    marginHorizontal: Metrics.ratio(8),
   },
 });
 

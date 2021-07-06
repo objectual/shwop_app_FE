@@ -52,7 +52,7 @@ const WishList = props => {
         isRating={true}
         isWishlist={true}
         isPrice={true}
-        isEdit={false}
+        isTake={true}
         price={item.price.toFixed(2)}
         rating={item.rating}
         onPressCard={() =>

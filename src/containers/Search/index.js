@@ -137,10 +137,7 @@ const SearchScreen = props => {
                 title={item.title}
                 brand={item.brand}
                 takes={item.noOfTakes}
-                isRating={false}
-                isWishlist={false}
-                isPrice={false}
-                isEdit={false}
+                isTake={true}
                 containerStyle={{...styles.productContainerStyle}}
               />
             ))}

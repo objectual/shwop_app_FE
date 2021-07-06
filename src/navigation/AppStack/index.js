@@ -37,6 +37,7 @@ import {
   // FollowingAndFollowers,
   // Shop,
   // WishList,
+  // PlaceOrder,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -90,6 +91,7 @@ const AppStackScreen = ({screenNavigate}) => {
       /> */}
       {/* <AppStack.Screen name="Shop" component={Shop} /> */}
       {/* <AppStack.Screen name="WishList" component={WishList} /> */}
+      {/* <AppStack.Screen name="PlaceOrder" component={PlaceOrder} /> */}
     </AppStack.Navigator>
   );
 };

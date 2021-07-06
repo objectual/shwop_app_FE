@@ -139,7 +139,7 @@ const ProductInfo = props => {
                 </TouchableOpacity>
                 <GradientButton
                   label={'Buy Now'}
-                  onPress={() => {}}
+                  onPress={() => handleNavigation('PlaceOrder')}
                   containerStyle={{...styles.gradientBtnContainer}}
                   gradientContainer={{...styles.gradientContainer}}
                   labelStyle={{...styles.gradientLabel}}

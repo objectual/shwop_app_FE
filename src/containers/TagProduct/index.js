@@ -53,10 +53,8 @@ const TagProduct = props => {
           image={item.image}
           title={item.title}
           brand={item.brand}
-          takes={`${item.noOfTakes} Takes`}
-          isRating={false}
-          isWishlist={false}
-          isPrice={false}
+          takes={item.noOfTakes}
+          isTake={true}
           onPressCard={() => onPressProduct(item.id)}
         />
         {item.id === ratingModalId && (
