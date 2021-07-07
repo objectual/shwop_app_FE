@@ -14,6 +14,7 @@ import Metrics from './Metrics';
 const type = {
   // Arial
   Arial: 'arial',
+  ArialBold: 'arialbd',
 
   // Lato
   LatoBlack: 'Lato-Black',

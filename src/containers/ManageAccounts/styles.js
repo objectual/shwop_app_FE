@@ -30,4 +30,7 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.NunitoBold,
     color: Colors.White,
   },
+  customPhoneInputcontainer: {
+    marginBottom: Metrics.ratio(16),
+  },
 });

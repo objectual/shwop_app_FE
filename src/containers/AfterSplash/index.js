@@ -1,19 +1,27 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { StatusBar, AppState, View, Text, TouchableOpacity, Image, Platform } from 'react-native';
+import React, {useRef, useState, useEffect} from 'react';
+import {
+  StatusBar,
+  AppState,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Platform,
+} from 'react-native';
 import Share from 'react-native-share';
 import RNFetchBlob from 'react-native-fetch-blob';
-import { useSelector } from 'react-redux';
-import CameraRoll from "@react-native-community/cameraroll";
+import {useSelector} from 'react-redux';
+import CameraRoll from '@react-native-community/cameraroll';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-simple-toast';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 // import { createThumbnail } from "react-native-create-thumbnail";
 
 import styles from './styles';
 
-import { Images, Metrics } from '../../theme';
+import {Images, Metrics} from '../../theme';
 import util from '../../util';
-import { useKeyboardStatus } from '../../hooks';
+import {useKeyboardStatus} from '../../hooks';
 import {
   Layout,
   Header,
@@ -83,13 +91,15 @@ const AfterSplash = props => {
     messageText: '',
     onPressConfirm: null,
   });
-  const [modalTopOffset, setModalTopOffset] = useState(Metrics.screenHeight * 0.45);
+  const [modalTopOffset, setModalTopOffset] = useState(
+    Metrics.screenHeight * 0.45,
+  );
 
   useEffect(() => {
-    AppState.addEventListener("change", handleAppStateChange);
+    AppState.addEventListener('change', handleAppStateChange);
 
     return () => {
-      AppState.removeEventListener("change", handleAppStateChange);
+      AppState.removeEventListener('change', handleAppStateChange);
     };
   }, []);
 
@@ -109,15 +119,18 @@ const AfterSplash = props => {
     }
   }, [isFocused]);
 
-  const handleAppStateChange = (nextAppState) => {
-    if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+  const handleAppStateChange = nextAppState => {
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
       setShowVideoPlayer(true);
     }
     appState.current = nextAppState;
   };
 
   const handleNavigation = (screenName, params) => {
-    props.navigation.navigate(screenName, { ...params });
+    props.navigation.navigate(screenName, {...params});
   };
 
   const openCommentModalize = () => {
@@ -132,32 +145,32 @@ const AfterSplash = props => {
     socialShareModalizeRef.current?.close();
   };
 
-  const handleComment = () => { };
+  const handleComment = () => {};
 
-  const handleShare = async ({ packageName, shareOptions, }) => {
+  const handleShare = async ({packageName, shareOptions}) => {
     try {
       setIsLoading(true);
-      const { isInstalled } = await Share.isPackageInstalled(packageName);
+      const {isInstalled} = await Share.isPackageInstalled(packageName);
       if (isInstalled) {
-        setShowVideoPlayer(false)
+        setShowVideoPlayer(false);
         await Share.shareSingle(shareOptions);
         setIsLoading(false);
         closeSocialShareModalize();
       } else {
         util.showAlertWithDelay({
           title: 'Error',
-          message: "You do not have the application.",
+          message: 'You do not have the application.',
         });
         setIsLoading(false);
         closeSocialShareModalize();
       }
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.error });
-      console.log({ error })
+      util.showAlertWithDelay({title: 'Error', message: error?.error});
+      console.log({error});
       setIsLoading(false);
       closeSocialShareModalize();
     }
-  }
+  };
 
   const handleFacebookShare = async () => {
     try {
@@ -166,9 +179,9 @@ const AfterSplash = props => {
       // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
       // console.log(thumbnail.path);
 
-      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let res = await RNFetchBlob.fetch('GET', videoUrl);
       let base64Str = res.base64();
-      let { headers } = res.info();
+      let {headers} = res.info();
 
       const shareOptions = {
         social: Share.Social.FACEBOOK,
@@ -177,13 +190,13 @@ const AfterSplash = props => {
         url: `data:${headers['content-type']};base64,${base64Str}`,
       };
 
-      handleShare({ packageName: 'com.facebook.katana', shareOptions, })
+      handleShare({packageName: 'com.facebook.katana', shareOptions});
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      util.showAlertWithDelay({title: 'Error', message: error?.message});
       setIsLoading(false);
-      console.log({ error })
+      console.log({error});
     }
-  }
+  };
 
   const handleTwitterShare = async () => {
     try {
@@ -192,9 +205,9 @@ const AfterSplash = props => {
       // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
       // console.log(thumbnail.path);
 
-      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let res = await RNFetchBlob.fetch('GET', videoUrl);
       let base64Str = res.base64();
-      let { headers } = res.info();
+      let {headers} = res.info();
 
       const shareOptions = {
         social: Share.Social.TWITTER,
@@ -203,13 +216,13 @@ const AfterSplash = props => {
         url: `data:${headers['content-type']};base64,${base64Str}`,
       };
 
-      handleShare({ packageName: 'com.twitter.android', shareOptions, })
+      handleShare({packageName: 'com.twitter.android', shareOptions});
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      util.showAlertWithDelay({title: 'Error', message: error?.message});
       setIsLoading(false);
-      console.log({ error })
+      console.log({error});
     }
-  }
+  };
 
   const handleWhatsAppShare = async () => {
     try {
@@ -218,9 +231,9 @@ const AfterSplash = props => {
       // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
       // console.log(thumbnail.path);
 
-      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let res = await RNFetchBlob.fetch('GET', videoUrl);
       let base64Str = res.base64();
-      let { headers } = res.info();
+      let {headers} = res.info();
 
       const shareOptions = {
         social: Share.Social.WHATSAPP,
@@ -229,16 +242,16 @@ const AfterSplash = props => {
         url: `data:${headers['content-type']};base64,${base64Str}`,
       };
 
-      handleShare({ packageName: 'com.whatsapp', shareOptions, })
+      handleShare({packageName: 'com.whatsapp', shareOptions});
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      util.showAlertWithDelay({title: 'Error', message: error?.message});
       setIsLoading(false);
-      console.log({ error })
+      console.log({error});
     }
-  }
+  };
 
   const handleSave = () => {
-    const { isConnected } = networkInfoResponse.data;
+    const {isConnected} = networkInfoResponse.data;
 
     let newVideoUri = videoUrl.lastIndexOf('/');
     let videoName = videoUrl.substring(newVideoUri);
@@ -266,11 +279,11 @@ const AfterSplash = props => {
           },
         })
           .fetch('GET', videoUrl)
-          .then((res) => {
+          .then(res => {
             setIsLoading(false);
             closeSocialShareModalize();
           })
-          .catch((error) => {
+          .catch(error => {
             setIsLoading(false);
             closeSocialShareModalize();
             console.log(error, 'error');
@@ -297,16 +310,17 @@ const AfterSplash = props => {
     closeSocialShareModalize();
     setTimeout(() => {
       setIsLoading(false);
-      setIsSuccessOrError(true)
+      setIsSuccessOrError(true);
       const modalDetails = {
         modalType: 'success',
         headingText: 'Thanks for letting us know',
-        messageText: 'Your feedback is important in helping us keep the Showpp community safe.',
+        messageText:
+          'Your feedback is important in helping us keep the Showpp community safe.',
         onPressConfirm: () => setIsSuccessOrError(false),
-      }
-      setSuccessOrErrorDetail({ ...modalDetails });
+      };
+      setSuccessOrErrorDetail({...modalDetails});
     }, 3000);
-  }
+  };
 
   const renderCommentBox = () => {
     return (
@@ -319,37 +333,37 @@ const AfterSplash = props => {
     );
   };
 
-  const renderCommentMsg = ({ item }) => {
-    const { comment, time, img } = item;
+  const renderCommentMsg = ({item}) => {
+    const {comment, time, img} = item;
     return <Comment description={comment} time={time} img={img} />;
   };
 
   const renderHeaderComponent = () => {
     return (
-      <View style={{ ...styles.headerComponentContainer }}>
-        <Text style={{ ...styles.headerText }}>{'Share to'}</Text>
+      <View style={{...styles.headerComponentContainer}}>
+        <Text style={{...styles.headerText}}>{'Share to'}</Text>
       </View>
     );
   };
 
-  const renderSocialButton = ({ isImage, image, label, onPress }) => {
+  const renderSocialButton = ({isImage, image, label, onPress}) => {
     return (
       <React.Fragment>
         {isImage ? (
           <TouchableOpacity
             onPress={onPress}
-            style={{ ...styles.socailIconContainer }}>
-            <Image source={image} style={{ ...styles.socailIconImage }} />
-            <Text style={{ ...styles.socailIconLabel }}>{label}</Text>
+            style={{...styles.socailIconContainer}}>
+            <Image source={image} style={{...styles.socailIconImage}} />
+            <Text style={{...styles.socailIconLabel}}>{label}</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={onPress}
-            style={{ ...styles.socailIconContainer }}>
-            <View style={{ ...styles.socailCustomIconContainer }}>
-              <Image source={image} style={{ ...styles.socailCustomIconImage }} />
+            style={{...styles.socailIconContainer}}>
+            <View style={{...styles.socailCustomIconContainer}}>
+              <Image source={image} style={{...styles.socailCustomIconImage}} />
             </View>
-            <Text style={{ ...styles.socailIconLabel }}>{label}</Text>
+            <Text style={{...styles.socailIconLabel}}>{label}</Text>
           </TouchableOpacity>
         )}
       </React.Fragment>
@@ -359,7 +373,7 @@ const AfterSplash = props => {
   const renderSocialShareContent = () => {
     return (
       <React.Fragment>
-        <View style={{ ...styles.socialModalContent }}>
+        <View style={{...styles.socialModalContent}}>
           {renderSocialButton({
             isImage: true,
             image: Images.facebook,
@@ -370,7 +384,11 @@ const AfterSplash = props => {
             isImage: true,
             image: Images.instagram,
             label: 'Instagram',
-            onPress: () => handleNavigation('VideoSharing', { videoUrl, shareType: 'instagram' }),
+            onPress: () =>
+              handleNavigation('VideoSharing', {
+                videoUrl,
+                shareType: 'instagram',
+              }),
           })}
           {renderSocialButton({
             isImage: true,
@@ -406,8 +424,8 @@ const AfterSplash = props => {
 
         <TouchableOpacity
           onPress={closeSocialShareModalize}
-          style={{ ...styles.socialCancelButton }}>
-          <Text style={{ ...styles.socialCancelText }}>Cancel</Text>
+          style={{...styles.socialCancelButton}}>
+          <Text style={{...styles.socialCancelText}}>Cancel</Text>
         </TouchableOpacity>
       </React.Fragment>
     );
@@ -427,20 +445,20 @@ const AfterSplash = props => {
       <Header
         leftIcon={Images.menu}
         isLeftIconImg={true}
-        leftIconImageStyle={{ ...styles.leftIconImageStyle }}
+        leftIconImageStyle={{...styles.leftIconImageStyle}}
         leftBtnPress={() => props.navigation.openDrawer()}
         isRightIconImg={true}
         rightIcon={Images.filter}
-        rightBtnPress={() => props.navigation.goBack()}
+        rightBtnPress={() => {}}
         headerTextStyle={styles.headerTextStyle}
-        rightIconImageStyle={{ ...styles.leftIconImageStyle }}
+        rightIconImageStyle={{...styles.leftIconImageStyle}}
       />
 
       {!isLoading && !isOpen && !isHideOptions && (
         <SocialOptions
           userImage={Images.user}
-          onPressFollow={() => { }}
-          onPressLike={() => { }}
+          onPressFollow={() => {}}
+          onPressLike={() => {}}
           totalLikes={'24.5k'}
           onPressComment={openCommentModalize}
           totalComments={'24.5k'}
@@ -453,7 +471,7 @@ const AfterSplash = props => {
 
       {showVideoPlayer && (
         <CustomVideoPlayer
-          source={{ uri: videoUrl }}
+          source={{uri: videoUrl}}
           onBuffering={isBuffering => setIsLoading(isBuffering)}
         />
       )}
@@ -462,8 +480,8 @@ const AfterSplash = props => {
         data={comments}
         modalizeType="flatList"
         modalizeRef={commentModalizeRef}
-        modalStyle={{ ...styles.modalStyle }}
-        handleStyle={{ ...styles.handleStyle }}
+        modalStyle={{...styles.modalStyle}}
+        handleStyle={{...styles.handleStyle}}
         noCloseBtn={true}
         footerComponent={renderCommentBox}
         modalTopOffset={modalTopOffset}
@@ -489,7 +507,8 @@ const AfterSplash = props => {
         modalType={successOrErrorDetail.modalType}
         headingText={successOrErrorDetail.headingText}
         messageText={successOrErrorDetail.messageText}
-        onPressConfirm={successOrErrorDetail.onPressConfirm} />
+        onPressConfirm={successOrErrorDetail.onPressConfirm}
+      />
     </Layout>
   );
 };

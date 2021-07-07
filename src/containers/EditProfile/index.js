@@ -8,6 +8,7 @@ import {
   TextInput,
   PermissionsAndroid,
   Platform,
+  StatusBar,
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
@@ -32,6 +33,7 @@ const EditProfile = props => {
   const [imageError, setImageError] = useState('');
   const [bioError, setBioError] = useState('');
   const [placeholderImage, setPlaceholderImage] = useState({});
+  const [floatLabel, setFloatLabel] = useState(false);
 
   const textInputRef = useRef();
 
@@ -98,6 +100,7 @@ const EditProfile = props => {
           editable={true}
           refrence={createRef.fullNameInputRef}
           value={fullname}
+          floatingLabel
           onChangeText={value =>
             onChangeInput(
               value,
@@ -120,6 +123,7 @@ const EditProfile = props => {
           editable={true}
           refrence={createRef.userNameInputRef}
           value={username}
+          floatingLabel
           onChangeText={value =>
             onChangeInput(
               value,
@@ -137,6 +141,9 @@ const EditProfile = props => {
         />
 
         <View>
+          {floatLabel ? (
+            <Text style={{...styles.labelTopText}}>Bio</Text>
+          ) : null}
           <TextInput
             value={bio}
             onChangeText={onChangeTitle}
@@ -147,6 +154,8 @@ const EditProfile = props => {
             numberOfLines={9}
             ref={textInputRef}
             maxLength={120}
+            onFocus={() => setFloatLabel(true)}
+            onBlur={() => setFloatLabel(bio !== '')}
           />
           <Text
             style={{
@@ -255,6 +264,12 @@ const EditProfile = props => {
 
   return (
     <>
+      <StatusBar
+        translucent
+        backgroundColor={Colors.Concrete}
+        barStyle="dark-content"
+      />
+
       <Header
         {...props}
         leftIcon={Images.back_arrow_nav}

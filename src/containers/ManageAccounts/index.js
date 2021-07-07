@@ -138,6 +138,7 @@ const ManageAccounts = props => {
             />
 
             <CustomPhoneInput
+              containerStyle={{...styles.customPhoneInputcontainer}}
               handlePhoneInput={setPhoneNumber}
               phoneInputTxt={createRef.phoneNumberRef}
               isHelpText={false}

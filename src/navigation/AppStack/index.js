@@ -26,15 +26,15 @@ import {
   EditTermsAndConditions,
   // AddReturnPolicy,
   ReturnPolicy,
-  // EditReturnPolicy,
-  // Settings,
-  // ManageAccounts,
-  // EditProfile,
-  // Notification,
-  // AboutUs,
-  // ContactUs,
-  // VideoPlaying,
-  // VideoSharing,
+  EditReturnPolicy,
+  Settings,
+  ManageAccounts,
+  EditProfile,
+  Notification,
+  AboutUs,
+  ContactUs,
+  VideoPlaying,
+  VideoSharing,
   // VideoTrimmer,
   // OthersProfile,
   // FollowingAndFollowers,
@@ -94,15 +94,15 @@ const AppStackScreen = ({screenNavigate}) => {
       />
       {/* <AppStack.Screen name="AddReturnPolicy" component={AddReturnPolicy} /> */}
       <AppStack.Screen name="ReturnPolicy" component={ReturnPolicy} />
-      {/* <AppStack.Screen name="EditReturnPolicy" component={EditReturnPolicy} /> */}
-      {/* <AppStack.Screen name="Settings" component={Settings} /> */}
-      {/* <AppStack.Screen name="ManageAccounts" component={ManageAccounts} /> */}
-      {/* <AppStack.Screen name="EditProfile" component={EditProfile} /> */}
-      {/* <AppStack.Screen name="Notification" component={Notification} /> */}
-      {/* <AppStack.Screen name="AboutUs" component={AboutUs} /> */}
-      {/* <AppStack.Screen name="ContactUs" component={ContactUs} /> */}
-      {/* <AppStack.Screen name="VideoPlaying" component={VideoPlaying} /> */}
-      {/* <AppStack.Screen name="VideoSharing" component={VideoSharing} /> */}
+      <AppStack.Screen name="EditReturnPolicy" component={EditReturnPolicy} />
+      <AppStack.Screen name="Settings" component={Settings} />
+      <AppStack.Screen name="ManageAccounts" component={ManageAccounts} />
+      <AppStack.Screen name="EditProfile" component={EditProfile} />
+      <AppStack.Screen name="Notification" component={Notification} />
+      <AppStack.Screen name="AboutUs" component={AboutUs} />
+      <AppStack.Screen name="ContactUs" component={ContactUs} />
+      <AppStack.Screen name="VideoPlaying" component={VideoPlaying} />
+      <AppStack.Screen name="VideoSharing" component={VideoSharing} />
       {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
       {/* <AppStack.Screen name="VideoTrimmer" component={VideoTrimmer} /> */}
       {/* <AppStack.Screen
