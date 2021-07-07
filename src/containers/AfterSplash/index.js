@@ -15,6 +15,7 @@ import CameraRoll from '@react-native-community/cameraroll';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-simple-toast';
 import {useIsFocused} from '@react-navigation/native';
+// import convertToProxyURL from 'react-native-video-cache';
 // import { createThumbnail } from "react-native-create-thumbnail";
 
 import styles from './styles';
@@ -83,7 +84,7 @@ const AfterSplash = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const [message, setMessage] = useState('');
-  const [isHideOptions, setIsHideOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const [isSuccessOrError, setIsSuccessOrError] = useState(false);
   const [successOrErrorDetail, setSuccessOrErrorDetail] = useState({
     modalType: '',
@@ -114,8 +115,10 @@ const AfterSplash = props => {
   useEffect(() => {
     if (isFocused) {
       setShowVideoPlayer(true);
+      setShowOptions(false);
     } else {
       setShowVideoPlayer(false);
+      setShowOptions(false);
     }
   }, [isFocused]);
 
@@ -435,7 +438,7 @@ const AfterSplash = props => {
     <Layout
       {...props}
       isLogedIn={false}
-      isModalizeOpen={value => setIsHideOptions(value)}>
+      isModalizeOpen={value => setShowOptions(!value)}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}
@@ -454,7 +457,7 @@ const AfterSplash = props => {
         rightIconImageStyle={{...styles.leftIconImageStyle}}
       />
 
-      {!isLoading && !isOpen && !isHideOptions && (
+      {!isLoading && showOptions && (
         <SocialOptions
           userImage={Images.user}
           onPressFollow={() => {}}
@@ -467,12 +470,22 @@ const AfterSplash = props => {
         />
       )}
 
-      {!isLoading && !isOpen && !isHideOptions && <VideoBuyCard />}
+      {!isLoading && showOptions && <VideoBuyCard />}
 
       {showVideoPlayer && (
         <CustomVideoPlayer
-          source={{uri: videoUrl}}
-          onBuffering={isBuffering => setIsLoading(isBuffering)}
+          source={{
+            // uri: convertToProxyURL(videoUrl),
+            uri: videoUrl,
+            cache: true,
+            // cache: {size: 50, expiresIn: 3600},
+            // size: 50,
+            // expiresIn: 1800,
+          }}
+          onBuffering={isBuffering => {
+            setIsLoading(isBuffering);
+            setShowOptions(!isBuffering);
+          }}
         />
       )}
 
@@ -486,8 +499,8 @@ const AfterSplash = props => {
         footerComponent={renderCommentBox}
         modalTopOffset={modalTopOffset}
         renderItem={renderCommentMsg}
-        onOpened={() => setIsHideOptions(true)}
-        onClosed={() => setIsHideOptions(false)}
+        onOpened={() => setShowOptions(false)}
+        onClosed={() => setShowOptions(true)}
       />
 
       <CustomModalize
@@ -495,8 +508,8 @@ const AfterSplash = props => {
         modalizeRef={socialShareModalizeRef}
         modalTopOffset={modalTopOffset}
         headerComponent={renderHeaderComponent()}
-        onOpened={() => setIsHideOptions(true)}
-        onClosed={() => setIsHideOptions(false)}>
+        onOpened={() => setShowOptions(false)}
+        onClosed={() => setShowOptions(true)}>
         {renderSocialShareContent()}
       </CustomModalize>
 
