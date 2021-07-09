@@ -41,6 +41,7 @@ import {
   // Shop,
   // WishList,
   // PlaceOrder,
+  // Reviews,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -112,6 +113,7 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="Shop" component={Shop} /> */}
       {/* <AppStack.Screen name="WishList" component={WishList} /> */}
       {/* <AppStack.Screen name="PlaceOrder" component={PlaceOrder} /> */}
+      {/* <AppStack.Screen name="Reviews" component={Reviews} /> */}
     </AppStack.Navigator>
   );
 };

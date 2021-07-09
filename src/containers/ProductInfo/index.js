@@ -99,7 +99,8 @@ const ProductInfo = props => {
                 ))}
               </View>
               <Text style={{...styles.reviewText}}>3,448 Reviews </Text>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleNavigation('Reviews')}>
                 <Text style={{...styles.reviewViewBtn}}>View</Text>
               </TouchableOpacity>
             </View>

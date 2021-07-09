@@ -99,6 +99,7 @@ const story_video_sharing = require('../assets/images/icons/story_video_sharing.
 const feed_video_sharing = require('../assets/images/icons/feed_video_sharing.png');
 const more_following_and_followers = require('../assets/images/icons/more_following_and_followers.png');
 const order_placed = require('../assets/images/backgrounds/order_placed.png');
+const clock_reviews = require('../assets/images/icons/clock_reviews.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -202,4 +203,5 @@ export default {
   feed_video_sharing,
   more_following_and_followers,
   order_placed,
+  clock_reviews,
 };

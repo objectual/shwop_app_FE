@@ -22,6 +22,8 @@ import CustomRating from './CustomRating';
 import SuccessOrErrorModal from './SuccessOrErrorModal';
 import FollowingFollowerCard from './FollowingFollowerCard';
 import ImageSlider from './ImageSlider';
+import ReviewCard from './ReviewCard';
+import VideoModal from './VideoModal';
 
 export {
   CustomTextInput,
@@ -48,4 +50,6 @@ export {
   SuccessOrErrorModal,
   FollowingFollowerCard,
   ImageSlider,
+  ReviewCard,
+  VideoModal,
 };
