@@ -293,22 +293,18 @@ const EditProfile = props => {
                 }
               />
             </View>
-            <View>
-              <TouchableOpacity style={styles.uploadBtn}>
-                <Image style={styles.upload} source={Images.upload} />
-                <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
-                  Upload Image
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => selectImage()}
-                style={styles.buyBtn}>
-                <Image style={styles.upload} source={Images.camera} />
-                <Text style={styles.BuyBtnText}>Take Image</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.uploadBtn}>
+              <Image style={styles.upload} source={Images.upload} />
+              <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
+                Upload Image
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => selectImage()}
+              style={styles.buyBtn}>
+              <Image style={styles.upload} source={Images.camera} />
+              <Text style={styles.BuyBtnText}>Take Image</Text>
+            </TouchableOpacity>
             {imageError ? (
               <Text style={styles.errormsg}> {imageError}</Text>
             ) : null}

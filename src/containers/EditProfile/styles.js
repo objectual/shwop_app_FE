@@ -8,7 +8,7 @@ export default StyleSheet.create({
     marginHorizontal: Metrics.ratio(16),
     borderRadius: Metrics.ratio(10),
     marginTop: Metrics.ratio(90),
-    paddingBottom: Metrics.ratio(12),
+    paddingBottom: Metrics.ratio(8),
   },
   buyBtn: {
     backgroundColor: Colors.Affair,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     paddingVertical: Metrics.ratio(10),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: Metrics.ratio(15),
+    marginTop: Metrics.ratio(16),
     width: Metrics.ratio(140),
     flexDirection: 'row',
   },
@@ -30,13 +30,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: Metrics.ratio(140),
     flexDirection: 'row',
-    marginTop: Metrics.ratio(70),
+    marginTop: Metrics.ratio(16),
   },
   ImageUserView: {
     alignItems: 'center',
     backgroundColor: Colors.White,
-    position: 'absolute',
-    top: Metrics.ratio(-70),
     justifyContent: 'center',
     borderRadius: Metrics.screenHeight * 0.22,
     height: Metrics.screenHeight * 0.22,
@@ -66,6 +64,7 @@ export default StyleSheet.create({
   uploadArea: {
     alignItems: 'center',
     marginBottom: Metrics.ratio(15),
+    marginTop: Metrics.ratio(-73),
   },
   titleTextInput: {
     backgroundColor: Colors.White,

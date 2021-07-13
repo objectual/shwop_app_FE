@@ -31,7 +31,7 @@ const AddReturnPolicy = props => {
 
   const handleValidation = async () => {
     if (!title) {
-      setTitleError('Title is required.');
+      setTitleError('Return policy is required.');
       setTimeout(() => {
         setTitleError('');
       }, 3000);
