@@ -100,6 +100,7 @@ const feed_video_sharing = require('../assets/images/icons/feed_video_sharing.pn
 const more_following_and_followers = require('../assets/images/icons/more_following_and_followers.png');
 const order_placed = require('../assets/images/backgrounds/order_placed.png');
 const clock_reviews = require('../assets/images/icons/clock_reviews.png');
+const search_gray_chat = require('../assets/images/icons/search_gray_chat.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -204,4 +205,5 @@ export default {
   more_following_and_followers,
   order_placed,
   clock_reviews,
+  search_gray_chat,
 };
