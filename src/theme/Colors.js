@@ -22,6 +22,8 @@ const Web_Orange = '#FFAA00';
 const Eucalyptus = '#28A745';
 const Punch = '#DC3545';
 const Amber = '#FFC107';
+const Harlequin = '#38D812';
+const Alabaster = '#F9F9F9';
 
 export default {
   // Solid Colors
@@ -48,4 +50,6 @@ export default {
   Eucalyptus,
   Punch,
   Amber,
+  Harlequin,
+  Alabaster,
 };

@@ -101,6 +101,9 @@ const more_following_and_followers = require('../assets/images/icons/more_follow
 const order_placed = require('../assets/images/backgrounds/order_placed.png');
 const clock_reviews = require('../assets/images/icons/clock_reviews.png');
 const search_gray_chat = require('../assets/images/icons/search_gray_chat.png');
+const tick_sent = require('../assets/images/icons/tick_sent.png');
+const tick_delivered = require('../assets/images/icons/tick_delivered.png');
+const tick_seen = require('../assets/images/icons/tick_seen.png');
 
 export default {
   Chat_Bottom_Tab,
@@ -206,4 +209,7 @@ export default {
   order_placed,
   clock_reviews,
   search_gray_chat,
+  tick_sent,
+  tick_delivered,
+  tick_seen,
 };

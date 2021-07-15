@@ -42,6 +42,7 @@ import {
   // WishList,
   // PlaceOrder,
   // Reviews,
+  Messages,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -64,7 +65,7 @@ const AppStackScreen = ({screenNavigate}) => {
   };
 
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
+    <AppStack.Navigator headerMode="none" initialRouteName="Messages">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />
@@ -114,6 +115,7 @@ const AppStackScreen = ({screenNavigate}) => {
       {/* <AppStack.Screen name="WishList" component={WishList} /> */}
       {/* <AppStack.Screen name="PlaceOrder" component={PlaceOrder} /> */}
       {/* <AppStack.Screen name="Reviews" component={Reviews} /> */}
+      <AppStack.Screen name="Messages" component={Messages} />
     </AppStack.Navigator>
   );
 };

@@ -79,6 +79,10 @@ const Chat = props => {
     }
   }, [isOpen]);
 
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
+  };
+
   const results = !searchText
     ? users
     : users?.filter(
@@ -89,7 +93,9 @@ const Chat = props => {
 
   const renderUsers = item => {
     return (
-      <View style={{...styles.userContainer}}>
+      <TouchableOpacity
+        onPress={() => handleNavigation('Messages')}
+        style={{...styles.userContainer}}>
         <View style={{...styles.userImageNameContainer}}>
           <Image source={item.image} style={{...styles.userImage}} />
 
@@ -115,7 +121,7 @@ const Chat = props => {
           <Text style={{...styles.createdAtText}}>{item.createdAt}</Text>
           {!item.read && <View style={{...styles.unreadIcon}} />}
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

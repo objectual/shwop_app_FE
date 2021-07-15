@@ -35,6 +35,7 @@ import VideoSharing from './VideoSharing';
 import FollowingAndFollowers from './FollowingAndFollowers';
 import PlaceOrder from './PlaceOrder';
 import Reviews from './Reviews';
+import Messages from './Messages';
 
 export {
   Chat,
@@ -74,4 +75,5 @@ export {
   FollowingAndFollowers,
   PlaceOrder,
   Reviews,
+  Messages,
 };
