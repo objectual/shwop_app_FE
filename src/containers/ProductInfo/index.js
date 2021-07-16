@@ -62,7 +62,9 @@ const ProductInfo = props => {
               <Text style={{...styles.productName}} numberOfLines={1}>
                 Nike Sports shoes UK4 Nike Sports shoes UK4
               </Text>
-              <TouchableOpacity style={{...styles.wishlistContainer}}>
+              <TouchableOpacity
+                onPress={() => {}}
+                style={{...styles.wishlistContainer}}>
                 <Image
                   source={Images.wishlist}
                   resizeMode={'contain'}
@@ -99,8 +101,7 @@ const ProductInfo = props => {
                 ))}
               </View>
               <Text style={{...styles.reviewText}}>3,448 Reviews </Text>
-              <TouchableOpacity
-                onPress={() => handleNavigation('Reviews')}>
+              <TouchableOpacity onPress={() => handleNavigation('Reviews')}>
                 <Text style={{...styles.reviewViewBtn}}>View</Text>
               </TouchableOpacity>
             </View>
@@ -135,7 +136,9 @@ const ProductInfo = props => {
 
             {productType === 'other' ? (
               <View style={{...styles.buttonsRow}}>
-                <TouchableOpacity style={{...styles.chatBtn}}>
+                <TouchableOpacity
+                  onPress={() => handleNavigation('Messages')}
+                  style={{...styles.chatBtn}}>
                   <Text style={{...styles.chatBtnText}}>Chat</Text>
                 </TouchableOpacity>
                 <GradientButton

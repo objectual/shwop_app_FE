@@ -231,7 +231,9 @@ const Messages = props => {
       />
 
       <View style={{...styles.headerContainer}}>
-        <TouchableOpacity style={{...styles.leftBtn}}>
+        <TouchableOpacity
+          onPress={() => props.navigation.goBack()}
+          style={{...styles.leftBtn}}>
           <Image
             source={Images.back_arrow_nav}
             resizeMode={'contain'}

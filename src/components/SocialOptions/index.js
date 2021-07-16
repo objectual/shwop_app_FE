@@ -10,6 +10,7 @@ import {Images, Metrics, Colors} from '../../theme';
 const SocialOptions = props => {
   const {
     userImage,
+    onPressUserImage,
     onPressFollow,
     onPressLike,
     totalLikes,
@@ -22,13 +23,15 @@ const SocialOptions = props => {
   return (
     <View style={styles.homeOptions}>
       <View style={styles.UserImageView}>
-        <View style={{...styles.userImgView}}>
+        <TouchableOpacity
+          onPress={onPressUserImage}
+          style={{...styles.userImgView}}>
           <Image
             style={{...styles.userImg}}
             resizeMode="contain"
             source={userImage}
           />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.follow} onPress={onPressFollow}>
           <MaterialCommunityIcons
             name="plus"
@@ -75,6 +78,7 @@ const SocialOptions = props => {
 };
 
 SocialOptions.defaultProps = {
+  onPressUserImage: undefined,
   onPressFollow: undefined,
   onPressLike: undefined,
   totalLikes: 0,
@@ -86,6 +90,7 @@ SocialOptions.defaultProps = {
 
 SocialOptions.propTypes = {
   userImage: PropTypes.object || PropTypes.number,
+  onPressUserImage: PropTypes.func,
   onPressFollow: PropTypes.func,
   onPressLike: PropTypes.func,
   totalLikes: PropTypes.number,

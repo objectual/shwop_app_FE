@@ -460,6 +460,7 @@ const AfterSplash = props => {
       {!isLoading && showOptions && (
         <SocialOptions
           userImage={Images.user}
+          onPressUserImage={() => handleNavigation('OthersProfile')}
           onPressFollow={() => {}}
           onPressLike={() => {}}
           totalLikes={'24.5k'}

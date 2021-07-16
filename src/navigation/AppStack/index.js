@@ -36,12 +36,12 @@ import {
   VideoPlaying,
   VideoSharing,
   // VideoTrimmer,
-  // OthersProfile,
-  // FollowingAndFollowers,
-  // Shop,
-  // WishList,
-  // PlaceOrder,
-  // Reviews,
+  OthersProfile,
+  FollowingAndFollowers,
+  Shop,
+  WishList,
+  PlaceOrder,
+  Reviews,
   Messages,
 } from '../../containers';
 
@@ -65,7 +65,7 @@ const AppStackScreen = ({screenNavigate}) => {
   };
 
   return (
-    <AppStack.Navigator headerMode="none" initialRouteName="Messages">
+    <AppStack.Navigator headerMode="none" initialRouteName="AfterSplash">
       <AppStack.Screen name="AfterSplash" component={AfterSplash} />
       <AppStack.Screen name="UploadVideo" component={UploadVideo} />
       <AppStack.Screen name="Chat" component={Chat} />
@@ -105,16 +105,16 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="ContactUs" component={ContactUs} />
       <AppStack.Screen name="VideoPlaying" component={VideoPlaying} />
       <AppStack.Screen name="VideoSharing" component={VideoSharing} />
-      {/* <AppStack.Screen name="OthersProfile" component={OthersProfile} /> */}
+      <AppStack.Screen name="OthersProfile" component={OthersProfile} />
       {/* <AppStack.Screen name="VideoTrimmer" component={VideoTrimmer} /> */}
-      {/* <AppStack.Screen
+      <AppStack.Screen
         name="FollowingAndFollowers"
         component={FollowingAndFollowers}
-      /> */}
-      {/* <AppStack.Screen name="Shop" component={Shop} /> */}
-      {/* <AppStack.Screen name="WishList" component={WishList} /> */}
-      {/* <AppStack.Screen name="PlaceOrder" component={PlaceOrder} /> */}
-      {/* <AppStack.Screen name="Reviews" component={Reviews} /> */}
+      />
+      <AppStack.Screen name="Shop" component={Shop} />
+      <AppStack.Screen name="Reviews" component={Reviews} />
+      <AppStack.Screen name="WishList" component={WishList} />
+      <AppStack.Screen name="PlaceOrder" component={PlaceOrder} />
       <AppStack.Screen name="Messages" component={Messages} />
     </AppStack.Navigator>
   );

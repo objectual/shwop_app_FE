@@ -45,7 +45,9 @@ const following = [
 ];
 
 const FollowingAndFollowers = props => {
-  const [activeBtn, setActiveBtn] = useState('following');
+  const {activeTab} = props.route.params;
+
+  const [activeBtn, setActiveBtn] = useState(activeTab);
 
   const renderHeaderButton = ({isActive, label, key, onPress}) => {
     return (
@@ -63,7 +65,6 @@ const FollowingAndFollowers = props => {
   };
 
   const renderFollowingCard = item => {
-    console.log(item, 'item');
     return (
       <FollowingFollowerCard
         cardType={'following'}
@@ -79,7 +80,6 @@ const FollowingAndFollowers = props => {
   };
 
   const renderFollowersCard = item => {
-    console.log(item, 'item');
     return (
       <FollowingFollowerCard
         cardType={'followers'}

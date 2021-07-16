@@ -97,14 +97,26 @@ const Profile = props => {
           <Text style={{...styles.profileCodeTxt}}>@654897</Text>
         </View>
         <View style={{...styles.followArea}}>
-          <View style={{...styles.followWhiteArea}}>
+          <TouchableOpacity
+            onPress={() =>
+              handleNavigation('FollowingAndFollowers', {
+                activeTab: 'following',
+              })
+            }
+            style={{...styles.followWhiteArea}}>
             <Text style={{...styles.followNumber}}>77</Text>
             <Text style={{...styles.followTxt}}>Following</Text>
-          </View>
-          <View style={{...styles.followWhiteArea}}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              handleNavigation('FollowingAndFollowers', {
+                activeTab: 'followers',
+              })
+            }
+            style={{...styles.followWhiteArea}}>
             <Text style={{...styles.followNumber}}>77</Text>
             <Text style={{...styles.followTxt}}>Followers</Text>
-          </View>
+          </TouchableOpacity>
           <View style={{...styles.followWhiteArea}}>
             <Text style={{...styles.followNumber}}>77</Text>
             <Text style={{...styles.followTxt}}>Likes</Text>
