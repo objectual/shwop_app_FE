@@ -9,7 +9,7 @@ import {
   FlatList,
   Platform,
 } from 'react-native';
-import EmojiSelector, {Categories} from 'react-native-emoji-selector';
+import EmojiSelector from 'react-native-emoji-selector';
 
 import styles from './styles';
 
@@ -150,15 +150,8 @@ const Messages = props => {
 
   const renderListEmptyComponent = () => {
     return (
-      <View style={{flex: 1}}>
-        <Text
-          style={{
-            fontSize: Metrics.ratio(16),
-            fontFamily: Fonts.type.Nunito,
-            color: Colors.Charade,
-          }}>
-          No record found.
-        </Text>
+      <View style={{...styles.noRecordFoundContainer}}>
+        <Text style={{...styles.noRecordFoundText}}>No record found.</Text>
       </View>
     );
   };
@@ -167,16 +160,10 @@ const Messages = props => {
     return (
       <View
         style={{
+          ...styles.messageContainer,
           flexDirection: item.user.id === userInfo.id ? 'row-reverse' : 'row',
-          marginVertical: Metrics.ratio(8),
         }}>
-        <View
-          style={{
-            width: Metrics.ratio(32),
-            height: Metrics.ratio(32),
-            borderRadius: Metrics.ratio(16),
-            overflow: 'hidden',
-          }}>
+        <View style={{...styles.messageUserImageView}}>
           <Image
             source={
               item.user.id === userInfo.id
@@ -184,15 +171,12 @@ const Messages = props => {
                 : {uri: item.user.avatar}
             }
             resizeMode={'cover'}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
+            style={{...styles.messageUserImage}}
           />
         </View>
         <View
           style={{
-            flex: 1,
+            ...styles.messageTextContainer,
             marginLeft:
               item.user.id === userInfo.id
                 ? Metrics.ratio(0)
@@ -203,65 +187,31 @@ const Messages = props => {
                 : Metrics.ratio(0),
             backgroundColor:
               item.user.id === userInfo.id ? Colors.Alabaster : Colors.White,
-            padding: Metrics.ratio(12),
-            borderRadius: Metrics.ratio(12),
           }}>
-          <Text
-            style={{
-              fontSize: Metrics.ratio(15),
-              fontFamily: Fonts.type.Nunito,
-              color: Colors.Charade,
-            }}>
-            {item.text}
-          </Text>
-          <View
-            style={{
-              marginTop: Metrics.ratio(8),
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontSize: Metrics.ratio(10),
-                fontFamily: Fonts.type.NunitoBold,
-                color: Colors.Silver_Chalice,
-              }}>
-              9:45AM
-            </Text>
+          <Text style={{...styles.messageText}}>{item.text}</Text>
+          <View style={{...styles.timeContainer}}>
+            <Text style={{...styles.timeText}}>9:45AM</Text>
             {item.user.id === userInfo.id && (
               <React.Fragment>
                 {item.status === 'seen' && (
                   <Image
                     source={Images.tick_seen}
                     resizeMode={'contain'}
-                    style={{
-                      width: Metrics.ratio(18),
-                      height: Metrics.ratio(18),
-                      marginLeft: Metrics.ratio(8),
-                    }}
+                    style={{...styles.seenImage}}
                   />
                 )}
                 {item.status === 'delivered' && (
                   <Image
                     source={Images.tick_delivered}
                     resizeMode={'contain'}
-                    style={{
-                      width: Metrics.ratio(18),
-                      height: Metrics.ratio(18),
-                      marginLeft: Metrics.ratio(8),
-                    }}
+                    style={{...styles.deliveredImage}}
                   />
                 )}
                 {item.status === 'sent' && (
                   <Image
                     source={Images.tick_sent}
                     resizeMode={'contain'}
-                    style={{
-                      width: Metrics.ratio(14),
-                      height: Metrics.ratio(14),
-                      marginLeft: Metrics.ratio(8),
-                    }}
+                    style={{...styles.sentImage}}
                   />
                 )}
               </React.Fragment>
@@ -317,60 +267,27 @@ const Messages = props => {
         </TouchableOpacity>
       </View>
 
-      <View
-        style={{
-          backgroundColor: Colors.White,
-          width: '100%',
-          height: Metrics.ratio(20),
-          borderBottomLeftRadius: Metrics.ratio(10),
-          borderBottomRightRadius: Metrics.ratio(10),
-        }}
-      />
+      <View style={{...styles.headerSeperator}} />
 
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'space-between',
-        }}>
-        <View style={{flex: 1}}>
+      <View style={{...styles.mainContentContainer}}>
+        <View style={{...styles.chatContainer}}>
           <FlatList
             inverted={true}
             data={messages}
-            contentContainerStyle={{
-              paddingHorizontal: Metrics.ratio(12),
-            }}
+            contentContainerStyle={{...styles.contentContainerStyle}}
             ListEmptyComponent={renderListEmptyComponent}
             keyExtractor={item => item.id.toString()}
             renderItem={({item}) => renderMessages(item)}
           />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            margin: Metrics.ratio(12),
-          }}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              backgroundColor: Colors.White,
-              borderRadius: Metrics.ratio(20),
-              marginRight: Metrics.ratio(8),
-              paddingRight: Metrics.ratio(8),
-              alignItems: 'flex-end',
-              overflow: 'hidden',
-            }}>
+
+        <View style={{...styles.messageBoxContainer}}>
+          <View style={{...styles.messageInputTextContainer}}>
             <TouchableOpacity
               onPress={onPressSmilingFace}
-              style={{
-                width: Metrics.ratio(40),
-                height: Metrics.ratio(40),
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+              style={{...styles.smilingFaceContainer}}>
               <Image
-                style={{width: Metrics.ratio(20), height: Metrics.ratio(20)}}
+                style={{...styles.smilingFaceImage}}
                 resizeMode="contain"
                 source={Images.smiling_face}
               />
@@ -378,36 +295,22 @@ const Messages = props => {
             <TextInput
               ref={textInputRef}
               value={messageText}
-              onChangeText={onChangeMessageText}
               multiline={true}
               placeholder={'Type Message Here...'}
+              placeholderTextColor={Colors.silver}
+              onChangeText={onChangeMessageText}
               onContentSizeChange={event =>
                 setInputHeight(event.nativeEvent.contentSize.height)
               }
-              placeholderTextColor={Colors.silver}
               style={{
-                flex: 1,
-                padding: 0,
-                margin: 0,
+                ...styles.messageTextInput,
                 height: Math.max(Metrics.ratio(40), Metrics.ratio(inputHeight)),
-                color: Colors.Charade,
-                fontFamily: Fonts.type.Nunito,
-                maxHeight: 120,
               }}
             />
           </View>
-          <TouchableOpacity
-            onPress={onSend}
-            style={{
-              backgroundColor: Colors.White,
-              width: Metrics.ratio(40),
-              height: Metrics.ratio(40),
-              borderRadius: Metrics.ratio(20),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <TouchableOpacity onPress={onSend} style={{...styles.sendButton}}>
             <Image
-              style={{width: Metrics.ratio(20), height: Metrics.ratio(20)}}
+              style={{...styles.sendButtonImage}}
               resizeMode="contain"
               source={Images.send}
             />
@@ -417,15 +320,15 @@ const Messages = props => {
 
       {showEmojiSelector && (
         <EmojiSelector
-          onEmojiSelected={emoji =>
-            onChangeMessageText(`${messageText}${emoji}`)
-          }
           showSearchBar={false}
           columns={8}
           showSectionTitles={false}
           showHistory={true}
           shouldInclude={emoji =>
             Platform.OS === 'android' && parseInt(emoji.added_in) === 0 && emoji
+          }
+          onEmojiSelected={emoji =>
+            onChangeMessageText(`${messageText}${emoji}`)
           }
         />
       )}
