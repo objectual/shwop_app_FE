@@ -35,6 +35,8 @@ const ManageAccounts = props => {
 
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState('SG');
+  // const [callingCode, setCallingCode] = useState('65');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
@@ -43,6 +45,7 @@ const ManageAccounts = props => {
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isInvalidNumber, setIsInvalidNumber] = useState(false);
 
   const onSubmit = value => {
     if (value === 'onDone') {
@@ -62,6 +65,11 @@ const ManageAccounts = props => {
     errorState(error);
   };
 
+  const onChangeCountry = country => {
+    setCountryCode(country.cca2);
+    // setCallingCode(country.callingCode[0]);
+  };
+
   const handleValidation = async () => {
     if (!fullName) {
       setFullNameError('Full name is required.');
@@ -72,6 +80,11 @@ const ManageAccounts = props => {
       setPhoneNumberError('Phone Number is required.');
       setTimeout(() => {
         setPhoneNumberError('');
+      }, 3000);
+    } else if (!createRef.phoneNumberRef.current?.isValidNumber(phoneNumber)) {
+      setIsInvalidNumber(true);
+      setTimeout(() => {
+        setIsInvalidNumber(false);
       }, 3000);
     } else if (!password) {
       setPasswordError('Password is required.');
@@ -92,7 +105,7 @@ const ManageAccounts = props => {
   };
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <Layout {...props}>
       <StatusBar
         translucent
         backgroundColor={Colors.White}
@@ -139,9 +152,13 @@ const ManageAccounts = props => {
 
             <CustomPhoneInput
               containerStyle={{...styles.customPhoneInputcontainer}}
-              handlePhoneInput={setPhoneNumber}
-              phoneInputTxt={createRef.phoneNumberRef}
+              phoneInputRef={createRef.phoneNumberRef}
+              value={phoneNumber}
+              defaultCode={countryCode}
+              onChangeText={setPhoneNumber}
               isHelpText={false}
+              isInvalidNumber={isInvalidNumber}
+              onChangeCountry={onChangeCountry}
             />
             {phoneNumberError ? (
               <Text style={styles.errormsg}> {phoneNumberError}</Text>

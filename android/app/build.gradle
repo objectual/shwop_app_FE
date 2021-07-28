@@ -210,6 +210,8 @@ dependencies {
 
     implementation project(':@react-native-community_cameraroll')
 
+    implementation project(':react-native-otp-verify')
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

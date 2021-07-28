@@ -49,7 +49,7 @@ const OthersProfile = props => {
   ];
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <Layout {...props}>
       <StatusBar
         translucent
         backgroundColor={Colors.White}

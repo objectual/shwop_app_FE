@@ -1,19 +1,19 @@
 import {take, put, call, fork} from 'redux-saga/effects';
 
 import * as types from '../actions/ActionTypes';
-import {success, failure} from '../actions/Register';
+import {success, failure} from '../actions/VerifyOtp';
 import {ErrorHelper} from '../../helpers';
-import {REGISTER} from '../../config/WebServices';
+import {VERIFY_OTP} from '../../config/WebServices';
 
 import ApiSauce from '../../services/ApiSauce';
 
 function callRequest(data) {
-  return ApiSauce.post(REGISTER, data);
+  return ApiSauce.post(VERIFY_OTP, data);
 }
 
 function* watchRequest() {
   while (true) {
-    const {payload} = yield take(types.REGISTER.REQUEST);
+    const {payload} = yield take(types.VERIFY_OTP.REQUEST);
 
     try {
       const response = yield call(callRequest, payload);

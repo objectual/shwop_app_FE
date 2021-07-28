@@ -11,7 +11,7 @@ import {
 import Share from 'react-native-share';
 import RNFetchBlob from 'react-native-fetch-blob';
 import {useSelector} from 'react-redux';
-import CameraRoll from '@react-native-community/cameraroll';
+// import CameraRoll from '@react-native-community/cameraroll';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-simple-toast';
 import {useIsFocused} from '@react-navigation/native';
@@ -262,12 +262,12 @@ const AfterSplash = props => {
     let dirs = RNFetchBlob.fs.dirs;
     let path =
       Platform.OS === 'ios'
-        ? dirs['MainBundleDir'] + videoName
+        ? dirs.MainBundleDir + videoName
         : dirs.PictureDir + videoName;
 
     if (isConnected) {
       setIsLoading(true);
-      if (Platform.OS == 'android') {
+      if (Platform.OS === 'android') {
         RNFetchBlob.config({
           fileCache: true,
           appendExt: 'mp4',
@@ -292,7 +292,7 @@ const AfterSplash = props => {
             console.log(error, 'error');
           });
       } else {
-        CameraRoll.saveToCameraRoll(imageUrl);
+        // CameraRoll.saveToCameraRoll(imageUrl);
         closeSocialShareModalize();
       }
     } else {
@@ -435,10 +435,7 @@ const AfterSplash = props => {
   };
 
   return (
-    <Layout
-      {...props}
-      isLogedIn={false}
-      isModalizeOpen={value => setShowOptions(!value)}>
+    <Layout {...props} isModalizeOpen={value => setShowOptions(!value)}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}

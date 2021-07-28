@@ -1,7 +1,4 @@
-export const BASE_URL = 'http://example.com/api';
+export const BASE_URL = 'http://192.168.18.248:4000/api';
 
-export const LOGIN = `${BASE_URL}/login`;
-export const ME = `${BASE_URL}/me`;
-export const TOPIC = `${BASE_URL}/topic`;
-export const AUTHOR = `${BASE_URL}/author`;
-export const QUOTE = `${BASE_URL}/quote`;
+export const REGISTER = `${BASE_URL}/users/register`;
+export const VERIFY_OTP = `${BASE_URL}/users/verify`;

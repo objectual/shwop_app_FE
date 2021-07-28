@@ -57,7 +57,7 @@ const SearchScreen = props => {
   const [search, setSearch] = useState('');
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <Layout {...props}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}

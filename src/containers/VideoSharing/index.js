@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StatusBar } from 'react-native';
+import React, {useState} from 'react';
+import {View, StatusBar} from 'react-native';
 import Video from 'react-native-video';
 import Share from 'react-native-share';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -7,12 +7,12 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 import styles from './styles';
 
-import { Colors, Images } from '../../theme';
-import { Header, OverlayLoader, CardButton } from '../../components';
+import {Colors, Images} from '../../theme';
+import {Header, OverlayLoader, CardButton} from '../../components';
 import util from '../../util';
 
 const VideoSharing = props => {
-  const { videoUrl, shareType } = props.route.params;
+  const {videoUrl, shareType} = props.route.params;
   const [isLoading, setIsLoading] = useState(false);
 
   const handleOnLoad = event => {
@@ -23,14 +23,14 @@ const VideoSharing = props => {
     setIsLoading(true);
   };
 
-  const handleOnBuffer = ({ isBuffering }) => {
+  const handleOnBuffer = ({isBuffering}) => {
     setIsLoading(!isBuffering);
   };
 
-  const handleShare = async ({ packageName, shareOptions, }) => {
+  const handleShare = async ({packageName, shareOptions}) => {
     try {
       setIsLoading(true);
-      const { isInstalled } = await Share.isPackageInstalled(packageName);
+      const {isInstalled} = await Share.isPackageInstalled(packageName);
 
       if (isInstalled) {
         const shareResponse = await Share.shareSingle(shareOptions);
@@ -38,16 +38,16 @@ const VideoSharing = props => {
       } else {
         util.showAlertWithDelay({
           title: 'Error',
-          message: "You do not have the application.",
+          message: 'You do not have the application.',
         });
         setIsLoading(false);
       }
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.error });
+      util.showAlertWithDelay({title: 'Error', message: error?.error});
       setIsLoading(false);
-      console.log({ error });
+      console.log({error});
     }
-  }
+  };
 
   const onPressInstaStory = async () => {
     try {
@@ -56,9 +56,9 @@ const VideoSharing = props => {
       // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
       // console.log(thumbnail.path);
 
-      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let res = await RNFetchBlob.fetch('GET', videoUrl);
       let base64Str = res.base64();
-      let { headers } = res.info();
+      let {headers} = res.info();
 
       const shareOptions = {
         social: Share.Social.INSTAGRAM_STORIES,
@@ -67,13 +67,13 @@ const VideoSharing = props => {
         backgroundTopColor: '#906df4',
       };
 
-      handleShare({ packageName: 'com.instagram.android', shareOptions, })
+      handleShare({packageName: 'com.instagram.android', shareOptions});
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      util.showAlertWithDelay({title: 'Error', message: error?.message});
       setIsLoading(false);
-      console.log({ error })
+      console.log({error});
     }
-  }
+  };
 
   const onPressInstaFeed = async () => {
     try {
@@ -82,9 +82,9 @@ const VideoSharing = props => {
       // const thumbnail = await createThumbnail({ url: videoUrl, timeStamp: 10000 });
       // console.log(thumbnail.path);
 
-      let res = await RNFetchBlob.fetch('GET', videoUrl)
+      let res = await RNFetchBlob.fetch('GET', videoUrl);
       let base64Str = res.base64();
-      let { headers } = res.info();
+      let {headers} = res.info();
 
       const shareOptions = {
         social: Share.Social.INSTAGRAM,
@@ -93,16 +93,16 @@ const VideoSharing = props => {
         url: `data:${headers['content-type']};base64,${base64Str}`,
       };
 
-      handleShare({ packageName: 'com.instagram.android', shareOptions, })
+      handleShare({packageName: 'com.instagram.android', shareOptions});
     } catch (error) {
-      util.showAlertWithDelay({ title: 'Error', message: error?.message });
+      util.showAlertWithDelay({title: 'Error', message: error?.message});
       setIsLoading(false);
-      console.log({ error })
+      console.log({error});
     }
-  }
+  };
 
   return (
-    <View style={{ ...styles.container }}>
+    <View style={{...styles.container}}>
       <StatusBar
         translucent
         backgroundColor={Colors.White}
@@ -117,15 +117,15 @@ const VideoSharing = props => {
         isDropShadow={false}
       />
 
-      <View style={{ ...styles.headerSeparator }} />
+      <View style={{...styles.headerSeparator}} />
 
-      <View style={{ ...styles.videoContainer }}>
+      <View style={{...styles.videoContainer}}>
         {videoUrl ? (
           <Video
             volume={0}
             paused={!isLoading}
-            source={{ uri: videoUrl }}
-            style={{ ...styles.videoStyle }}
+            source={{uri: videoUrl}}
+            style={{...styles.videoStyle}}
             resizeMode={'cover'}
             onLoad={handleOnLoad}
             onLoadStart={handleOnLoadStart}
@@ -134,21 +134,21 @@ const VideoSharing = props => {
         ) : null}
       </View>
 
-      <View style={{ ...styles.buttonsRow }}>
+      <View style={{...styles.buttonsRow}}>
         <CardButton
           source={Images.story_video_sharing}
           label={'Story'}
           onPress={onPressInstaStory}
-          containerStyle={{ backgroundColor: Colors.White }}
-          cardLabelStyle={{ color: Colors.Affair }}
+          containerStyle={{backgroundColor: Colors.White}}
+          cardLabelStyle={{color: Colors.Affair}}
         />
         <CardButton
           source={Images.feed_video_sharing}
           label={'Feed'}
           onPress={onPressInstaFeed}
-          cardImageStyle={{ ...styles.cardImageStyle }}
-          containerStyle={{ backgroundColor: Colors.Affair }}
-          cardLabelStyle={{ color: Colors.White }}
+          cardImageStyle={{...styles.cardImageStyle}}
+          containerStyle={{backgroundColor: Colors.Affair}}
+          cardLabelStyle={{color: Colors.White}}
         />
       </View>
 

@@ -55,9 +55,10 @@ class ApiSauce {
         response.originalError &&
         response.problem &&
         response.status === 400 &&
-        response.data
+        response.data &&
+        response.data?.msg
       ) {
-        reject(response.data);
+        reject(response.data.msg);
       } else if (
         !response.ok &&
         response.originalError &&
@@ -65,6 +66,16 @@ class ApiSauce {
         response.status === null
       ) {
         reject(response.problem);
+      } else if (
+        !response.ok &&
+        response.originalError &&
+        response.problem === 'SERVER_ERROR' &&
+        response.status === 500 &&
+        response.data &&
+        !response.data?.success &&
+        response.data?.msg
+      ) {
+        reject(response.data?.msg);
       }
     }
   };

@@ -4,6 +4,7 @@ import {Colors, Metrics, Fonts} from '../../theme';
 export default StyleSheet.create({
   imageView: {
     paddingHorizontal: Metrics.ratio(15),
+    paddingBottom: Metrics.ratio(16),
     backgroundColor: Colors.White,
     marginHorizontal: Metrics.ratio(16),
     borderRadius: Metrics.ratio(10),

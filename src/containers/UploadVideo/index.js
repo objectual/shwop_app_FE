@@ -107,13 +107,13 @@ const UploadVideo = props => {
           recordedVideoUri: `file://${destPath}`,
         });
       } catch (error) {
-        console.log(error, 'error');
+        console.log(error);
       }
     }
   };
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <Layout {...props}>
       <StatusBar
         translucent
         backgroundColor={Colors.White}

@@ -1,31 +1,36 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Text, View, Image} from 'react-native';
 import PhoneInput from 'react-native-phone-number-input';
+import PropTypes from 'prop-types';
 
 import {Colors, Images} from '../../theme';
 
 import styles from './styles';
 
 const CustomPhoneInput = props => {
-  const [value, setValue] = useState('');
-  const [formattedValue, setFormattedValue] = useState('');
-
-  const handlePhoneInput = text => {
-    let validator = props.phoneInputTxt.current?.isValidNumber(text);
-    props.handlePhoneInput(text, validator ? validator : false);
-  };
+  const {
+    phoneInputRef,
+    value,
+    onChangeText,
+    containerStyle,
+    isHelpText,
+    isInvalidNumber,
+    defaultCode,
+    onChangeCountry,
+    onChangeFormattedText,
+  } = props;
 
   const renderDropdown = () => {
     return <Image style={{...styles.dropdownImage}} source={Images.polygon} />;
   };
 
   return (
-    <View style={{...props.containerStyle}}>
+    <View style={{...containerStyle}}>
       <PhoneInput
-        ref={props.phoneInputTxt}
+        ref={phoneInputRef}
         defaultValue={value}
         placeholder="xxxxxxxx"
-        defaultCode="SG"
+        defaultCode={defaultCode}
         layout="first"
         placeholderTextColor={Colors.Mercury}
         containerStyle={{...styles.containerStyle}}
@@ -33,31 +38,49 @@ const CustomPhoneInput = props => {
         textInputStyle={{...styles.textInputStyle}}
         codeTextStyle={{...styles.codeTextStyle}}
         textContainerStyle={{...styles.textContainerStyle}}
-        onChangeText={text => {
-          handlePhoneInput(text);
-          setValue(text);
-        }}
         renderDropdownImage={renderDropdown()}
-        onChangeFormattedText={text => {
-          setFormattedValue(text);
-        }}
-        // withShadow
+        onChangeText={onChangeText}
+        onChangeCountry={onChangeCountry}
+        onChangeFormattedText={onChangeFormattedText}
       />
 
-      {props.isHelpText ? (
+      {isHelpText ? (
         <Text style={{...styles.verificationText}}>
           Verification code will be sent to you on the number you added above!
         </Text>
       ) : null}
 
-      {props.phoneInputTxt.current?.isValidNumber(value) ? (
+      {isInvalidNumber ? (
         <View style={{...styles.warningTextView}}>
           <Text style={{...styles.warningText}}>
-            {'Please Enter Right Number'}
+            {'Please enter a valid phone number.'}
           </Text>
         </View>
       ) : null}
     </View>
   );
 };
+
+CustomPhoneInput.defaultProps = {
+  value: '',
+  onChangeText: undefined,
+  containerStyle: {},
+  isHelpText: false,
+  isInvalidNumber: false,
+  defaultCode: 'SG',
+  onChangeCountry: undefined,
+  onChangeFormattedText: undefined,
+};
+
+CustomPhoneInput.propTypes = {
+  value: PropTypes.string,
+  onChangeText: PropTypes.func,
+  containerStyle: PropTypes.object,
+  isHelpText: PropTypes.bool,
+  isInvalidNumber: PropTypes.bool,
+  defaultCode: PropTypes.string,
+  onChangeCountry: PropTypes.func,
+  onChangeFormattedText: PropTypes.func,
+};
+
 export default CustomPhoneInput;

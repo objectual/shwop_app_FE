@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   Text,
   ScrollView,
@@ -10,11 +10,12 @@ import {
   Platform,
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
-  nameRegex,
   fullNameRegex,
-  passwordRegex,
+  nameRegex,
+  // passwordRegex,
   validate,
 } from '../../services/Validation';
 import {
@@ -22,115 +23,198 @@ import {
   CustomTextInput,
   CustomPhoneInput,
   PurpleButton,
+  OverlayLoader,
 } from '../../components';
 import {Images, Colors} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 import util from '../../util';
+import {request as register_request} from '../../redux/actions/Register';
 
 import styles from './styles';
 
 const SignUp = props => {
-  const phoneInput = useRef(null);
+  const {selectedPhoneNumber, selectedCountryCode, selectedCallingCode} =
+    props.route.params;
 
+  const dispatch = useDispatch();
+
+  const registerResponse = useSelector(state => state.register);
+
+  const phoneInputRef = useRef(null);
   const createRef = {
     fullNameInputRef: useRef(null),
     userNameInputRef: useRef(null),
-    passwordInputRef: useRef(null),
-    confirmpasswordInputRef: useRef(null),
-    shwoopIdInputRef: useRef(null),
+    bioInputRef: useRef(null),
+    // passwordInputRef: useRef(null),
+    // confirmpasswordInputRef: useRef(null),
+    // shwoopIdInputRef: useRef(null),
   };
-  const [fullname, setFullname] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [confirmpassword, setConfirmPassword] = useState();
-  const [shwoopId, setShwoopId] = useState();
+
+  const [fullname, setFullname] = useState('');
+  const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmpassword, setConfirmPassword] = useState('');
+  // const [shwoopId, setShwoopId] = useState('');
   const [bio, setBio] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState(selectedPhoneNumber);
+  const [countryCode, setCountryCode] = useState(selectedCountryCode);
+  const [callingCode, setCallingCode] = useState(selectedCallingCode);
   const [fullnameError, setFullnameError] = useState('');
   const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmpasswordError, setConfirmPasswordError] = useState('');
-  const [shwoopIDError, setShwoopIdError] = useState('');
+  // const [passwordError, setPasswordError] = useState('');
+  // const [confirmpasswordError, setConfirmPasswordError] = useState('');
+  // const [shwoopIDError, setShwoopIdError] = useState('');
   const [imageError, setImageError] = useState('');
   const [bioError, setBioError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [placeholderImage, setPlaceholderImage] = useState({});
-  const [secureText, setSecureText] = useState(true);
-  const [secureTextConfirm, setSecureTextConfirm] = useState(true);
+  // const [secureText, setSecureText] = useState(true);
+  // const [secureTextConfirm, setSecureTextConfirm] = useState(true);
   const [floatLabel, setFloatLabel] = useState(false);
-
-  const textInputRef = useRef();
-
-  const [isOpen] = useKeyboardStatus();
+  const [isInvalidNumber, setIsInvalidNumber] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
+    if (
+      !registerResponse.isFetching &&
+      !registerResponse.failure &&
+      !registerResponse.errorMessage &&
+      registerResponse?.data?.success
+    ) {
+      setIsLoading(false);
+
+      let phoneNumberWithoutZero =
+        phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+
+      util.showCommonMessage({
+        title: 'Message',
+        message: registerResponse?.data?.msg,
+        onPress: () =>
+          handleNavigation('Otp', {
+            selectedPhoneNumber: phoneNumberWithoutZero.number,
+            selectedCountryCode: countryCode,
+            selectedCallingCode: callingCode,
+          }),
+      });
+    } else if (!registerResponse.isFetching) {
+      setIsLoading(false);
     }
-  }, [isOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [registerResponse]);
 
   let errors = {
-    fullNameErr: 'Full name is required.',
-    usernameError: 'Username is required.',
-    passwordError:
-      'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
-    shwoopIDError: 'Shwoop Id is required.',
+    fullNameErr: 'Invaild full name.',
+    usernameError: 'Invalid username.',
+    // passwordError:
+    //   'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
+    // shwoopIDError: 'Shwoop Id is required.',
+  };
+
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
   };
 
   const handleValidation = async () => {
-    if (!fullname) {
-      setFullnameError('Full name is required.');
-      setTimeout(() => {
-        setFullnameError('');
-      }, 3000);
-    } else if (!placeholderImage?.uri) {
+    if (!placeholderImage?.uri) {
       setImageError('Image is required.');
       setTimeout(() => {
         setImageError('');
+      }, 3000);
+    } else if (!fullname) {
+      setFullnameError('Full name is required.');
+      setTimeout(() => {
+        setFullnameError('');
       }, 3000);
     } else if (!username) {
       setUsernameError('Username is required.');
       setTimeout(() => {
         setUsernameError('');
       }, 3000);
-    } else if (!password) {
-      setPasswordError('Password is required.');
-      setTimeout(() => {
-        setPasswordError('');
-      }, 3000);
-    } else if (!confirmpassword) {
-      setConfirmPasswordError('Confirm Password is required.');
-      setTimeout(() => {
-        setConfirmPasswordError('');
-      }, 3000);
-    } else if (confirmpassword !== password) {
-      setConfirmPasswordError('Confirm Password should be same');
-      setTimeout(() => {
-        setConfirmPasswordError('');
-      }, 3000);
-    } else if (!phoneNumber) {
+    }
+    // else if (!password) {
+    //   setPasswordError('Password is required.');
+    //   setTimeout(() => {
+    //     setPasswordError('');
+    //   }, 3000);
+    // } else if (!confirmpassword) {
+    //   setConfirmPasswordError('Confirm Password is required.');
+    //   setTimeout(() => {
+    //     setConfirmPasswordError('');
+    //   }, 3000);
+    // } else if (confirmpassword !== password) {
+    //   setConfirmPasswordError('Confirm Password should be same');
+    //   setTimeout(() => {
+    //     setConfirmPasswordError('');
+    //   }, 3000);
+    // }
+    else if (!phoneNumber) {
       setPhoneError('Phone Number is required.');
       setTimeout(() => {
         setPhoneError('');
       }, 3000);
-    } else if (!shwoopId) {
-      setShwoopIdError('Shwoop Id is required.');
+    } else if (!phoneInputRef.current?.isValidNumber(phoneNumber)) {
+      setIsInvalidNumber(true);
       setTimeout(() => {
-        setShwoopIdError('');
+        setIsInvalidNumber(false);
       }, 3000);
-    } else if (!bio) {
+    }
+    // else if (!shwoopId) {
+    //   setShwoopIdError('Shwoop Id is required.');
+    //   setTimeout(() => {
+    //     setShwoopIdError('');
+    //   }, 3000);
+    // }
+    else if (!bio) {
       setBioError('Bio is required.');
       setTimeout(() => {
         setBioError('');
       }, 3000);
+    } else if (
+      placeholderImage?.uri &&
+      fullname &&
+      username &&
+      phoneNumber &&
+      phoneInputRef.current?.isValidNumber(phoneNumber) &&
+      bio &&
+      !imageError &&
+      !fullnameError &&
+      !usernameError &&
+      !phoneError &&
+      !bioError
+    ) {
+      handleRegister();
     }
   };
 
-  const handleSecureTextEntry = () => {
-    setSecureText(!secureText);
+  const handleRegister = () => {
+    setIsLoading(true);
+
+    let phoneNumberWithoutZero =
+      phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+    let formDataPayload = new FormData();
+
+    formDataPayload.append('images', placeholderImage);
+    formDataPayload.append('name', fullname);
+    formDataPayload.append('username', username);
+    formDataPayload.append(
+      'phoneNo',
+      `${callingCode}${phoneNumberWithoutZero.number}`,
+    );
+    formDataPayload.append('about', bio);
+
+    dispatch(register_request(formDataPayload));
   };
-  const handleSecureTextEntryConfirm = () => {
-    setSecureTextConfirm(!secureTextConfirm);
+
+  // const handleSecureTextEntry = () => {
+  //   setSecureText(!secureText);
+  // };
+
+  // const handleSecureTextEntryConfirm = () => {
+  //   setSecureTextConfirm(!secureTextConfirm);
+  // };
+
+  const onChangeCountry = country => {
+    setCountryCode(country.cca2);
+    setCallingCode(country.callingCode[0]);
   };
 
   const onChangeInput = (value, state, errorState, regex, errorMessage) => {
@@ -145,11 +229,6 @@ const SignUp = props => {
     } else {
       value.current.focus();
     }
-  };
-
-  const handlePhoneInput = (value, validate) => {
-    setPhoneNumber(value);
-    console.log('value , validate', value, validate);
   };
 
   const onChangeTitle = text => bio.length <= 120 && setBio(text);
@@ -171,7 +250,7 @@ const SignUp = props => {
               setFullname,
               setFullnameError,
               fullNameRegex,
-              fullnameError,
+              errors.fullNameErr,
             )
           }
           onSubmitRef={createRef.userNameInputRef}
@@ -197,13 +276,13 @@ const SignUp = props => {
               errors.usernameError,
             )
           }
-          onSubmitRef={createRef.passwordInputRef}
+          onSubmitRef={createRef.bioInputRef}
           onSubmit={onSubmitRef => {
             onSubmit(onSubmitRef);
           }}
           emailError={usernameError}
         />
-        <CustomTextInput
+        {/* <CustomTextInput
           inputRightIcon={Images.eyeShowPass}
           inputRightHideIcon={Images.eyeHidePass}
           secureTextEntry={secureText}
@@ -229,8 +308,8 @@ const SignUp = props => {
             onSubmit(onSubmitRef);
           }}
           emailError={passwordError}
-        />
-        <CustomTextInput
+        /> */}
+        {/* <CustomTextInput
           inputRightIcon={Images.eyeShowPass}
           inputRightHideIcon={Images.eyeHidePass}
           secureTextEntry={secureTextConfirm}
@@ -256,15 +335,19 @@ const SignUp = props => {
             onSubmit(onSubmitRef);
           }}
           emailError={confirmpasswordError}
-        />
+        /> */}
         <CustomPhoneInput
-          handlePhoneInput={handlePhoneInput}
-          phoneInputTxt={phoneInput}
+          phoneInputRef={phoneInputRef}
+          value={phoneNumber}
+          defaultCode={countryCode}
+          onChangeText={setPhoneNumber}
           isHelpText={true}
+          isInvalidNumber={isInvalidNumber}
+          onChangeCountry={onChangeCountry}
         />
         {phoneError ? <Text style={styles.errormsg}> {phoneError}</Text> : null}
 
-        <CustomTextInput
+        {/* <CustomTextInput
           returnKeyType="next"
           enablesReturnKeyAutomaticallly={true}
           placeholder="Shwoop ID : 2976154"
@@ -278,7 +361,7 @@ const SignUp = props => {
             onSubmit(onSubmitRef);
           }}
           emailError={shwoopIDError}
-        />
+        /> */}
         <View>
           {floatLabel ? (
             <Text style={{...styles.labelTopText}}>Bio</Text>
@@ -291,7 +374,7 @@ const SignUp = props => {
             placeholder={'Bio'}
             placeholderTextColor={Colors.Mercury}
             multiline={true}
-            ref={textInputRef}
+            ref={createRef.bioInputRef}
             numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => setFloatLabel(bio !== '')}
@@ -443,7 +526,7 @@ const SignUp = props => {
             ) : null}
           </View>
           {renderSignupFields()}
-          <View style={styles.tagArea}>
+          {/* <View style={styles.tagArea}>
             <TextInput
               style={styles.inputTag}
               placeholder={'Social Media Link'}
@@ -468,10 +551,11 @@ const SignUp = props => {
               source={Images.twitterBlack}
             />
             <Text style={styles.fbTxt}>https://we.tl/t-Bks3OCTiyM</Text>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
       <PurpleButton onPress={() => handleValidation()} title="Save" />
+      <OverlayLoader isLoading={isLoading} />
     </>
   );
 };

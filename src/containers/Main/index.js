@@ -18,6 +18,7 @@ const Main = props => {
   const menuRef = useRef(null);
   const [active, setActive] = useState(0);
   const [activeForYou, setActiveForYou] = useState(null);
+  const [showTipCard, setShowTipCard] = useState(true);
   const data = [
     {
       bannerImg: Images.FollowCardImg,
@@ -103,9 +104,9 @@ const Main = props => {
       </MenuItem>
     );
   };
-  
+
   return (
-    <Layout {...props} isLogedIn={true}>
+    <Layout {...props} isModalizeOpen={value => setShowTipCard(!value)}>
       <StatusBar
         translucent
         backgroundColor={'transparent'}
@@ -224,13 +225,19 @@ const Main = props => {
           })}
         </View>
       </ScrollView>
-      <View style={{...styles.tapView}}>
-        <Text style={{...styles.tapTxt}}>Tap it to record your</Text>
-        <Text style={{...styles.firstTxt}}>First Short</Text>
-        <Text style={{...styles.firstTxt}}>Video</Text>
-        <Image style={{...styles.recordImg}} source={Images.recordVideo} />
-        <Image style={{...styles.polyginWhite}} source={Images.polygin_white} />
-      </View>
+
+      {showTipCard ? (
+        <View style={{...styles.tapView}}>
+          <Text style={{...styles.tapTxt}}>Tap it to record your</Text>
+          <Text style={{...styles.firstTxt}}>First Short</Text>
+          <Text style={{...styles.firstTxt}}>Video</Text>
+          <Image style={{...styles.recordImg}} source={Images.recordVideo} />
+          <Image
+            style={{...styles.polyginWhite}}
+            source={Images.polygin_white}
+          />
+        </View>
+      ) : null}
     </Layout>
   );
 };

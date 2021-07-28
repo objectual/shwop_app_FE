@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-export const nameRegex = /^[a-zA-Z]+$/;
+export const nameRegex = /^[a-zA-Z0-9]+$/;
 export const fullNameRegex = /^[a-zA-Z0-9_ ]*$/;
 export const numberRegex = /[+-]?([0-9]*[.])?[0-9]+/;
 export const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

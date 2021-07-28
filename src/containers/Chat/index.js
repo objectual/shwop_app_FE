@@ -12,7 +12,7 @@ import {
 import styles from './styles';
 
 import {Layout} from '../../components';
-import {Images, Colors, Metrics, Fonts} from '../../theme';
+import {Images, Colors, Fonts} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
 
 const users = [
@@ -126,7 +126,7 @@ const Chat = props => {
   };
 
   return (
-    <Layout {...props} isLogedIn={true}>
+    <Layout {...props}>
       <StatusBar
         translucent
         backgroundColor={Colors.Concrete}

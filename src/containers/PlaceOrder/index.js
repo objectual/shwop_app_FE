@@ -26,13 +26,17 @@ const PlaceOrder = props => {
   const [stocks, setStocks] = useState(0);
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState('SG');
+  // const [callingCode, setCallingCode] = useState('65');
   const [emailAddress, setEmailAddress] = useState('');
   const [otherInfo, setOtherInfo] = useState('');
+
   const [fullNameError, setFullNameError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [emailAddressError, setEmailAddressError] = useState('');
   const [otherInfoError, setOtherInfoError] = useState('');
   const [showYourTakePopup, setShowYourTakePopup] = useState(false);
+  const [isInvalidNumber, setIsInvalidNumber] = useState(false);
 
   const [floatLabel, setFloatLabel] = useState(false);
 
@@ -61,6 +65,14 @@ const PlaceOrder = props => {
     errorState(error);
   };
 
+  const onChangeOtherInfo = text =>
+    otherInfo.length <= 120 && setOtherInfo(text);
+
+  const onChangeCountry = country => {
+    setCountryCode(country.cca2);
+    // setCallingCode(country.callingCode[0]);
+  };
+
   const handleValidation = async () => {
     if (!fullName) {
       setFullNameError('Full name is required.');
@@ -72,21 +84,25 @@ const PlaceOrder = props => {
       setTimeout(() => {
         setPhoneNumberError('');
       }, 3000);
+    } else if (
+      !createRef.phoneNumberInputRef.current?.isValidNumber(phoneNumber)
+    ) {
+      setIsInvalidNumber(true);
+      setTimeout(() => {
+        setIsInvalidNumber(false);
+      }, 3000);
     } else if (!emailAddress) {
       setEmailAddressError('Email address is required.');
       setTimeout(() => {
         setEmailAddressError('');
       }, 3000);
-    } else if (!issue) {
-      setIssueError('Issue is required.');
+    } else if (!otherInfo) {
+      setOtherInfoError('Issue is required.');
       setTimeout(() => {
-        setIssueError('');
+        setOtherInfoError('');
       }, 3000);
     }
   };
-
-  const onChangeOtherInfo = text =>
-    otherInfo.length <= 120 && setOtherInfo(text);
 
   return (
     <View style={{...styles.container}}>
@@ -180,9 +196,13 @@ const PlaceOrder = props => {
 
           <CustomPhoneInput
             containerStyle={{...styles.customPhoneInputContainer}}
-            handlePhoneInput={setPhoneNumber}
-            phoneInputTxt={createRef.phoneNumberInputRef}
+            phoneInputRef={createRef.phoneNumberInputRef}
+            value={phoneNumber}
+            defaultCode={countryCode}
+            onChangeText={setPhoneNumber}
             isHelpText={false}
+            isInvalidNumber={isInvalidNumber}
+            onChangeCountry={onChangeCountry}
           />
           {phoneNumberError ? (
             <Text style={styles.errormsg}> {phoneNumberError}</Text>

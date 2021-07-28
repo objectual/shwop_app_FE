@@ -29,12 +29,15 @@ const ContactUs = props => {
 
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState('SG');
+  // const [callingCode, setCallingCode] = useState('65');
   const [emailAddress, setEmailAddress] = useState('');
   const [issue, setIssue] = useState('');
   const [fullNameError, setFullNameError] = useState('');
   const [phoneNumberError, setPhoneNumberError] = useState('');
   const [emailAddressError, setEmailAddressError] = useState('');
   const [issueError, setIssueError] = useState('');
+  const [isInvalidNumber, setIsInvalidNumber] = useState(false);
 
   const [floatLabel, setFloatLabel] = useState(false);
 
@@ -59,6 +62,13 @@ const ContactUs = props => {
     errorState(error);
   };
 
+  const onChangeIssue = text => issue.length <= 120 && setIssue(text);
+
+  const onChangeCountry = country => {
+    setCountryCode(country.cca2);
+    // setCallingCode(country.callingCode[0]);
+  };
+
   const handleValidation = async () => {
     if (!fullName) {
       setFullNameError('Full name is required.');
@@ -69,6 +79,13 @@ const ContactUs = props => {
       setPhoneNumberError('Phone number is required.');
       setTimeout(() => {
         setPhoneNumberError('');
+      }, 3000);
+    } else if (
+      !createRef.phoneNumberInputRef.current?.isValidNumber(phoneNumber)
+    ) {
+      setIsInvalidNumber(true);
+      setTimeout(() => {
+        setIsInvalidNumber(false);
       }, 3000);
     } else if (!emailAddress) {
       setEmailAddressError('Email address is required.');
@@ -82,8 +99,6 @@ const ContactUs = props => {
       }, 3000);
     }
   };
-
-  const onChangeIssue = text => issue.length <= 120 && setIssue(text);
 
   return (
     <View style={{...styles.container}}>
@@ -136,9 +151,13 @@ const ContactUs = props => {
 
           <CustomPhoneInput
             containerStyle={{...styles.customPhoneInputContainer}}
-            handlePhoneInput={setPhoneNumber}
-            phoneInputTxt={createRef.phoneNumberInputRef}
+            phoneInputRef={createRef.phoneNumberInputRef}
+            value={phoneNumber}
+            defaultCode={countryCode}
+            onChangeText={setPhoneNumber}
             isHelpText={false}
+            isInvalidNumber={isInvalidNumber}
+            onChangeCountry={onChangeCountry}
           />
           {phoneNumberError ? (
             <Text style={styles.errormsg}> {phoneNumberError}</Text>
