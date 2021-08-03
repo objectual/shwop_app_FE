@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useIsFocused} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Images, Metrics, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
@@ -11,17 +11,22 @@ import {
   CustomModalize,
   CustomPhoneInput,
   GradientButton,
+  OverlayLoader,
 } from '../../components';
+import {GOOGLE, FACEBOOK} from '../../config/WebServices';
+import {request as login_request} from '../../redux/actions/Login';
 
 import styles from './styles';
 
 const Layout = props => {
   const {children, isModalizeOpen} = props;
 
+  const dispatch = useDispatch();
   const [isOpen] = useKeyboardStatus();
   const isFocused = useIsFocused();
 
   const userDetailsResponse = useSelector(state => state.userDetails);
+  const loginResponse = useSelector(state => state.login);
 
   const modalizeRef = useRef(null);
   const loginPhoneInputRef = useRef(null);
@@ -36,6 +41,7 @@ const Layout = props => {
     Metrics.screenHeight * 0.25,
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isFocused) {
@@ -51,6 +57,27 @@ const Layout = props => {
       setIsLoggedIn(true);
     }
   }, [userDetailsResponse]);
+
+  useEffect(() => {
+    if (
+      !loginResponse.isFetching &&
+      !loginResponse.failure &&
+      !loginResponse.errorMessage &&
+      loginResponse?.data?.success
+    ) {
+      setIsLoading(false);
+
+      let phoneNumberWithoutZero =
+        loginPhoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+
+      handleNavigation('Otp', {
+        selectedPhoneNumber: `${callingCode}${phoneNumberWithoutZero?.number}`,
+      });
+    } else if (!loginResponse.isFetching) {
+      setIsLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginResponse]);
 
   useEffect(() => {
     if (isOpen) {
@@ -96,14 +123,16 @@ const Layout = props => {
 
   const handleLogin = () => {
     if (loginPhoneInputRef.current?.isValidNumber(phoneNumber)) {
+      setIsLoading(true);
       let phoneNumberWithoutZero =
         loginPhoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
 
-      handleNavigation('Otp', {
-        selectedPhoneNumber: phoneNumberWithoutZero.number,
-        selectedCountryCode: countryCode,
-        selectedCallingCode: callingCode,
-      });
+      let payload = {
+        phoneNo: `${callingCode}${phoneNumberWithoutZero.number}`,
+        role: 'USER',
+      };
+
+      dispatch(login_request(payload));
     } else {
       setIsInvalidNumber(true);
       setTimeout(() => {
@@ -181,18 +210,28 @@ const Layout = props => {
           <Text style={styles.orText}>OR</Text>
         </View>
         <View style={styles.socialView}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              handleNavigation('MyWebView', {
+                webViewLink: FACEBOOK,
+              })
+            }>
             <Image style={styles.socialImg} source={Images.facebook} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              handleNavigation('MyWebView', {
+                webViewLink: GOOGLE,
+              })
+            }>
             <Image style={styles.socialImg} source={Images.google} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Image style={styles.socialImg} source={Images.instagram} />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image style={styles.socialImg} source={Images.twitter} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.RegisterTag}>
           <Text style={styles.RegisterHere}>Don't have an account?</Text>
@@ -231,18 +270,28 @@ const Layout = props => {
           <Text style={styles.orText}>OR</Text>
         </View>
         <View style={styles.socialView}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              handleNavigation('MyWebView', {
+                webViewLink: FACEBOOK,
+              })
+            }>
             <Image style={styles.socialImg} source={Images.facebook} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              handleNavigation('MyWebView', {
+                webViewLink: GOOGLE,
+              })
+            }>
             <Image style={styles.socialImg} source={Images.google} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Image style={styles.socialImg} source={Images.instagram} />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image style={styles.socialImg} source={Images.twitter} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.RegisterTag}>
           <Text style={styles.RegisterHere}>Don't have an account?</Text>
@@ -281,19 +330,17 @@ const Layout = props => {
           {renderTabBar(Images.Profile_Bottom_Tab, 'Profile')}
         </View>
       )}
+
+      <OverlayLoader isLoading={isLoading} />
     </View>
   );
 };
 
 Layout.defaultProps = {
-  isLoading: false,
-  isLoggedIn: false,
   isModalizeOpen: () => {},
 };
 
 Layout.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
   isModalizeOpen: PropTypes.func,
 };
 

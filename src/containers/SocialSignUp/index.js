@@ -4,12 +4,12 @@ import {
   ScrollView,
   View,
   Image,
-  TouchableOpacity,
+  // TouchableOpacity,
   TextInput,
-  PermissionsAndroid,
-  Platform,
+  // PermissionsAndroid,
+  // Platform,
 } from 'react-native';
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+// import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
@@ -27,17 +27,16 @@ import {
 } from '../../components';
 import {Images, Colors} from '../../theme';
 import util from '../../util';
-import {request as register_request} from '../../redux/actions/Register';
+import {request as social_register_request} from '../../redux/actions/SocialRegister';
 
 import styles from './styles';
 
-const SignUp = props => {
-  const {selectedPhoneNumber, selectedCountryCode, selectedCallingCode} =
-    props.route.params;
+const SocialSignUp = props => {
+  const {name, email, profileImage} = props.route.params;
 
   const dispatch = useDispatch();
 
-  const registerResponse = useSelector(state => state.register);
+  const socialRegisterResponse = useSelector(state => state.socialRegister);
 
   const phoneInputRef = useRef(null);
   const createRef = {
@@ -49,15 +48,15 @@ const SignUp = props => {
     // shwoopIdInputRef: useRef(null),
   };
 
-  const [fullname, setFullname] = useState('');
+  const [fullname, setFullname] = useState(name);
   const [username, setUsername] = useState('');
   // const [password, setPassword] = useState('');
   // const [confirmpassword, setConfirmPassword] = useState('');
   // const [shwoopId, setShwoopId] = useState('');
   const [bio, setBio] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState(selectedPhoneNumber);
-  const [countryCode, setCountryCode] = useState(selectedCountryCode);
-  const [callingCode, setCallingCode] = useState(selectedCallingCode);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState('SG');
+  const [callingCode, setCallingCode] = useState('65');
   const [fullnameError, setFullnameError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   // const [passwordError, setPasswordError] = useState('');
@@ -66,7 +65,8 @@ const SignUp = props => {
   const [imageError, setImageError] = useState('');
   const [bioError, setBioError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  const [placeholderImage, setPlaceholderImage] = useState({});
+  // const [placeholderImage, setPlaceholderImage] = useState({uri: profileImage});
+  const [placeholderImage] = useState({uri: profileImage});
   // const [secureText, setSecureText] = useState(true);
   // const [secureTextConfirm, setSecureTextConfirm] = useState(true);
   const [floatLabel, setFloatLabel] = useState(false);
@@ -75,10 +75,10 @@ const SignUp = props => {
 
   useEffect(() => {
     if (
-      !registerResponse.isFetching &&
-      !registerResponse.failure &&
-      !registerResponse.errorMessage &&
-      registerResponse?.data?.success
+      !socialRegisterResponse.isFetching &&
+      !socialRegisterResponse.failure &&
+      !socialRegisterResponse.errorMessage &&
+      socialRegisterResponse?.data?.success
     ) {
       setIsLoading(false);
 
@@ -87,17 +87,17 @@ const SignUp = props => {
 
       util.showCommonMessage({
         title: 'Message',
-        message: registerResponse?.data?.msg,
+        message: socialRegisterResponse?.data?.msg,
         onPress: () =>
           handleNavigation('Otp', {
             selectedPhoneNumber: `${callingCode}${phoneNumberWithoutZero?.number}`,
           }),
       });
-    } else if (!registerResponse.isFetching) {
+    } else if (!socialRegisterResponse.isFetching) {
       setIsLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [registerResponse]);
+  }, [socialRegisterResponse]);
 
   let errors = {
     fullNameErr: 'Invaild full name.',
@@ -188,18 +188,16 @@ const SignUp = props => {
 
     let phoneNumberWithoutZero =
       phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
-    let formDataPayload = new FormData();
 
-    formDataPayload.append('images', placeholderImage);
-    formDataPayload.append('name', fullname);
-    formDataPayload.append('username', username);
-    formDataPayload.append(
-      'phoneNo',
-      `${callingCode}${phoneNumberWithoutZero.number}`,
-    );
-    formDataPayload.append('about', bio);
-
-    dispatch(register_request(formDataPayload));
+    let payload = {
+      email,
+      phoneNo: `${callingCode}${phoneNumberWithoutZero.number}`,
+      name: fullname,
+      username: username,
+      about: bio,
+      profileImage: placeholderImage.uri,
+    };
+    dispatch(social_register_request(payload));
   };
 
   // const handleSecureTextEntry = () => {
@@ -387,100 +385,100 @@ const SignUp = props => {
     );
   };
 
-  const pickImage = async () => {
-    try {
-      let granted;
-      granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'Allow Shwoop App to access media permission',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (
-        Platform.OS === 'android' &&
-        granted !== PermissionsAndroid.RESULTS.GRANTED
-      ) {
-        util.showAlertWithDelay({
-          title: 'Error',
-          message: 'Storage permission denied',
-        });
-      } else {
-        let options = {};
-        launchImageLibrary(options, response => {
-          if (response.didCancel) {
-          } else if (response.error) {
-          } else if (response.customButton) {
-            util.showAlertWithDelay({
-              title: 'Error',
-              message: response.customButton,
-            });
-          } else {
-            const image = {
-              uri: response.assets[0].uri,
-              type: response.assets[0].type,
-              name: response.assets[0].fileName,
-            };
-            setPlaceholderImage({
-              ...image,
-            });
-          }
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const pickImage = async () => {
+  //   try {
+  //     let granted;
+  //     granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  //       {
+  //         title: 'Allow Shwoop App to access media permission',
+  //         buttonNegative: 'Cancel',
+  //         buttonPositive: 'OK',
+  //       },
+  //     );
+  //     if (
+  //       Platform.OS === 'android' &&
+  //       granted !== PermissionsAndroid.RESULTS.GRANTED
+  //     ) {
+  //       util.showAlertWithDelay({
+  //         title: 'Error',
+  //         message: 'Storage permission denied',
+  //       });
+  //     } else {
+  //       let options = {};
+  //       launchImageLibrary(options, response => {
+  //         if (response.didCancel) {
+  //         } else if (response.error) {
+  //         } else if (response.customButton) {
+  //           util.showAlertWithDelay({
+  //             title: 'Error',
+  //             message: response.customButton,
+  //           });
+  //         } else {
+  //           const image = {
+  //             uri: response.assets[0].uri,
+  //             type: response.assets[0].type,
+  //             name: response.assets[0].fileName,
+  //           };
+  //           setPlaceholderImage({
+  //             ...image,
+  //           });
+  //         }
+  //       });
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const selectImage = async () => {
-    let granted;
-    granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-      {
-        title: 'Allow Shwoop App to access camera permission',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
-    if (
-      Platform.OS === 'android' &&
-      granted !== PermissionsAndroid.RESULTS.GRANTED
-    ) {
-      util.showAlertWithDelay({
-        title: 'Error',
-        message: 'Camera permission denied',
-      });
-    } else {
-      launchCamera(
-        {
-          mediaType: 'photo',
-          includeBase64: false,
-          maxHeight: 200,
-          maxWidth: 200,
-        },
-        response => {
-          if (response.didCancel) {
-          } else if (response.error) {
-          } else if (response.customButton) {
-            util.showAlertWithDelay({
-              title: 'Error',
-              message: response.customButton,
-            });
-          } else {
-            const image = {
-              uri: response.assets[0].uri,
-              type: response.assets[0].type,
-              name: response.assets[0].fileName,
-            };
-            setPlaceholderImage({
-              ...image,
-            });
-          }
-        },
-      );
-    }
-  };
+  // const selectImage = async () => {
+  //   let granted;
+  //   granted = await PermissionsAndroid.request(
+  //     PermissionsAndroid.PERMISSIONS.CAMERA,
+  //     {
+  //       title: 'Allow Shwoop App to access camera permission',
+  //       buttonNegative: 'Cancel',
+  //       buttonPositive: 'OK',
+  //     },
+  //   );
+  //   if (
+  //     Platform.OS === 'android' &&
+  //     granted !== PermissionsAndroid.RESULTS.GRANTED
+  //   ) {
+  //     util.showAlertWithDelay({
+  //       title: 'Error',
+  //       message: 'Camera permission denied',
+  //     });
+  //   } else {
+  //     launchCamera(
+  //       {
+  //         mediaType: 'photo',
+  //         includeBase64: false,
+  //         maxHeight: 200,
+  //         maxWidth: 200,
+  //       },
+  //       response => {
+  //         if (response.didCancel) {
+  //         } else if (response.error) {
+  //         } else if (response.customButton) {
+  //           util.showAlertWithDelay({
+  //             title: 'Error',
+  //             message: response.customButton,
+  //           });
+  //         } else {
+  //           const image = {
+  //             uri: response.assets[0].uri,
+  //             type: response.assets[0].type,
+  //             name: response.assets[0].fileName,
+  //           };
+  //           setPlaceholderImage({
+  //             ...image,
+  //           });
+  //         }
+  //       },
+  //     );
+  //   }
+  // };
 
   return (
     <>
@@ -506,7 +504,7 @@ const SignUp = props => {
                 }
               />
             </View>
-            <TouchableOpacity style={{...styles.uploadBtn}}>
+            {/* <TouchableOpacity style={{...styles.uploadBtn}}>
               <Image style={styles.upload} source={Images.upload} />
               <Text onPress={() => pickImage()} style={styles.BuyBtnText}>
                 Upload Image
@@ -517,10 +515,10 @@ const SignUp = props => {
               style={{...styles.buyBtn}}>
               <Image style={styles.upload} source={Images.camera} />
               <Text style={styles.BuyBtnText}>Take Image</Text>
-            </TouchableOpacity>
-            {imageError ? (
+            </TouchableOpacity> */}
+            {/* {imageError ? (
               <Text style={styles.errormsg}> {imageError}</Text>
-            ) : null}
+            ) : null} */}
           </View>
           {renderSignupFields()}
           {/* <View style={styles.tagArea}>
@@ -557,4 +555,4 @@ const SignUp = props => {
   );
 };
 
-export default SignUp;
+export default SocialSignUp;

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175165712023",
+    "project_id": "showpp-544cb",
+    "storage_bucket": "showpp-544cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175165712023:android:8761c504b067cfaeb56bd2",
+        "android_client_info": {
+          "package_name": "com.shwopp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175165712023-j5i6erlkcbqptdfnrv8fe0nofggnggq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBELHrzDHQER5Bf_Tpuc15FOWwAy1sPXqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175165712023-j5i6erlkcbqptdfnrv8fe0nofggnggq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

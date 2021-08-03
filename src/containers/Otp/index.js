@@ -1,19 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {Text, ScrollView, View, Image, Platform, Keyboard} from 'react-native';
+import {
+  Text,
+  ScrollView,
+  View,
+  Image,
+  Platform,
+  Keyboard,
+  TouchableOpacity,
+} from 'react-native';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 // import RNOtpVerify from 'react-native-otp-verify';
 
 import {Header, GradientButton, OverlayLoader} from '../../components';
 import {Images, Colors, Metrics} from '../../theme';
 import {request as verify_otp_request} from '../../redux/actions/VerifyOtp';
 import {storeUserDetails} from '../../redux/actions/UserDetails';
+import {clearAuthData} from '../../redux/actions/Login';
 import util from '../../util';
+import {createResource} from '../../config/SimpleApiCalls';
+import {LOGIN} from '../../config/WebServices';
 
 import styles from './styles';
 
 const Otp = props => {
-  const {selectedPhoneNumber, selectedCallingCode} = props.route.params;
+  const {selectedPhoneNumber} = props.route.params;
+
+  let resendOtpTimerInterval;
 
   const dispatch = useDispatch();
 
@@ -22,6 +36,7 @@ const Otp = props => {
   const [code, setCode] = useState('');
   const [codeError, setCodeError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [resendButtonDisabledTime, setResendButtonDisabledTime] = useState(30);
 
   // FOR FUTURE USE
   // useEffect(() => {
@@ -47,6 +62,17 @@ const Otp = props => {
   // }, []);
 
   useEffect(() => {
+    startResendOtpTimer();
+
+    return () => {
+      if (resendOtpTimerInterval) {
+        clearInterval(resendOtpTimerInterval);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resendButtonDisabledTime]);
+
+  useEffect(() => {
     if (
       !verifyOtpResponse.isFetching &&
       !verifyOtpResponse.failure &&
@@ -54,11 +80,18 @@ const Otp = props => {
       verifyOtpResponse?.data?.success
     ) {
       setIsLoading(false);
+
       dispatch(storeUserDetails(verifyOtpResponse?.data?.user));
+      dispatch(clearAuthData());
+
       util.showCommonMessage({
         title: 'Message',
         message: verifyOtpResponse?.data?.msg,
-        onPress: () => handleNavigation('Main'),
+        onPress: () =>
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Main'}],
+          }),
       });
     } else if (!verifyOtpResponse.isFetching) {
       setIsLoading(false);
@@ -66,11 +99,40 @@ const Otp = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verifyOtpResponse]);
 
-  const handleNavigation = (screenName, params) => {
-    props.navigation.navigate(screenName, {...params});
+  const startResendOtpTimer = () => {
+    if (resendOtpTimerInterval) {
+      clearInterval(resendOtpTimerInterval);
+    }
+    resendOtpTimerInterval = setInterval(() => {
+      if (resendButtonDisabledTime <= 0) {
+        clearInterval(resendOtpTimerInterval);
+      } else {
+        setResendButtonDisabledTime(resendButtonDisabledTime - 1);
+      }
+    }, 1000);
   };
 
-  const handleConfirm = () => {
+  const resendOtp = async () => {
+    if (selectedPhoneNumber) {
+      setIsLoading(true);
+
+      let payload = {
+        phoneNo: selectedPhoneNumber,
+        role: 'USER',
+      };
+
+      try {
+        await createResource(LOGIN, payload);
+        setIsLoading(false);
+        setResendButtonDisabledTime(30);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleConfirm = async () => {
     if (!code) {
       setCodeError('Code is required.');
       setTimeout(() => {
@@ -83,10 +145,13 @@ const Otp = props => {
       }, 3000);
     } else {
       setIsLoading(true);
+
+      let fcmToken = await AsyncStorage.getItem('fcmToken');
+
       let payload = {
-        phoneNo: `${selectedCallingCode}${selectedPhoneNumber}`,
+        phoneNo: selectedPhoneNumber,
         code: code,
-        gcm_id: '92uv-q3hqhvh-q38vhq',
+        gcm_id: fcmToken,
         platform: Platform.OS,
       };
       dispatch(verify_otp_request(payload));
@@ -101,7 +166,6 @@ const Otp = props => {
         isLeftIconImg={true}
         headerText={'One Time Password'}
         leftBtnPress={() => props.navigation.goBack()}
-        rightBtnPress={() => props.navigation.goBack()}
         headerTextStyle={styles.headerTextStyle}
       />
       <ScrollView style={{...styles.imageView}}>
@@ -132,6 +196,21 @@ const Otp = props => {
             />
             <Text style={{...styles.codeErrorText}}>{codeError}</Text>
           </View>
+          {resendButtonDisabledTime > 0 ? (
+            <View>
+              <Text style={{...styles.resendMsg}}>
+                Resend OTP in{' '}
+                <Text
+                  style={{
+                    ...styles.resendMsgTime,
+                  }}>{`${resendButtonDisabledTime}s`}</Text>
+              </Text>
+            </View>
+          ) : (
+            <TouchableOpacity onPress={resendOtp}>
+              <Text style={{...styles.resendBtnText}}>Resend OTP</Text>
+            </TouchableOpacity>
+          )}
           <GradientButton
             label={'Confirm'}
             containerStyle={{...styles.gradientButtonContainer}}

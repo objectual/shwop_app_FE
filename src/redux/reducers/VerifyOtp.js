@@ -29,6 +29,8 @@ export default (state = initialState, action) => {
       });
     case types.LOGOUT:
       return initialState;
+    case types.CLEAR_AUTH_DATA:
+      return initialState;
     default:
       return state;
   }

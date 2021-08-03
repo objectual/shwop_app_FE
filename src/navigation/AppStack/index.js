@@ -43,6 +43,8 @@ import {
   PlaceOrder,
   Reviews,
   Messages,
+  MyWebView,
+  SocialSignUp,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -116,6 +118,8 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="WishList" component={WishList} />
       <AppStack.Screen name="PlaceOrder" component={PlaceOrder} />
       <AppStack.Screen name="Messages" component={Messages} />
+      <AppStack.Screen name="MyWebView" component={MyWebView} />
+      <AppStack.Screen name="SocialSignUp" component={SocialSignUp} />
     </AppStack.Navigator>
   );
 };

@@ -36,6 +36,8 @@ import FollowingAndFollowers from './FollowingAndFollowers';
 import PlaceOrder from './PlaceOrder';
 import Reviews from './Reviews';
 import Messages from './Messages';
+import MyWebView from './MyWebView';
+import SocialSignUp from './SocialSignUp';
 
 export {
   Chat,
@@ -76,4 +78,6 @@ export {
   PlaceOrder,
   Reviews,
   Messages,
+  MyWebView,
+  SocialSignUp,
 };

@@ -76,6 +76,22 @@ class ApiSauce {
         response.data?.msg
       ) {
         reject(response.data?.msg);
+      } else if (
+        !response.ok &&
+        response.originalError &&
+        response.problem === 'SERVER_ERROR' &&
+        response.status === 500 &&
+        response.data
+      ) {
+        reject(response.problem);
+      } else if (
+        !response.ok &&
+        response.originalError &&
+        response.problem === 'CLIENT_ERROR' &&
+        response.status === 404 &&
+        response.data
+      ) {
+        reject(response.problem);
       }
     }
   };

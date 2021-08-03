@@ -3,7 +3,7 @@ import {StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
-// import messaging from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
 
 import 'react-native-gesture-handler';
 
@@ -52,8 +52,7 @@ export default class App extends Component {
       this.state.store.dispatch,
       networkInfoListener,
     );
-    // FUTURE USE
-    // this.requestUserPermission();
+    this.requestUserPermission();
 
     // FUTURE USE
     // messaging()
@@ -77,50 +76,44 @@ export default class App extends Component {
     // });
   }
 
-  // FUTURE USE
-  // async getToken() {
-  //   let fcmToken;
-  //   if (!false) {
-  //     fcmToken = await messaging().getToken();
-  //     if (fcmToken) {
-  //       console.log(fcmToken, 'fcmToken');
-  //       // user has a device token
-  //       await AsyncStorage.setItem('fcmToken', fcmToken);
-  //     }
-  //   }
-  // }
+  async getToken() {
+    let fcmToken;
+    if (!false) {
+      fcmToken = await messaging().getToken();
+      if (fcmToken) {
+        await AsyncStorage.setItem('fcmToken', fcmToken);
+      }
+    }
+  }
 
-  // FUTURE USE
-  // async requestPermission() {
-  //   try {
-  //     await messaging().requestPermission({
-  //       alert: true,
-  //       announcement: true,
-  //       badge: true,
-  //       carPlay: true,
-  //       provisional: false,
-  //       sound: true,
-  //     });
-  //     // User has authorised
-  //     this.getToken();
-  //   } catch (error) {
-  //     // User has rejected permissions
-  //     console.log('permission rejected');
-  //   }
-  // }
+  async requestPermission() {
+    try {
+      await messaging().requestPermission({
+        alert: true,
+        announcement: true,
+        badge: true,
+        carPlay: true,
+        provisional: false,
+        sound: true,
+      });
+      this.getToken();
+    } catch (error) {
+      console.log(error, 'Permission Rejected.');
+    }
+  }
 
-  // requestUserPermission = async () => {
-  //   const authStatus = await messaging().requestPermission();
-  //   const enabled =
-  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+  requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-  //   if (enabled) {
-  //     this.getToken();
-  //   } else {
-  //     this.requestPermission();
-  //   }
-  // };
+    if (enabled) {
+      this.getToken();
+    } else {
+      this.requestPermission();
+    }
+  };
 
   render() {
     SplashScreen.hide();

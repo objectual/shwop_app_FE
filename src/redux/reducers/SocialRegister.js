@@ -10,18 +10,18 @@ const initialState = Immutable({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.REGISTER.REQUEST:
+    case types.SOCIAL_REGISTER.REQUEST:
       return Immutable.merge(state, {
         isFetching: true,
       });
-    case types.REGISTER.SUCCESS:
+    case types.SOCIAL_REGISTER.SUCCESS:
       return Immutable.merge(state, {
         failure: false,
         isFetching: false,
         errorMessage: '',
         data: action.data,
       });
-    case types.REGISTER.FAILURE:
+    case types.SOCIAL_REGISTER.FAILURE:
       return Immutable.merge(state, {
         failure: true,
         isFetching: false,

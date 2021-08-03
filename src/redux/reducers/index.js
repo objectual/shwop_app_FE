@@ -5,6 +5,7 @@ import register from './Register';
 import networkInfo from './NetworkInfo';
 import verifyOtp from './VerifyOtp';
 import userDetails from './UserDetails';
+import socialRegister from './SocialRegister';
 
 export default combineReducers({
   login,
@@ -12,4 +13,5 @@ export default combineReducers({
   networkInfo,
   verifyOtp,
   userDetails,
+  socialRegister,
 });

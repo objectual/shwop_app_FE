@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -211,6 +212,12 @@ dependencies {
     implementation project(':@react-native-community_cameraroll')
 
     implementation project(':react-native-otp-verify')
+    
+    implementation platform('com.google.firebase:firebase-bom:28.3.0')
+
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation project(path: ":@react-native-firebase_messaging")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

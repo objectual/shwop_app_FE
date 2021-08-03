@@ -54,4 +54,19 @@ export default StyleSheet.create({
     fontSize: Metrics.ratio(14),
     color: 'red',
   },
+  resendMsg: {
+    fontSize: Metrics.ratio(13),
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+  },
+  resendMsgTime: {
+    fontSize: Metrics.ratio(13),
+    fontFamily: Fonts.type.NunitoBold,
+    color: Colors.Affair,
+  },
+  resendBtnText: {
+    fontSize: Metrics.ratio(14),
+    fontFamily: Fonts.type.NunitoBold,
+    color: Colors.Affair,
+  },
 });
