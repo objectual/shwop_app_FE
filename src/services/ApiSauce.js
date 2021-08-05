@@ -8,32 +8,34 @@ const api = create({
 });
 
 class ApiSauce {
-  async post(URL, BODY, TOKEN) {
-    const HEADERS = {
+  async post(URL, BODY, TOKEN, HEADERS) {
+    const _HEADERS = {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: TOKEN,
+        Authorization: `Bearer ${TOKEN}`,
+        ...HEADERS,
       },
     };
 
-    const response = await api.post(URL, BODY, HEADERS);
+    const response = await api.post(URL, BODY, _HEADERS);
 
     return new Promise((resolve, reject) => {
       this.handlePromise(resolve, reject, response);
     });
   }
 
-  async get(URL, TOKEN) {
-    const HEADERS = {
+  async get(URL, TOKEN, HEADERS) {
+    const _HEADERS = {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: TOKEN,
+        Authorization: `Bearer ${TOKEN}`,
+        ...HEADERS,
       },
     };
 
-    const response = await api.get(URL, HEADERS);
+    const response = await api.get(URL, _HEADERS);
 
     return new Promise((resolve, reject) => {
       this.handlePromise(resolve, reject, response);
@@ -92,6 +94,16 @@ class ApiSauce {
         response.data
       ) {
         reject(response.problem);
+      } else if (
+        !response.ok &&
+        response.originalError &&
+        response.problem === 'CLIENT_ERROR' &&
+        response.status === 409 &&
+        response?.data &&
+        !response.data?.success &&
+        response.data?.msg
+      ) {
+        reject(response.data?.msg);
       }
     }
   };

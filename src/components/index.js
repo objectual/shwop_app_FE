@@ -24,6 +24,7 @@ import FollowingFollowerCard from './FollowingFollowerCard';
 import ImageSlider from './ImageSlider';
 import ReviewCard from './ReviewCard';
 import VideoModal from './VideoModal';
+import CustomTagInput from './CustomTagInput';
 
 export {
   CustomTextInput,
@@ -52,4 +53,5 @@ export {
   ImageSlider,
   ReviewCard,
   VideoModal,
+  CustomTagInput,
 };

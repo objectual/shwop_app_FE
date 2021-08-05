@@ -27,8 +27,7 @@ export default function configureStore(reducers, onComplete) {
 
   const engine = filter(
     createEngine('AppTree'),
-    [],
-    // ['whitelisted-key', ['login', 'data']],
+    ['whitelisted-key', ['userDetails', 'data']],
     [],
   );
 

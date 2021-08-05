@@ -27,6 +27,7 @@ const CustomTextInput = props => {
     secureTextEntry,
     onPressEye,
     floatingLabel,
+    keyboardType,
   } = props;
 
   return (
@@ -68,6 +69,7 @@ const CustomTextInput = props => {
           onSubmitEditing={() => {
             onSubmit(onSubmitRef);
           }}
+          keyboardType={keyboardType}
         />
         <TouchableOpacity onPress={onPressEye}>
           <Image
@@ -105,6 +107,7 @@ CustomTextInput.defaultProps = {
   CustomTextInputStyle: undefined,
   onPressEye: undefined,
   floatingLabel: undefined,
+  keyboardType: 'default',
 };
 
 CustomTextInput.propTypes = {
@@ -126,6 +129,7 @@ CustomTextInput.propTypes = {
   TextInputPaddingStyle: PropTypes.object,
   CustomTextInputStyle: PropTypes.object,
   floatingLabel: PropTypes.bool,
+  keyboardType: PropTypes.string,
 };
 
 export default CustomTextInput;

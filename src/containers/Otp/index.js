@@ -19,8 +19,8 @@ import {request as verify_otp_request} from '../../redux/actions/VerifyOtp';
 import {storeUserDetails} from '../../redux/actions/UserDetails';
 import {clearAuthData} from '../../redux/actions/Login';
 import util from '../../util';
-import {createResource} from '../../config/SimpleApiCalls';
 import {LOGIN} from '../../config/WebServices';
+import ApiSauce from '../../services/ApiSauce';
 
 import styles from './styles';
 
@@ -122,11 +122,14 @@ const Otp = props => {
       };
 
       try {
-        await createResource(LOGIN, payload);
+        await ApiSauce.post(LOGIN, payload);
         setIsLoading(false);
         setResendButtonDisabledTime(30);
       } catch (error) {
-        console.log(error);
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: error,
+        });
         setIsLoading(false);
       }
     }
