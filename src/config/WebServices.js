@@ -10,4 +10,5 @@ export const SOCIAL_REGISTER = `${BASE_URL}users/social/register`;
 export const CATEGORIES = `${BASE_URL}category/getAll`;
 export const GOOGLE = `${BASE_URL_WITHOUT_API}auth/google`;
 export const FACEBOOK = `${BASE_URL_WITHOUT_API}auth/facebook`;
-export const PRODUCT = `${BASE_URL}product`;
+export const PRODUCT = (id = '') => `${BASE_URL}product/${id}`;
+export const MY_PRODUCT = `${BASE_URL}product/me`;

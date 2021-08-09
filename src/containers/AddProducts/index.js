@@ -219,7 +219,7 @@ const AddProducts = props => {
 
     try {
       const result = await ApiSauce.post(
-        PRODUCT,
+        PRODUCT(),
         formDataPayload,
         userDetailsResponse.data.access_token,
         headers,
@@ -493,7 +493,7 @@ const AddProducts = props => {
             disabled={false}
             value={currency}
             onValueChange={value => setCurrency(value)}
-            items={[{label: 'Doller', value: 'doller'}]}
+            items={[{label: 'Dollar', value: 'dollar'}]}
             Icon={() => (
               <View
                 style={{

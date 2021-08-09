@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StatusBar,
@@ -7,25 +7,59 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import {useSelector} from 'react-redux';
+import moment from 'moment';
 
-import {Header, GradientButton, ImageSlider} from '../../components';
+import {
+  Header,
+  GradientButton,
+  ImageSlider,
+  OverlayLoader,
+} from '../../components';
 import {Images, Colors, Metrics} from '../../theme';
+import util from '../../util';
+import ApiSauce from '../../services/ApiSauce';
+import {PRODUCT} from '../../config/WebServices';
 
 import styles from './styles';
 
 const ProductInfo = props => {
-  const {productType} = props.route.params;
+  const {productType, productId} = props.route.params;
 
-  const images = [
-    'https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-    'https://images.pexels.com/photos/1124466/pexels-photo-1124466.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-    'https://images.pexels.com/photos/2385477/pexels-photo-2385477.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-  ];
+  const userDetailsResponse = useSelector(state => state.userDetails);
 
-  const totalRating = [1, 2, 3, 4, 5];
+  const [isLoading, setIsLoading] = useState(false);
+  const [productInfo, setProductInfo] = useState({});
+
+  useEffect(() => {
+    if (productId) {
+      getProductInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
+  };
+
+  const getProductInfo = async () => {
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.get(
+        PRODUCT(productId),
+        userDetailsResponse.data.access_token,
+      );
+      setIsLoading(false);
+      if (result.data) {
+        setProductInfo(result.data);
+      }
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -35,6 +69,7 @@ const ProductInfo = props => {
         backgroundColor={Colors.Concrete}
         barStyle="dark-content"
       />
+
       <Header
         headerBgColor={Colors.Concrete}
         isDropShadow={false}
@@ -42,117 +77,136 @@ const ProductInfo = props => {
         isLeftIconImg={true}
         leftBtnPress={() => props.navigation.goBack()}
         headerText={'Product Info'}
-        rightIcon={productType === 'own' ? Images.edit_product_info : null}
+        rightIcon={
+          productType === 'own' && productInfo?.id
+            ? Images.edit_product_info
+            : null
+        }
         isRightIconImg={true}
         rightBtnPress={() =>
-          productType === 'own' ? handleNavigation('EditProducts') : null
+          productType === 'own' && productInfo?.id
+            ? handleNavigation('EditProducts')
+            : null
         }
-        rightSecIcon={productType === 'own' ? Images.delete_product_info : null}
+        rightSecIcon={
+          productType === 'own' && productInfo?.id
+            ? Images.delete_product_info
+            : null
+        }
         isRightSecIconImg={true}
         rightSecBtnPress={() =>
-          productType === 'own' ? console.log('delete') : null
+          productType === 'own' && productInfo?.id
+            ? console.log('delete')
+            : null
         }
       />
-      <ScrollView>
-        <View style={{...styles.contentContainer}}>
-          <ImageSlider images={images} imageWidth={Metrics.screenWidth} />
 
-          <View style={{...styles.detailContainer}}>
-            <View style={{...styles.productNameContainer}}>
-              <Text style={{...styles.productName}} numberOfLines={1}>
-                Nike Sports shoes UK4 Nike Sports shoes UK4
-              </Text>
-              <TouchableOpacity
-                onPress={() => {}}
-                style={{...styles.wishlistContainer}}>
-                <Image
-                  source={Images.wishlist}
-                  resizeMode={'contain'}
-                  style={{...styles.wishlistImage}}
-                />
-                <Text style={{...styles.wishlistText}}>Add to Wishlist</Text>
-              </TouchableOpacity>
-            </View>
+      {!isLoading && productInfo?.id ? (
+        <ScrollView>
+          <View style={{...styles.contentContainer}}>
+            <ImageSlider
+              images={productInfo?.images?.map(({path}) => path)}
+              imageWidth={Metrics.screenWidth}
+            />
 
-            <View style={{...styles.priceContainer}}>
-              <Text style={{...styles.priceText}}>$32.18</Text>
-            </View>
-
-            <View style={{...styles.timeAndNameContainer}}>
-              <Image
-                resizeMode={'contain'}
-                source={Images.clock_product_info}
-                style={{...styles.timeImage}}
-              />
-              <Text style={{...styles.timeText}} numberOfLines={1}>
-                07 Hours ago by{' '}
-                <Text style={{...styles.nameText}}>Emma Norman</Text>
-              </Text>
-            </View>
-
-            <View style={{...styles.ratingAndReviewsContainer}}>
-              <View style={{...styles.ratingContainer}}>
-                {totalRating.map(item => (
-                  <Image
-                    style={{...styles.ratingImage}}
-                    resizeMode="contain"
-                    source={item <= 3 ? Images.star : Images.empty_star}
-                  />
-                ))}
-              </View>
-              <Text style={{...styles.reviewText}}>3,448 Reviews </Text>
-              <TouchableOpacity onPress={() => handleNavigation('Reviews')}>
-                <Text style={{...styles.reviewViewBtn}}>View</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={{...styles.descriptionContainer}}>
-              <Text style={{...styles.descriptionText}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat.Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </Text>
-            </View>
-
-            {productType === 'other' ? (
-              <View style={{...styles.buttonsRow}}>
+            <View style={{...styles.detailContainer}}>
+              <View style={{...styles.productNameContainer}}>
+                <Text style={{...styles.productName}} numberOfLines={1}>
+                  {productInfo?.title}
+                </Text>
                 <TouchableOpacity
-                  onPress={() => handleNavigation('Messages')}
-                  style={{...styles.chatBtn}}>
-                  <Text style={{...styles.chatBtnText}}>Chat</Text>
+                  onPress={() => {}}
+                  style={{...styles.wishlistContainer}}>
+                  <Image
+                    source={Images.wishlist}
+                    resizeMode={'contain'}
+                    style={{...styles.wishlistImage}}
+                  />
+                  <Text style={{...styles.wishlistText}}>Add to Wishlist</Text>
                 </TouchableOpacity>
-                <GradientButton
-                  label={'Buy Now'}
-                  onPress={() => handleNavigation('PlaceOrder')}
-                  containerStyle={{...styles.gradientBtnContainer}}
-                  gradientContainer={{...styles.gradientContainer}}
-                  labelStyle={{...styles.gradientLabel}}
-                />
               </View>
-            ) : null}
+
+              <View style={{...styles.priceContainer}}>
+                <Text style={{...styles.priceText}}>
+                  {util.currencySymbol(productInfo?.currency)}
+                  {Number.isInteger(productInfo?.baseCost)
+                    ? productInfo?.baseCost
+                    : productInfo?.baseCost?.toFixed(2)}
+                </Text>
+              </View>
+
+              <View style={{...styles.timeAndNameContainer}}>
+                <Image
+                  resizeMode={'contain'}
+                  source={Images.clock_product_info}
+                  style={{...styles.timeImage}}
+                />
+                <Text style={{...styles.timeText}} numberOfLines={1}>
+                  {`${moment(productInfo?.createdAt).fromNow()} `}
+                  <Text style={{...styles.nameText}}>
+                    {productInfo?.user?.profile?.name}
+                  </Text>
+                </Text>
+              </View>
+
+              <View style={{...styles.ratingAndReviewsContainer}}>
+                <View style={{...styles.ratingContainer}}>
+                  {[1, 2, 3, 4, 5].map(item => (
+                    <Image
+                      style={{...styles.ratingImage}}
+                      resizeMode="contain"
+                      source={
+                        item <= util.avgRating(productInfo?.review)
+                          ? Images.star
+                          : Images.empty_star
+                      }
+                    />
+                  ))}
+                </View>
+                <Text style={{...styles.reviewText}}>
+                  {`${productInfo?.review?.length} Reviews `}
+                </Text>
+                <TouchableOpacity onPress={() => handleNavigation('Reviews')}>
+                  <Text style={{...styles.reviewViewBtn}}>View</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={{...styles.descriptionContainer}}>
+                <Text style={{...styles.descriptionText}}>
+                  {productInfo?.description}
+                </Text>
+              </View>
+
+              {productType === 'other' ? (
+                <View style={{...styles.buttonsRow}}>
+                  <TouchableOpacity
+                    onPress={() => handleNavigation('Messages')}
+                    style={{...styles.chatBtn}}>
+                    <Text style={{...styles.chatBtnText}}>Chat</Text>
+                  </TouchableOpacity>
+                  <GradientButton
+                    label={'Buy Now'}
+                    onPress={() => handleNavigation('PlaceOrder')}
+                    containerStyle={{...styles.gradientBtnContainer}}
+                    gradientContainer={{...styles.gradientContainer}}
+                    labelStyle={{...styles.gradientLabel}}
+                  />
+                </View>
+              ) : null}
+            </View>
           </View>
+        </ScrollView>
+      ) : null}
+
+      {!isLoading && !productInfo?.id ? (
+        <View style={{...styles.notFoundContainer}}>
+          <Text style={{...styles.notFoundText}}>
+            {'Sorry, something went wrong.\nPlease try again later.'}
+          </Text>
         </View>
-      </ScrollView>
+      ) : null}
+
+      <OverlayLoader isLoading={isLoading} />
     </View>
   );
 };

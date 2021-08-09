@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, StatusBar, FlatList, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  StatusBar,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  Text,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 
@@ -13,7 +20,7 @@ import {
 import {Images, Colors, Metrics} from '../../theme';
 import util from '../../util';
 import ApiSauce from '../../services/ApiSauce';
-import {PRODUCT} from '../../config/WebServices';
+import {MY_PRODUCT} from '../../config/WebServices';
 
 import styles from './styles';
 
@@ -43,16 +50,14 @@ const MyProducts = props => {
     try {
       setIsLoading(true);
       const result = await ApiSauce.get(
-        PRODUCT,
+        MY_PRODUCT,
         userDetailsResponse.data.access_token,
       );
-      console.log(result, 'result');
       setIsLoading(false);
       if (result?.data?.length) {
         setProducts(result?.data);
       }
     } catch (error) {
-      console.log(error, 'error');
       util.showAlertWithDelay({
         title: 'Error',
         message: error,
@@ -69,10 +74,7 @@ const MyProducts = props => {
           item?.brand?.toLowerCase().includes(search.toLocaleLowerCase()),
       );
 
-  const renderProduct = ({images, title, review, baseCost}) => {
-    const rating = review?.reduce((a, b) => a + (b?.rating?.stars || 0), 0);
-    const avgRating = rating / review?.length;
-
+  const renderProduct = ({id, images, title, review, baseCost}) => {
     return (
       <ProductCard
         image={{uri: images[0]?.path}}
@@ -84,9 +86,9 @@ const MyProducts = props => {
         isEdit={true}
         isTake={true}
         price={Number.isInteger(baseCost) ? baseCost : baseCost?.toFixed(2)}
-        rating={avgRating ? avgRating : 0}
+        rating={util.avgRating(review)}
         onPressCard={() =>
-          handleNavigation('ProductInfo', {productType: 'own'})
+          handleNavigation('ProductInfo', {productType: 'own', productId: id})
         }
         onPressRightIcon={() => handleNavigation('EditProducts')}
       />
@@ -110,22 +112,34 @@ const MyProducts = props => {
         headerText={'My Products'}
       />
 
-      <View style={{...styles.headerSeparator}}>
-        <Search
-          value={search}
-          placeholder="Search Here.."
-          onChangeText={value => setSearch(value)}
-          onPressSearch={() => {}}
-          onPressRemove={() => setSearch('')}
-        />
-      </View>
+      {!isLoading && results.length ? (
+        <View style={{...styles.headerSeparator}}>
+          <Search
+            value={search}
+            placeholder="Search Here.."
+            onChangeText={value => setSearch(value)}
+            onPressSearch={() => {}}
+            onPressRemove={() => setSearch('')}
+          />
+        </View>
+      ) : null}
 
-      <FlatList
-        data={results}
-        contentContainerStyle={{paddingBottom: Metrics.ratio(140)}}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => renderProduct(item)}
-      />
+      {!isLoading && results.length ? (
+        <FlatList
+          data={results}
+          contentContainerStyle={{paddingBottom: Metrics.ratio(140)}}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => renderProduct(item)}
+        />
+      ) : null}
+
+      {!isLoading && !results.length ? (
+        <View style={{...styles.notFoundContainer}}>
+          <Text style={{...styles.notFoundText}}>
+            {'Sorry, no record found.\nPlease try again later.'}
+          </Text>
+        </View>
+      ) : null}
 
       <TouchableOpacity
         style={{...styles.addProductBtn}}

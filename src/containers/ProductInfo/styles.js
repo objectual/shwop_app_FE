@@ -140,4 +140,16 @@ export default StyleSheet.create({
   gradientLabel: {
     fontSize: Metrics.ratio(16),
   },
+  notFoundContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: Metrics.ratio(16),
+  },
+  notFoundText: {
+    fontSize: Metrics.ratio(16),
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+    textAlign: 'center',
+  },
 });

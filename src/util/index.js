@@ -1,4 +1,5 @@
 import {Platform, Alert, ToastAndroid} from 'react-native';
+import Currencies from './Currencies';
 
 class Util {
   isPlatformAndroid = () => Platform.OS === 'android';
@@ -82,6 +83,17 @@ class Util {
       return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
     }
     return num;
+  }
+
+  currencySymbol(currencyName) {
+    let currency = Currencies.find(({name}) => name === currencyName);
+    return currency?.symbol;
+  }
+
+  avgRating(reviews) {
+    const rating = reviews?.reduce((a, b) => a + (b?.rating?.stars || 0), 0);
+    const avgRating = rating / reviews?.length;
+    return avgRating ? avgRating : 0;
   }
 }
 
