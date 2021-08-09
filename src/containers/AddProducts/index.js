@@ -85,7 +85,6 @@ const AddProducts = props => {
       const result = await ApiSauce.get(CATEGORIES);
       setIsLoading(false);
       if (result?.data?.length) {
-        setCategories(result.data);
         const formatedCategories = result.data.map(element => {
           return {
             label: element.name,

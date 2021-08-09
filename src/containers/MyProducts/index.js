@@ -1,60 +1,90 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StatusBar, FlatList, TouchableOpacity, Image} from 'react-native';
+import {useSelector} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
 
-import {Header, Search, ProductCard, Layout} from '../../components';
+import {
+  Header,
+  Search,
+  ProductCard,
+  Layout,
+  OverlayLoader,
+} from '../../components';
 import {Images, Colors, Metrics} from '../../theme';
+import util from '../../util';
+import ApiSauce from '../../services/ApiSauce';
+import {PRODUCT} from '../../config/WebServices';
 
 import styles from './styles';
 
-const myProducts = [
-  {
-    id: 1,
-    image: Images.FollowCardImg,
-    title: 'Nike New Era Shoes',
-    brand: 'Nike Corporation',
-    noOfTakes: 3,
-    price: 32.18,
-    rating: 3,
-  },
-  {
-    id: 2,
-    image: Images.FollowCardImg,
-    title: 'Shoes Cop',
-    brand: 'Nike Corporation',
-    noOfTakes: 2,
-    price: 30,
-    rating: 2,
-  },
-];
-
 const MyProducts = props => {
+  const isFocused = useIsFocused();
+
+  const userDetailsResponse = useSelector(state => state.userDetails);
+
   const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (isFocused) {
+      getProducts();
+    } else {
+      setProducts([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
   };
 
+  const getProducts = async () => {
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.get(
+        PRODUCT,
+        userDetailsResponse.data.access_token,
+      );
+      console.log(result, 'result');
+      setIsLoading(false);
+      if (result?.data?.length) {
+        setProducts(result?.data);
+      }
+    } catch (error) {
+      console.log(error, 'error');
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+    }
+  };
+
   const results = !search
-    ? myProducts
-    : myProducts?.filter(
+    ? products
+    : products?.filter(
         item =>
-          item?.title.toLowerCase().includes(search.toLocaleLowerCase()) ||
-          item?.brand.toLowerCase().includes(search.toLocaleLowerCase()),
+          item?.title?.toLowerCase().includes(search.toLocaleLowerCase()) ||
+          item?.brand?.toLowerCase().includes(search.toLocaleLowerCase()),
       );
 
-  const renderProduct = item => {
+  const renderProduct = ({images, title, review, baseCost}) => {
+    const rating = review?.reduce((a, b) => a + (b?.rating?.stars || 0), 0);
+    const avgRating = rating / review?.length;
+
     return (
       <ProductCard
-        image={item.image}
-        title={item.title}
-        brand={item.brand}
-        takes={item.noOfTakes}
+        image={{uri: images[0]?.path}}
+        title={title}
+        brand={''}
+        takes={review?.length}
         isRating={true}
         isPrice={true}
         isEdit={true}
         isTake={true}
-        price={item.price.toFixed(2)}
-        rating={item.rating}
+        price={Number.isInteger(baseCost) ? baseCost : baseCost?.toFixed(2)}
+        rating={avgRating ? avgRating : 0}
         onPressCard={() =>
           handleNavigation('ProductInfo', {productType: 'own'})
         }
@@ -92,7 +122,7 @@ const MyProducts = props => {
 
       <FlatList
         data={results}
-        contentContainerStyle={{paddingBottom: Metrics.ratio(75)}}
+        contentContainerStyle={{paddingBottom: Metrics.ratio(140)}}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => renderProduct(item)}
       />
@@ -105,6 +135,8 @@ const MyProducts = props => {
           style={{...styles.addProductImage}}
         />
       </TouchableOpacity>
+
+      <OverlayLoader isLoading={isLoading} />
     </Layout>
   );
 };

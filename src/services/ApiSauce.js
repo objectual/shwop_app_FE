@@ -9,16 +9,14 @@ const api = create({
 
 class ApiSauce {
   async post(URL, BODY, TOKEN, HEADERS) {
-    const _HEADERS = {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${TOKEN}`,
-        ...HEADERS,
-      },
-    };
+    api.setHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${TOKEN}`,
+      ...HEADERS,
+    });
 
-    const response = await api.post(URL, BODY, _HEADERS);
+    const response = await api.post(URL, BODY);
 
     return new Promise((resolve, reject) => {
       this.handlePromise(resolve, reject, response);
@@ -26,16 +24,14 @@ class ApiSauce {
   }
 
   async get(URL, TOKEN, HEADERS) {
-    const _HEADERS = {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${TOKEN}`,
-        ...HEADERS,
-      },
-    };
+    api.setHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${TOKEN}`,
+      ...HEADERS,
+    });
 
-    const response = await api.get(URL, _HEADERS);
+    const response = await api.get(URL);
 
     return new Promise((resolve, reject) => {
       this.handlePromise(resolve, reject, response);
@@ -99,6 +95,16 @@ class ApiSauce {
         response.originalError &&
         response.problem === 'CLIENT_ERROR' &&
         response.status === 409 &&
+        response?.data &&
+        !response.data?.success &&
+        response.data?.msg
+      ) {
+        reject(response.data?.msg);
+      } else if (
+        !response.ok &&
+        response.originalError &&
+        response.problem === 'CLIENT_ERROR' &&
+        response.status === 401 &&
         response?.data &&
         !response.data?.success &&
         response.data?.msg
