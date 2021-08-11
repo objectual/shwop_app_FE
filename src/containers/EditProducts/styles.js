@@ -185,4 +185,19 @@ export default StyleSheet.create({
     marginTop: Metrics.ratio(10),
     paddingHorizontal: Metrics.ratio(15),
   },
+  pickerSelectPlaceholder: {
+    color: Colors.Mercury,
+    fontFamily: Fonts.type.Nunito,
+    fontSize: Metrics.ratio(13),
+  },
+  pickerSelectInputAndroid: {
+    color: Colors.Black,
+    fontSize: Metrics.ratio(13),
+    fontFamily: Fonts.type.NunitoLight,
+    borderColor: Colors.Mercury,
+    borderWidth: 1,
+    borderRadius: Metrics.ratio(30),
+    paddingHorizontal: Metrics.ratio(20),
+    textTransform: 'capitalize',
+  },
 });

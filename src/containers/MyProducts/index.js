@@ -90,7 +90,9 @@ const MyProducts = props => {
         onPressCard={() =>
           handleNavigation('ProductInfo', {productType: 'own', productId: id})
         }
-        onPressRightIcon={() => handleNavigation('EditProducts')}
+        onPressRightIcon={() =>
+          handleNavigation('EditProducts', {productId: id})
+        }
       />
     );
   };

@@ -1,7 +1,7 @@
 export const BASE_URL_WITHOUT_API = 'https://50d07e0463ca.ngrok.io/'; // Public
 export const BASE_URL = 'https://50d07e0463ca.ngrok.io/api/'; // Public
-// export const BASE_URL_WITHOUT_API = 'http://192.168.18.248:4000/'; // Local
-// export const BASE_URL = 'http://192.168.18.248:4000/api/'; // Local
+// export const BASE_URL_WITHOUT_API = 'http://192.168.100.91:4000/'; // Local
+// export const BASE_URL = 'http://192.168.100.91:4000/api/'; // Local
 
 export const LOGIN = `${BASE_URL}users/login`;
 export const REGISTER = `${BASE_URL}users/register`;

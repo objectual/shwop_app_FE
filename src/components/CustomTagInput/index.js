@@ -5,8 +5,16 @@ import {View, TextInput, TouchableOpacity, Text} from 'react-native';
 import styles from './styles';
 
 const CustomTagInput = props => {
-  const {value, list, removeTag, addTag, onChangeText, placeholder, errorText} =
-    props;
+  const {
+    value,
+    list,
+    removeTag,
+    addTag,
+    onChangeText,
+    onSubmitEditing,
+    placeholder,
+    errorText,
+  } = props;
 
   return (
     <View>
@@ -26,6 +34,7 @@ const CustomTagInput = props => {
           value={value}
           style={{...styles.tagTextInput}}
           onChangeText={onChangeText}
+          onSubmitEditing={onSubmitEditing}
         />
         <TouchableOpacity onPress={addTag} style={{...styles.addBtn}}>
           <Text style={{...styles.addBtnText}}>&#x2b;</Text>
@@ -42,6 +51,7 @@ CustomTagInput.defaultProps = {
   removeTag: undefined,
   addTag: undefined,
   onChangeText: undefined,
+  onSubmitEditing: undefined,
   errorText: '',
   placeholder: '',
 };
@@ -52,6 +62,7 @@ CustomTagInput.propTypes = {
   removeTag: PropTypes.func,
   addTag: PropTypes.func,
   onChangeText: PropTypes.func,
+  onSubmitEditing: PropTypes.func,
   errorText: PropTypes.string,
   placeholder: PropTypes.string,
 };

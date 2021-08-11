@@ -38,6 +38,21 @@ class ApiSauce {
     });
   }
 
+  async put(URL, BODY, TOKEN, HEADERS) {
+    api.setHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${TOKEN}`,
+      ...HEADERS,
+    });
+
+    const response = await api.put(URL, BODY);
+
+    return new Promise((resolve, reject) => {
+      this.handlePromise(resolve, reject, response);
+    });
+  }
+
   handlePromise = (resolve, reject, response) => {
     if (
       response.ok &&

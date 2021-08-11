@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {View, Image, TextInput, TouchableOpacity, Text} from 'react-native';
 import {Colors} from '../../theme';
@@ -6,12 +6,10 @@ import {Colors} from '../../theme';
 import styles from './styles';
 
 const CustomTextInput = props => {
-  const [floatLabel, setFloatLabel] = useState(false);
   const {
     refrence,
     returnKeyType,
     placeholder,
-    topLabelText,
     isEditable,
     value,
     onChangeText,
@@ -29,6 +27,14 @@ const CustomTextInput = props => {
     floatingLabel,
     keyboardType,
   } = props;
+
+  const [floatLabel, setFloatLabel] = useState(false);
+
+  useEffect(() => {
+    if (floatingLabel && value) {
+      setFloatLabel(true);
+    }
+  }, [floatingLabel, value]);
 
   return (
     <View>
@@ -93,7 +99,6 @@ CustomTextInput.defaultProps = {
   isEditable: undefined,
   value: undefined,
   placeholder: undefined,
-  topLabelText: undefined,
   onChangeText: undefined,
   emailError: undefined,
   refrence: undefined,
@@ -115,7 +120,6 @@ CustomTextInput.propTypes = {
   isEditable: PropTypes.bool,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  topLabelText: PropTypes.string,
   onChangeText: PropTypes.func,
   emailError: PropTypes.string,
   refrence: PropTypes.object,

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import moment from 'moment';
+import {useIsFocused} from '@react-navigation/native';
 
 import {
   Header,
@@ -26,17 +27,21 @@ import styles from './styles';
 const ProductInfo = props => {
   const {productType, productId} = props.route.params;
 
+  const isFocused = useIsFocused();
+
   const userDetailsResponse = useSelector(state => state.userDetails);
 
   const [isLoading, setIsLoading] = useState(false);
   const [productInfo, setProductInfo] = useState({});
 
   useEffect(() => {
-    if (productId) {
+    if (productId && isFocused) {
       getProductInfo();
+    } else {
+      setProductInfo({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, [productId, isFocused]);
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
@@ -85,7 +90,7 @@ const ProductInfo = props => {
         isRightIconImg={true}
         rightBtnPress={() =>
           productType === 'own' && productInfo?.id
-            ? handleNavigation('EditProducts')
+            ? handleNavigation('EditProducts', {productId})
             : null
         }
         rightSecIcon={
