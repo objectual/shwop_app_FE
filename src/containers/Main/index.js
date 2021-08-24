@@ -62,8 +62,7 @@ const Main = props => {
       setIsLoading(true);
       const result = await ApiSauce.get(
         REVIEW,
-        'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU2ODk1ZTY5LWJiNjUtNGY5Mi04OTg5LTZhYWUyNGRlZmM4NiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTYyOTc5NjY0NiwiYXVkIjoiaHR0cHM6Ly9wcmVyZWMtYmVhdXR5LWFwcC5oZXJva3VhcHAuY29tIiwiaXNzIjoic2h3b3BwX2FwcCIsInN1YiI6InNod29wcC5hcHBAZ21haWwuY29tIn0.pSglQ55b50prb8UONSJycdJYu-t3aK8lQ32JySSPHnA119RV8tuQsrr4OXO7ZsEeblUVt8KCwyYs95ElPb6LUl-RMyDUKcvWLMn1nrbMRPEMoJwEH7aWN12ZGBhGGaemvIxIjgudEoKDvQD0V-4TK5dLMRpgDl16-IgdzUi8yM1y0g21kCqtrDJBc4rvplicBLsXw0ZqjN9dZyHJBFJUR8LzfNxyvAv9eDs0xx1SNw-ftfO7vYYMwWbTY3Sbfn6GyKklFy6e9pChMy8UEQl4ksh0a0P4kUw_7zfptF02boYklsULroPsm4X7u9fdXMVnpBxQRE8u--v8ztOUZHDBF-AZtXv-Ncluyy4XzZ84Q3RH9iSqFy2875grxdjjmL2QujzfFseUhcPH3SIu6RR92MJ2Uzq5YxLFrW7pIqQE49V4boGLyVUYmEVECvC_47AWuweddJp75fPFNAwOnPv7M7NB7ctm6itsWUateiipLXuyB9pr8KRkl7Aw298qHaZOduyMwLDzqg4SS7backLFUl09w8DucsUF0_bPsmrPyIyZhsfIOPYdExNYg9VnPIuFwiOTkmTil4XuYkJAuIY-umZNbXuME3X58Q8645mBdGfDvGNK_MjnfZU99CGRRUW8hsmOxPnYCM9XxGtXWggs3SPBHHSSuoPy6Ve-8x3GJPQ',
-        // userDetailsResponse.data.access_token,
+        userDetailsResponse.data.access_token,
       );
       setIsLoading(false);
       if (result?.data?.length) {
