@@ -13,3 +13,5 @@ export const FACEBOOK = `${BASE_URL_WITHOUT_API}auth/facebook`;
 export const PRODUCT = (id = '') => `${BASE_URL}product/${id}`;
 export const MY_PRODUCT = `${BASE_URL}product/me`;
 export const REVIEW = `${BASE_URL}review`;
+export const IS_EXISTS = `${BASE_URL}users/isexists`;
+export const LOGOUT = `${BASE_URL}users/logout`;

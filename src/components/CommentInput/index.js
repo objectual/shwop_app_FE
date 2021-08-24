@@ -1,9 +1,8 @@
 import React, {useEffect, useRef} from 'react';
-import {View, TextInput, Image} from 'react-native';
+import {View, TextInput, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import PropTypes from 'prop-types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import {Colors, Images, Metrics} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';

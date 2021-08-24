@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,56 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
 
-import {Layout, Header} from '../../components';
+import {Layout, Header, OverlayLoader} from '../../components';
 import {Images, Colors} from '../../theme';
+import ApiSauce from '../../services/ApiSauce';
+import {LOGOUT} from '../../config/WebServices';
+import util from '../../util';
+import {logout} from '../../redux/actions/Login';
 
 const Settings = props => {
+  const userDetailsResponse = useSelector(state => state.userDetails);
+
+  const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
+  };
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      const fcmToken = await AsyncStorage.getItem('fcmToken');
+      const payload = {gcm_id: fcmToken};
+      await auth().signOut();
+      const userLogOut = await ApiSauce.post(
+        LOGOUT,
+        payload,
+        userDetailsResponse.data.access_token,
+      );
+      util.showAlertWithDelay({
+        title: 'Message',
+        message: userLogOut.msg,
+      });
+
+      dispatch(logout());
+
+      setIsLoading(false);
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error?.message ? error?.message : error,
+      });
+      setIsLoading(false);
+    }
   };
 
   const renderButton = ({label, onPress}) => {
@@ -180,16 +221,22 @@ const Settings = props => {
         })}
 
         <View style={{...styles.logoutContainer}}>
-          <TouchableOpacity style={{...styles.logoutBtn}}>
-            <Image
-              resizeMode={'contain'}
-              source={Images.logout_settings}
-              style={{...styles.logoutBtnImage}}
-            />
-            <Text style={{...styles.logoutBtnText}}>Logout</Text>
-          </TouchableOpacity>
+          {userDetailsResponse?.data?.access_token ? (
+            <TouchableOpacity
+              onPress={handleLogout}
+              style={{...styles.logoutBtn}}>
+              <Image
+                resizeMode={'contain'}
+                source={Images.logout_settings}
+                style={{...styles.logoutBtnImage}}
+              />
+              <Text style={{...styles.logoutBtnText}}>Logout</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </ScrollView>
+
+      <OverlayLoader isLoading={isLoading} />
     </Layout>
   );
 };

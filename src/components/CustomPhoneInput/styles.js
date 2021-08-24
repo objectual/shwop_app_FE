@@ -20,7 +20,7 @@ export default StyleSheet.create({
     width: Metrics.ratio(100),
   },
   textInputStyle: {
-    color: Colors.Mercury,
+    color: Colors.Mine_Shaft,
     fontSize: Metrics.ratio(16),
     fontFamily: Fonts.type.NunitoLight,
     borderColor: Colors.Mercury,
@@ -32,12 +32,11 @@ export default StyleSheet.create({
   codeTextStyle: {
     position: 'absolute',
     left: Metrics.ratio(-55),
-    color: Colors.Mercury,
+    color: Colors.Mine_Shaft,
     fontSize: Metrics.ratio(12),
     fontFamily: Fonts.type.NunitoLight,
   },
   textContainerStyle: {
-    backgroundColor: Colors.White,
     paddingVertical: Metrics.ratio(0),
     paddingLeft: Metrics.ratio(0),
   },

@@ -34,13 +34,13 @@ const MyProducts = props => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && userDetailsResponse.data.access_token) {
       getProducts();
     } else {
       setProducts([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, [isFocused, userDetailsResponse.data.access_token]);
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
@@ -135,7 +135,9 @@ const MyProducts = props => {
         />
       ) : null}
 
-      {!isLoading && !results.length ? (
+      {!isLoading &&
+      !results.length &&
+      userDetailsResponse.data.access_token ? (
         <View style={{...styles.notFoundContainer}}>
           <Text style={{...styles.notFoundText}}>
             {'Sorry, no record found.\nPlease try again later.'}
@@ -143,14 +145,24 @@ const MyProducts = props => {
         </View>
       ) : null}
 
-      <TouchableOpacity
-        style={{...styles.addProductBtn}}
-        onPress={() => handleNavigation('AddProducts')}>
-        <Image
-          source={Images.plus_floating_btn}
-          style={{...styles.addProductImage}}
-        />
-      </TouchableOpacity>
+      {!userDetailsResponse.data.access_token ? (
+        <View style={{...styles.notFoundContainer}}>
+          <Text style={{...styles.notFoundText}}>
+            {'You are not currently logged in to see your products.'}
+          </Text>
+        </View>
+      ) : null}
+
+      {userDetailsResponse.data.access_token ? (
+        <TouchableOpacity
+          style={{...styles.addProductBtn}}
+          onPress={() => handleNavigation('AddProducts')}>
+          <Image
+            source={Images.plus_floating_btn}
+            style={{...styles.addProductImage}}
+          />
+        </TouchableOpacity>
+      ) : null}
 
       <OverlayLoader isLoading={isLoading} />
     </Layout>

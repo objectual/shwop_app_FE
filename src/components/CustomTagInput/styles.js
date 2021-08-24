@@ -29,7 +29,7 @@ export default StyleSheet.create({
   tagText: {
     fontSize: Metrics.ratio(12),
     fontFamily: Fonts.type.Nunito,
-    color: '#3B3B3B',
+    color: Colors.Mine_Shaft,
   },
   removeBtn: {
     marginLeft: Metrics.ratio(8),
@@ -37,7 +37,7 @@ export default StyleSheet.create({
   removeBtnText: {
     fontSize: Metrics.ratio(12),
     fontFamily: Fonts.type.Nunito,
-    color: '#3B3B3B',
+    color: Colors.Mine_Shaft,
   },
   tagTextInput: {
     backgroundColor: Colors.Mercury,
@@ -49,7 +49,7 @@ export default StyleSheet.create({
     paddingHorizontal: Metrics.ratio(8),
     fontSize: Metrics.ratio(13),
     fontFamily: Fonts.type.Nunito,
-    color: '#3B3B3B',
+    color: Colors.Mine_Shaft,
   },
   addBtn: {
     backgroundColor: Colors.Affair,
