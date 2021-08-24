@@ -24,6 +24,7 @@ const Punch = '#DC3545';
 const Amber = '#FFC107';
 const Harlequin = '#38D812';
 const Alabaster = '#F9F9F9';
+const Mine_Shaft = '#3B3B3B';
 
 export default {
   // Solid Colors
@@ -52,4 +53,5 @@ export default {
   Amber,
   Harlequin,
   Alabaster,
+  Mine_Shaft,
 };

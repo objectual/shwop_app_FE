@@ -12,8 +12,6 @@ import Navigation from './src/navigation';
 import {DataHelper} from './src/helpers';
 import NetworkInfo from './src/services/NetworkInfo';
 import {networkInfoListener} from './src/redux/actions/NetworkInfo';
-import {success as login_success} from './src/redux/actions/Login';
-import {logout} from './src/redux/actions/Login';
 
 const reducers = require('./src/redux/reducers').default;
 
@@ -26,25 +24,6 @@ export default class App extends Component {
       });
     }),
   };
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const main = async () => {
-      try {
-        const _user = await AsyncStorage.getItem('user');
-        const _rememberMe = await AsyncStorage.getItem('rememberMe');
-        const user = JSON.parse(_user);
-        const rememberMe = JSON.parse(_rememberMe);
-        if (rememberMe?.rememberMe) {
-          prevState.store.dispatch(login_success(user));
-        } else {
-          prevState.store.dispatch(logout());
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    main();
-  }
 
   componentDidMount() {
     console.disableYellowBox = true;

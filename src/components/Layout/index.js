@@ -3,7 +3,8 @@ import {View, TouchableOpacity, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useIsFocused} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 import {Images, Metrics, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
@@ -14,38 +15,36 @@ import {
   OverlayLoader,
 } from '../../components';
 import {GOOGLE, FACEBOOK} from '../../config/WebServices';
-import {request as login_request} from '../../redux/actions/Login';
+// import {request as login_request} from '../../redux/actions/Login';
+import util from '../../util';
 
 import styles from './styles';
 
 const Layout = props => {
   const {children, isModalizeOpen} = props;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [isOpen] = useKeyboardStatus();
   const isFocused = useIsFocused();
 
   const userDetailsResponse = useSelector(state => state.userDetails);
-  const loginResponse = useSelector(state => state.login);
+  // const loginResponse = useSelector(state => state.login);
 
   const modalizeRef = useRef(null);
-  const loginPhoneInputRef = useRef(null);
-  const signUpPhoneInputRef = useRef(null);
+  const phoneInputRef = useRef(null);
 
-  const [showSignUp, setShowSignUp] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('SG');
   const [callingCode, setCallingCode] = useState('65');
   const [isInvalidNumber, setIsInvalidNumber] = useState(false);
   const [modalTopOffset, setModalTopOffset] = useState(
-    Metrics.screenHeight * 0.25,
+    Metrics.screenHeight * 0.4,
   );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isFocused) {
-      setShowSignUp(false);
       setPhoneNumber('');
       setCountryCode('SG');
       setCallingCode('65');
@@ -53,37 +52,39 @@ const Layout = props => {
   }, [isFocused]);
 
   useEffect(() => {
-    if (userDetailsResponse.data.access_token) {
+    if (userDetailsResponse?.data?.access_token) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, [userDetailsResponse]);
 
-  useEffect(() => {
-    if (
-      !loginResponse.isFetching &&
-      !loginResponse.failure &&
-      !loginResponse.errorMessage &&
-      loginResponse?.data?.success
-    ) {
-      setIsLoading(false);
+  // useEffect(() => {
+  //   if (
+  //     !loginResponse.isFetching &&
+  //     !loginResponse.failure &&
+  //     !loginResponse.errorMessage &&
+  //     loginResponse?.data?.success
+  //   ) {
+  //     setIsLoading(false);
 
-      let phoneNumberWithoutZero =
-        loginPhoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+  //     let phoneNumberWithoutZero =
+  //       phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
 
-      handleNavigation('Otp', {
-        selectedPhoneNumber: `${callingCode}${phoneNumberWithoutZero?.number}`,
-      });
-    } else if (!loginResponse.isFetching) {
-      setIsLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginResponse]);
+  //     handleNavigation('Otp', {
+  //       selectedPhoneNumber: `${callingCode}${phoneNumberWithoutZero?.number}`,
+  //     });
+  //   } else if (!loginResponse.isFetching) {
+  //     setIsLoading(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [loginResponse]);
 
   useEffect(() => {
     if (isOpen) {
       setModalTopOffset(Metrics.screenHeight * 0.1);
     } else {
-      setModalTopOffset(Metrics.screenHeight * 0.25);
+      setModalTopOffset(Metrics.screenHeight * 0.4);
     }
   }, [isOpen]);
 
@@ -97,7 +98,6 @@ const Layout = props => {
 
   const handleNavigation = (screenName, params) => {
     closeModalize();
-    setShowSignUp(false);
     props.navigation.navigate(screenName, {...params});
   };
 
@@ -106,13 +106,11 @@ const Layout = props => {
     setCallingCode(country.callingCode[0]);
   };
 
-  const handleSignUp = () => {
-    if (signUpPhoneInputRef.current?.isValidNumber(phoneNumber)) {
-      handleNavigation('SignUp', {
-        selectedPhoneNumber: phoneNumber,
-        selectedCountryCode: countryCode,
-        selectedCallingCode: callingCode,
-      });
+  const handleContinue = () => {
+    if (phoneInputRef.current?.isValidNumber(phoneNumber)) {
+      let phoneNo =
+        phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+      signInWithPhoneNumber(phoneNo.formattedNumber);
     } else {
       setIsInvalidNumber(true);
       setTimeout(() => {
@@ -121,23 +119,23 @@ const Layout = props => {
     }
   };
 
-  const handleLogin = () => {
-    if (loginPhoneInputRef.current?.isValidNumber(phoneNumber)) {
+  const signInWithPhoneNumber = async phoneNo => {
+    try {
       setIsLoading(true);
-      let phoneNumberWithoutZero =
-        loginPhoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
-
-      let payload = {
-        phoneNo: `${callingCode}${phoneNumberWithoutZero.number}`,
-        role: 'USER',
-      };
-
-      dispatch(login_request(payload));
-    } else {
-      setIsInvalidNumber(true);
-      setTimeout(() => {
-        setIsInvalidNumber(false);
-      }, 3000);
+      const confirmation = await auth().signInWithPhoneNumber(phoneNo);
+      handleNavigation('Otp', {
+        selectedPhoneNumber: phoneNumber,
+        selectedCountryCode: countryCode,
+        selectedCallingCode: callingCode,
+        confirmation,
+      });
+      setIsLoading(false);
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error?.message,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -172,9 +170,7 @@ const Layout = props => {
   const renderHeaderComponent = () => {
     return (
       <View style={{...styles.headerComponentContainer}}>
-        <Text style={{...styles.headerText}}>
-          {!showSignUp ? 'Login With Number' : 'Sign Up With Number'}
-        </Text>
+        <Text style={{...styles.headerText}}>{"Let's Get Started"}</Text>
         <TouchableOpacity onPress={closeModalize} style={{...styles.closeBtn}}>
           <MaterialCommunityIcons
             name="close"
@@ -186,12 +182,12 @@ const Layout = props => {
     );
   };
 
-  const renderLoginPop = () => {
+  const renderAuthModal = () => {
     return (
       <View style={styles.loginArea}>
         <View>
           <CustomPhoneInput
-            phoneInputRef={loginPhoneInputRef}
+            phoneInputRef={phoneInputRef}
             value={phoneNumber}
             defaultCode={countryCode}
             onChangeText={setPhoneNumber}
@@ -201,9 +197,9 @@ const Layout = props => {
           />
         </View>
         <GradientButton
-          label={'Login'}
+          label={'Continue'}
           containerStyle={{...styles.gradientButtonContainer}}
-          onPress={handleLogin}
+          onPress={handleContinue}
         />
         <View style={styles.Orarea}>
           <View style={styles.line} />
@@ -212,94 +208,15 @@ const Layout = props => {
         <View style={styles.socialView}>
           <TouchableOpacity
             onPress={() =>
-              handleNavigation('MyWebView', {
-                webViewLink: FACEBOOK,
-              })
+              handleNavigation('MyWebView', {webViewLink: FACEBOOK})
             }>
             <Image style={styles.socialImg} source={Images.facebook} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              handleNavigation('MyWebView', {
-                webViewLink: GOOGLE,
-              })
+              handleNavigation('MyWebView', {webViewLink: GOOGLE})
             }>
             <Image style={styles.socialImg} source={Images.google} />
-          </TouchableOpacity>
-          {/* <TouchableOpacity>
-            <Image style={styles.socialImg} source={Images.instagram} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image style={styles.socialImg} source={Images.twitter} />
-          </TouchableOpacity> */}
-        </View>
-        <View style={styles.RegisterTag}>
-          <Text style={styles.RegisterHere}>Don't have an account?</Text>
-        </View>
-
-        <View style={styles.RegisterTag}>
-          <TouchableOpacity onPress={() => setShowSignUp(true)}>
-            <Text style={styles.RegisterHereLink}>Sign Up Here</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
-  const renderSignUpPop = () => {
-    return (
-      <View style={styles.loginArea}>
-        <View>
-          <CustomPhoneInput
-            phoneInputRef={signUpPhoneInputRef}
-            value={phoneNumber}
-            defaultCode={countryCode}
-            onChangeText={setPhoneNumber}
-            isHelpText={true}
-            isInvalidNumber={isInvalidNumber}
-            onChangeCountry={onChangeCountry}
-          />
-        </View>
-        <GradientButton
-          label={'Sign Up'}
-          containerStyle={{...styles.gradientButtonContainer}}
-          onPress={handleSignUp}
-        />
-        <View style={styles.Orarea}>
-          <View style={styles.line} />
-          <Text style={styles.orText}>OR</Text>
-        </View>
-        <View style={styles.socialView}>
-          <TouchableOpacity
-            onPress={() =>
-              handleNavigation('MyWebView', {
-                webViewLink: FACEBOOK,
-              })
-            }>
-            <Image style={styles.socialImg} source={Images.facebook} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() =>
-              handleNavigation('MyWebView', {
-                webViewLink: GOOGLE,
-              })
-            }>
-            <Image style={styles.socialImg} source={Images.google} />
-          </TouchableOpacity>
-          {/* <TouchableOpacity>
-            <Image style={styles.socialImg} source={Images.instagram} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image style={styles.socialImg} source={Images.twitter} />
-          </TouchableOpacity> */}
-        </View>
-        <View style={styles.RegisterTag}>
-          <Text style={styles.RegisterHere}>Don't have an account?</Text>
-        </View>
-
-        <View style={styles.RegisterTag}>
-          <TouchableOpacity onPress={() => setShowSignUp(false)}>
-            <Text style={styles.RegisterHereLink}>Sign In Here</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -317,7 +234,7 @@ const Layout = props => {
           headerComponent={renderHeaderComponent()}
           onOpened={() => isModalizeOpen(true)}
           onClosed={() => isModalizeOpen(false)}>
-          {!showSignUp ? renderLoginPop() : renderSignUpPop()}
+          {renderAuthModal()}
         </CustomModalize>
       )}
 

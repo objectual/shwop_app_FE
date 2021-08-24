@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   fullNameRegex,
@@ -28,12 +29,17 @@ import {
 import {Images, Colors} from '../../theme';
 import util from '../../util';
 import {request as register_request} from '../../redux/actions/Register';
+import {storeUserDetails} from '../../redux/actions/UserDetails';
 
 import styles from './styles';
 
 const SignUp = props => {
-  const {selectedPhoneNumber, selectedCountryCode, selectedCallingCode} =
-    props.route.params;
+  const {
+    selectedPhoneNumber,
+    selectedCountryCode,
+    selectedCallingCode,
+    firebaseToken,
+  } = props.route.params;
 
   const dispatch = useDispatch();
 
@@ -81,18 +87,27 @@ const SignUp = props => {
       registerResponse?.data?.success
     ) {
       setIsLoading(false);
-
-      let phoneNumberWithoutZero =
-        phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
-
+      dispatch(storeUserDetails(registerResponse?.data?.user));
       util.showCommonMessage({
         title: 'Message',
         message: registerResponse?.data?.msg,
         onPress: () =>
-          handleNavigation('Otp', {
-            selectedPhoneNumber: `${callingCode}${phoneNumberWithoutZero?.number}`,
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Main'}],
           }),
       });
+      // let phoneNumberWithoutZero =
+      //   phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+
+      // util.showCommonMessage({
+      //   title: 'Message',
+      //   message: registerResponse?.data?.msg,
+      //   onPress: () =>
+      //     handleNavigation('Otp', {
+      //       selectedPhoneNumber: `${callingCode}${phoneNumberWithoutZero?.number}`,
+      //     }),
+      // });
     } else if (!registerResponse.isFetching) {
       setIsLoading(false);
     }
@@ -107,9 +122,9 @@ const SignUp = props => {
     // shwoopIDError: 'Shwoop Id is required.',
   };
 
-  const handleNavigation = (screenName, params) => {
-    props.navigation.navigate(screenName, {...params});
-  };
+  // const handleNavigation = (screenName, params) => {
+  //   props.navigation.navigate(screenName, {...params});
+  // };
 
   const handleValidation = async () => {
     if (!placeholderImage?.uri) {
@@ -183,21 +198,25 @@ const SignUp = props => {
     }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     setIsLoading(true);
+    let fcmToken = await AsyncStorage.getItem('fcmToken');
 
-    let phoneNumberWithoutZero =
-      phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
+    // let phoneNumberWithoutZero =
+    //   phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
     let formDataPayload = new FormData();
 
     formDataPayload.append('images', placeholderImage);
     formDataPayload.append('name', fullname);
     formDataPayload.append('username', username);
-    formDataPayload.append(
-      'phoneNo',
-      `${callingCode}${phoneNumberWithoutZero.number}`,
-    );
+    // formDataPayload.append(
+    //   'phoneNo',
+    //   `${callingCode}${phoneNumberWithoutZero.number}`,
+    // );
     formDataPayload.append('about', bio);
+    formDataPayload.append('token', firebaseToken);
+    formDataPayload.append('gcm_id', fcmToken);
+    formDataPayload.append('platform', Platform.OS);
 
     dispatch(register_request(formDataPayload));
   };
@@ -337,6 +356,7 @@ const SignUp = props => {
         <CustomPhoneInput
           phoneInputRef={phoneInputRef}
           value={phoneNumber}
+          disabled={true}
           defaultCode={countryCode}
           onChangeText={setPhoneNumber}
           isHelpText={true}

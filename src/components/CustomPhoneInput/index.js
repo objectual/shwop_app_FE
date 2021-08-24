@@ -18,6 +18,7 @@ const CustomPhoneInput = props => {
     defaultCode,
     onChangeCountry,
     onChangeFormattedText,
+    disabled,
   } = props;
 
   const renderDropdown = () => {
@@ -28,16 +29,23 @@ const CustomPhoneInput = props => {
     <View style={{...containerStyle}}>
       <PhoneInput
         ref={phoneInputRef}
+        disabled={disabled}
         defaultValue={value}
         placeholder="xxxxxxxx"
         defaultCode={defaultCode}
         layout="first"
         placeholderTextColor={Colors.Mercury}
-        containerStyle={{...styles.containerStyle}}
+        containerStyle={{
+          ...styles.containerStyle,
+          backgroundColor: disabled ? Colors.Concrete : Colors.White,
+        }}
         flagButtonStyle={{...styles.flagButtonStyle}}
         textInputStyle={{...styles.textInputStyle}}
         codeTextStyle={{...styles.codeTextStyle}}
-        textContainerStyle={{...styles.textContainerStyle}}
+        textContainerStyle={{
+          ...styles.textContainerStyle,
+          backgroundColor: disabled ? Colors.Concrete : Colors.White,
+        }}
         renderDropdownImage={renderDropdown()}
         onChangeText={onChangeText}
         onChangeCountry={onChangeCountry}
@@ -70,6 +78,7 @@ CustomPhoneInput.defaultProps = {
   defaultCode: 'SG',
   onChangeCountry: undefined,
   onChangeFormattedText: undefined,
+  disabled: false,
 };
 
 CustomPhoneInput.propTypes = {
@@ -81,6 +90,7 @@ CustomPhoneInput.propTypes = {
   defaultCode: PropTypes.string,
   onChangeCountry: PropTypes.func,
   onChangeFormattedText: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default CustomPhoneInput;

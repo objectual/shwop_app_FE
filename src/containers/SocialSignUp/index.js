@@ -10,7 +10,11 @@ import {
   // Platform,
 } from 'react-native';
 // import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import {useDispatch, useSelector} from 'react-redux';
+import {
+  // useDispatch,
+  useSelector,
+} from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 import {
   fullNameRegex,
@@ -27,14 +31,14 @@ import {
 } from '../../components';
 import {Images, Colors} from '../../theme';
 import util from '../../util';
-import {request as social_register_request} from '../../redux/actions/SocialRegister';
+// import {request as social_register_request} from '../../redux/actions/SocialRegister';
 
 import styles from './styles';
 
 const SocialSignUp = props => {
   const {name, email, profileImage} = props.route.params;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const socialRegisterResponse = useSelector(state => state.socialRegister);
 
@@ -183,21 +187,41 @@ const SocialSignUp = props => {
     }
   };
 
-  const handleRegister = () => {
-    setIsLoading(true);
-
+  const handleRegister = async () => {
     let phoneNumberWithoutZero =
       phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
 
-    let payload = {
+    let socialRegisterDetails = {
       email,
-      phoneNo: `${callingCode}${phoneNumberWithoutZero.number}`,
       name: fullname,
       username: username,
       about: bio,
       profileImage: placeholderImage.uri,
     };
-    dispatch(social_register_request(payload));
+
+    try {
+      setIsLoading(true);
+      const confirmation = await auth().signInWithPhoneNumber(
+        phoneNumberWithoutZero.formattedNumber,
+      );
+      handleNavigation('SocialOtp', {
+        selectedPhoneNumber: phoneNumber,
+        selectedCountryCode: countryCode,
+        selectedCallingCode: callingCode,
+        confirmation,
+        socialRegisterDetails,
+        isSocialLogin: false,
+      });
+      setIsLoading(false);
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error?.message,
+      });
+      setIsLoading(false);
+    }
+
+    // dispatch(social_register_request(payload));
   };
 
   // const handleSecureTextEntry = () => {

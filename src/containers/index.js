@@ -38,6 +38,7 @@ import Reviews from './Reviews';
 import Messages from './Messages';
 import MyWebView from './MyWebView';
 import SocialSignUp from './SocialSignUp';
+import SocialOtp from './SocialOtp';
 
 export {
   Chat,
@@ -80,4 +81,5 @@ export {
   Messages,
   MyWebView,
   SocialSignUp,
+  SocialOtp,
 };

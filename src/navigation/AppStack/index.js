@@ -45,6 +45,7 @@ import {
   Messages,
   MyWebView,
   SocialSignUp,
+  SocialOtp,
 } from '../../containers';
 
 const AppStack = createStackNavigator();
@@ -120,6 +121,7 @@ const AppStackScreen = ({screenNavigate}) => {
       <AppStack.Screen name="Messages" component={Messages} />
       <AppStack.Screen name="MyWebView" component={MyWebView} />
       <AppStack.Screen name="SocialSignUp" component={SocialSignUp} />
+      <AppStack.Screen name="SocialOtp" component={SocialOtp} />
     </AppStack.Navigator>
   );
 };

@@ -63,7 +63,7 @@ export default StyleSheet.create({
   },
   logoutContainer: {
     marginTop: Metrics.ratio(24),
-    marginBottom: Metrics.ratio(80),
+    marginBottom: Metrics.ratio(90),
     marginHorizontal: Metrics.ratio(12),
   },
   manageItem: {

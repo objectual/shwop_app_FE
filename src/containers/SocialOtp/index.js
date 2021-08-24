@@ -20,17 +20,19 @@ import {Images, Colors, Metrics} from '../../theme';
 import {storeUserDetails} from '../../redux/actions/UserDetails';
 // import {clearAuthData} from '../../redux/actions/Login';
 import util from '../../util';
-import {IS_EXISTS} from '../../config/WebServices';
+import {IS_EXISTS, SOCIAL_REGISTER} from '../../config/WebServices';
 import ApiSauce from '../../services/ApiSauce';
 
 import styles from './styles';
 
-const Otp = props => {
+const SocialOtp = props => {
   const {
     selectedPhoneNumber,
-    selectedCountryCode,
+    // selectedCountryCode,
     selectedCallingCode,
     confirmation,
+    socialRegisterDetails,
+    isSocialLogin,
   } = props.route.params;
 
   let resendOtpTimerInterval;
@@ -116,9 +118,9 @@ const Otp = props => {
   //   setUser(_user);
   // };
 
-  const handleNavigation = (screenName, params) => {
-    props.navigation.navigate(screenName, {...params});
-  };
+  // const handleNavigation = (screenName, params) => {
+  //   props.navigation.navigate(screenName, {...params});
+  // };
 
   const startResendOtpTimer = () => {
     if (resendOtpTimerInterval) {
@@ -134,10 +136,15 @@ const Otp = props => {
   };
 
   const resendOtp = async () => {
-    const phoneWithAreaCode = selectedPhoneNumber.replace(
-      /^0+/,
-      `+${selectedCallingCode}`,
-    );
+    let phoneWithAreaCode;
+    if (!isSocialLogin) {
+      phoneWithAreaCode = selectedPhoneNumber.replace(
+        /^0+/,
+        `+${selectedCallingCode}`,
+      );
+    } else {
+      phoneWithAreaCode = `+${selectedPhoneNumber}`;
+    }
 
     try {
       setIsLoading(true);
@@ -167,8 +174,12 @@ const Otp = props => {
     } else {
       try {
         setIsLoading(true);
-        await confirmation.confirm(code);
-        isUserExists();
+        const confirmResult = await confirmation.confirm(code);
+        if (isSocialLogin) {
+          socialLogin();
+        } else {
+          socialRegister();
+        }
       } catch (error) {
         util.showAlertWithDelay({
           title: 'Error',
@@ -179,12 +190,12 @@ const Otp = props => {
     }
   };
 
-  const isUserExists = async () => {
+  const socialLogin = async () => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
-    const accessToken = await auth().currentUser.getIdToken();
+    const firebaseToken = await auth().currentUser.getIdToken();
 
     let payload = {
-      token: accessToken,
+      token: firebaseToken,
       gcm_id: fcmToken,
       platform: Platform.OS,
     };
@@ -192,25 +203,16 @@ const Otp = props => {
     try {
       const result = await ApiSauce.post(IS_EXISTS, payload);
       setIsLoading(false);
-      if (result?.isExists) {
-        dispatch(storeUserDetails(result?.user));
-        util.showCommonMessage({
-          title: 'Message',
-          message: result?.msg,
-          onPress: () =>
-            props.navigation.reset({
-              index: 0,
-              routes: [{name: 'Main'}],
-            }),
-        });
-      } else {
-        handleNavigation('SignUp', {
-          selectedPhoneNumber,
-          selectedCountryCode,
-          selectedCallingCode,
-          firebaseToken: accessToken,
-        });
-      }
+      dispatch(storeUserDetails(result?.user));
+      util.showCommonMessage({
+        title: 'Message',
+        message: result?.msg,
+        onPress: () =>
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Main'}],
+          }),
+      });
     } catch (error) {
       util.showAlertWithDelay({
         title: 'Error',
@@ -219,6 +221,84 @@ const Otp = props => {
       setIsLoading(false);
     }
   };
+
+  const socialRegister = async () => {
+    let fcmToken = await AsyncStorage.getItem('fcmToken');
+    const firebaseToken = await auth().currentUser.getIdToken();
+
+    let formDataPayload = new FormData();
+
+    formDataPayload.append('profileImage', socialRegisterDetails.profileImage);
+    formDataPayload.append('email', socialRegisterDetails.email);
+    formDataPayload.append('name', socialRegisterDetails.name);
+    formDataPayload.append('username', socialRegisterDetails.username);
+    formDataPayload.append('about', socialRegisterDetails.about);
+    formDataPayload.append('token', firebaseToken);
+    formDataPayload.append('gcm_id', fcmToken);
+    formDataPayload.append('platform', Platform.OS);
+
+    try {
+      const result = await ApiSauce.post(SOCIAL_REGISTER, formDataPayload);
+      setIsLoading(false);
+      dispatch(storeUserDetails(result?.user));
+      util.showCommonMessage({
+        title: 'Message',
+        message: result?.msg,
+        onPress: () =>
+          props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Main'}],
+          }),
+      });
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+    }
+  };
+
+  // const isUserExists = async () => {
+  //   let fcmToken = await AsyncStorage.getItem('fcmToken');
+  //   const firebaseToken = await auth().currentUser.getIdToken();
+
+  //   let payload = {
+  //     token: firebaseToken,
+  //     gcm_id: fcmToken,
+  //     platform: Platform.OS,
+  //   };
+
+  //   try {
+  //     const result = await ApiSauce.post(IS_EXISTS, payload);
+  //     setIsLoading(false);
+  //     if (result?.isExists) {
+  //       dispatch(storeUserDetails(result?.user));
+  //       util.showCommonMessage({
+  //         title: 'Message',
+  //         message: result?.msg,
+  //         onPress: () =>
+  //           props.navigation.reset({
+  //             index: 0,
+  //             routes: [{name: 'Main'}],
+  //           }),
+  //       });
+  //     } else {
+  //       handleNavigation('SignUp', {
+  //         selectedPhoneNumber,
+  //         selectedCountryCode,
+  //         selectedCallingCode,
+  //         firebaseToken: firebaseToken,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     util.showAlertWithDelay({
+  //       title: 'Error',
+  //       message: error,
+  //     });
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <>
@@ -285,4 +365,4 @@ const Otp = props => {
   );
 };
 
-export default Otp;
+export default SocialOtp;

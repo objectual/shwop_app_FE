@@ -37,7 +37,7 @@ export default StyleSheet.create({
   textInputStyle: {
     flex: 0.95,
     fontFamily: Fonts.type.Nunito,
-    color: '#3B3B3B',
+    color: Colors.Mine_Shaft,
     fontSize: Fonts.size.thirteen,
   },
   inputIcon: {

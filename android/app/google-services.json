@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "175165712023",
+    "firebase_url": "https://showpp-544cb-default-rtdb.firebaseio.com",
     "project_id": "showpp-544cb",
     "storage_bucket": "showpp-544cb.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "175165712023-hgmcnch9s3emlc68jpnhn8us30a92mi0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shwopp",
+            "certificate_hash": "7e291302847c955a274356fb66428e5ee1632d41"
+          }
+        },
+        {
+          "client_id": "175165712023-ml859bu24u1hldr86rfaf408dm657q3b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shwopp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
         {
           "client_id": "175165712023-j5i6erlkcbqptdfnrv8fe0nofggnggq8.apps.googleusercontent.com",
           "client_type": 3
