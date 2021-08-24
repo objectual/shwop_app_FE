@@ -44,7 +44,6 @@ const comments = [
     time: '9:45AM',
     img: Images.commentUser,
   },
-
   {
     id: 2,
     comment:
@@ -468,7 +467,14 @@ const AfterSplash = props => {
         />
       )}
 
-      {!isLoading && showOptions && <VideoBuyCard />}
+      {!isLoading && showOptions && (
+        <VideoBuyCard
+          cardImage={Images.cardProduct}
+          cardTitle={'The New Products'}
+          cardPrice={'$15.00'}
+          onPress={() => {}}
+        />
+      )}
 
       {showVideoPlayer && (
         <CustomVideoPlayer
@@ -525,7 +531,6 @@ const AfterSplash = props => {
 };
 
 AfterSplash.defaultProps = {};
-
 AfterSplash.propTypes = {};
 
 export default AfterSplash;

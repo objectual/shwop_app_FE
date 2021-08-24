@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {Images, Metrics, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
@@ -95,6 +96,15 @@ const Layout = props => {
     modalizeRef.current?.open();
   };
 
+  const onPressUploadVideo = async () => {
+    isLoggedIn ? handleNavigation('UploadVideo') : openModalize();
+    try {
+      await AsyncStorage.setItem('recordTipSeen', 'yes');
+    } catch (error) {
+      console.log(error, 'error');
+    }
+  };
+
   const handleNavigation = (screenName, params) => {
     closeModalize();
     setShowSignUp(false);
@@ -155,9 +165,7 @@ const Layout = props => {
 
   const renderUploadVideoBtn = () => (
     <TouchableOpacity
-      onPress={() =>
-        isLoggedIn ? handleNavigation('UploadVideo') : openModalize()
-      }
+      onPress={() => onPressUploadVideo()}
       style={{...styles.uploadBtn}}>
       <View style={{...styles.uploadBtnView}}>
         <Image

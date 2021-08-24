@@ -463,7 +463,14 @@ const VideoPlaying = props => {
         />
       )}
 
-      {!isLoading && showOptions && <VideoBuyCard />}
+      {!isLoading && showOptions && (
+        <VideoBuyCard
+          cardImage={Images.cardProduct}
+          cardTitle={'The New Products'}
+          cardPrice={'$15.00'}
+          onPress={() => {}}
+        />
+      )}
 
       {showVideoPlayer && (
         <CustomVideoPlayer

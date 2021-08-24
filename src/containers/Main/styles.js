@@ -115,7 +115,6 @@ export default StyleSheet.create({
   },
   menuContainer: {
     alignItems: 'flex-end',
-    flex: 1,
     justifyContent: 'center',
     marginRight: Metrics.ratio(17),
   },
@@ -130,5 +129,17 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.MontserratMedium,
     fontSize: Metrics.ratio(13),
     marginLeft: Metrics.ratio(8),
+  },
+  notFoundContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: Metrics.ratio(16),
+  },
+  notFoundText: {
+    fontSize: Metrics.ratio(16),
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+    textAlign: 'center',
   },
 });

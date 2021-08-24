@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   profileImg: {
     width: Metrics.screenWidth * 0.1,
     height: Metrics.screenWidth * 0.1,
+    borderRadius: Metrics.screenWidth * 0.2,
   },
   nameArea: {
     paddingHorizontal: Metrics.ratio(8),

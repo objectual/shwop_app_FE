@@ -11,7 +11,7 @@ const FollowCard = props => {
     time,
     description,
     like,
-    subscriber,
+    // subscriber,
     duration,
     onPress,
   } = props;
@@ -26,7 +26,7 @@ const FollowCard = props => {
       </View>
       <View style={styles.profileArea}>
         <Image
-          resizeMode="contain"
+          resizeMode="cover"
           style={styles.profileImg}
           source={profileImg}
         />
@@ -57,14 +57,14 @@ const FollowCard = props => {
             />
             <Text style={styles.likeTxt}>{like}</Text>
           </View>
-          <View style={styles.likeImageText}>
+          {/* <View style={styles.likeImageText}>
             <Image
               resizeMode="contain"
               style={styles.heart}
               source={Images.subscribers}
             />
             <Text style={styles.likeTxt}>{subscriber}</Text>
-          </View>
+          </View> */}
         </View>
 
         <View style={styles.likeImageText}>
