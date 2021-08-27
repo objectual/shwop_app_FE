@@ -134,10 +134,16 @@ const Otp = props => {
   };
 
   const resendOtp = async () => {
-    const phoneWithAreaCode = selectedPhoneNumber.replace(
-      /^0+/,
-      `+${selectedCallingCode}`,
-    );
+    let phoneWithAreaCode;
+
+    if (selectedPhoneNumber.charAt(0) === '0') {
+      phoneWithAreaCode = selectedPhoneNumber.replace(
+        /^0+/,
+        `+${selectedCallingCode}`,
+      );
+    } else {
+      phoneWithAreaCode = `+${selectedCallingCode}${selectedPhoneNumber}`;
+    }
 
     try {
       setIsLoading(true);

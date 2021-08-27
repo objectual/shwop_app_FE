@@ -53,10 +53,10 @@ const MyProducts = props => {
         MY_PRODUCT,
         userDetailsResponse.data.access_token,
       );
-      setIsLoading(false);
       if (result?.data?.length) {
         setProducts(result?.data);
       }
+      setIsLoading(false);
     } catch (error) {
       util.showAlertWithDelay({
         title: 'Error',

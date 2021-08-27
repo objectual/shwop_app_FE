@@ -1,11 +1,14 @@
+import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Alert, BackHandler} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import messaging from '@react-native-firebase/messaging';
-
-import 'react-native-gesture-handler';
+import {
+  setJSExceptionHandler,
+  setNativeExceptionHandler,
+} from 'react-native-exception-handler';
 
 import configureStore from './src/redux/store';
 import Navigation from './src/navigation';
@@ -21,6 +24,7 @@ export default class App extends Component {
     store: configureStore(reducers, newState => {
       this.setState({isLoading: false}, () => {
         DataHelper.setStore(this.state.store);
+        this.onLoadingComplete();
       });
     }),
   };
@@ -54,6 +58,46 @@ export default class App extends Component {
     //   console.log('🚀 ~ file: App.js ~ line 75 ~ App ~ componentDidMount ~ payload', payload);
     // });
   }
+
+  onLoadingComplete = () => {
+    setJSExceptionHandler(this.errorHandler, true);
+    setNativeExceptionHandler(this.nativeErrorCallback, false);
+  };
+
+  errorHandler = (e, isFatal) => {
+    if (isFatal) {
+      this.reporter(e);
+      Alert.alert(
+        'Unexpected error occurred',
+        `
+          Error: ${isFatal ? 'Fatal:' : ''} ${e.name} ${e.message}
+  
+          We have reported this to our team ! Please close the app and start again!
+          `,
+        [
+          {
+            text: 'Close',
+            onPress: () => {
+              BackHandler.exitApp();
+            },
+          },
+        ],
+      );
+    } else {
+      // console.log(e); // So that we can see it in the ADB logs in case of Android if needed
+    }
+  };
+
+  nativeErrorCallback = errorString => {
+    Alert.alert('Native Exception', errorString);
+    console.log(errorString, 'errorString errorString ');
+  };
+
+  reporter = error => {
+    // Logic for reporting to devs
+    // Example : Log issues to github issues using github apis.
+    console.log(error); // sample
+  };
 
   async getToken() {
     let fcmToken;

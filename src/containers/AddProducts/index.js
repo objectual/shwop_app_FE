@@ -10,7 +10,6 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
 import ImagePicker from 'react-native-image-crop-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
@@ -23,6 +22,7 @@ import {
   Layout,
   OverlayLoader,
   CustomTagInput,
+  CustomModalSelector,
 } from '../../components';
 import {Images, Colors, Metrics} from '../../theme';
 import util from '../../util';
@@ -42,6 +42,12 @@ const AddProducts = props => {
     descriptionInputRef: useRef(null),
     quantityInputRef: useRef(null),
   };
+
+  const [currencies] = useState([{label: 'Dollar', key: 'dollar'}]);
+  const [refundableOptions] = useState([
+    {label: 'Yes', key: 'yes'},
+    {label: 'No', key: 'no'},
+  ]);
 
   const [floatLabel, setFloatLabel] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -83,17 +89,17 @@ const AddProducts = props => {
     try {
       setIsLoading(true);
       const result = await ApiSauce.get(CATEGORIES);
-      setIsLoading(false);
       if (result?.data?.length) {
         const formatedCategories = result.data.map(element => {
           return {
             label: element.name,
-            value: element.id,
+            key: element.id,
             subCategory: element.subCategory,
           };
         });
         setCategories([...formatedCategories]);
       }
+      setIsLoading(false);
     } catch (error) {
       util.showAlertWithDelay({
         title: 'Error',
@@ -205,10 +211,13 @@ const AddProducts = props => {
       });
     });
     formDataPayload.append('title', title);
-    formDataPayload.append('categories', JSON.stringify([{id: subCategory}]));
+    formDataPayload.append(
+      'categories',
+      JSON.stringify([{id: subCategory.key}]),
+    );
     formDataPayload.append('baseCost', price);
-    formDataPayload.append('currency', currency);
-    formDataPayload.append('refundable', refundable === 'yes');
+    formDataPayload.append('currency', currency.key);
+    formDataPayload.append('refundable', refundable.key === 'yes');
     formDataPayload.append('quantity', quantity);
     formDataPayload.append('tags', JSON.stringify(tagList));
     formDataPayload.append('description', bio);
@@ -255,17 +264,16 @@ const AddProducts = props => {
 
   const onChangeTitle = text => bio.length <= 120 && setBio(text);
 
-  const onChangeCategory = (value, index) => {
-    setCategory(value);
-    if (index) {
-      const formatedSubCategories = categories[index - 1]?.subCategory?.map(
-        element => {
-          return {
-            label: element.name,
-            value: element.id,
-          };
-        },
-      );
+  const onChangeCategory = option => {
+    setCategory(option);
+    if (option?.subCategory?.length) {
+      const formatedSubCategories = option.subCategory?.map(element => {
+        return {
+          label: element.name,
+          key: element.id,
+        };
+      });
+      setSubCategory('');
       setSubCategories(formatedSubCategories);
     } else {
       setSubCategory('');
@@ -376,79 +384,23 @@ const AddProducts = props => {
           emailError={titleError}
         />
 
-        <View style={{...styles.pickerContainer}}>
-          {category ? (
-            <Text style={{...styles.labelTopText}}>Category</Text>
-          ) : null}
-          <RNPickerSelect
-            style={{
-              inputAndroid: {
-                ...styles.pickerSelectInputAndroid,
-              },
-              placeholder: {
-                ...styles.pickerSelectPlaceholder,
-              },
-            }}
-            placeholder={{label: 'Category', value: null}}
-            useNativeAndroidPickerStyle={false}
-            disabled={false}
-            value={category}
-            onValueChange={onChangeCategory}
-            items={[...categories]}
-            Icon={() => (
-              <View
-                style={{
-                  ...styles.pickerView,
-                }}>
-                <Image
-                  style={{...styles.picker_arrow}}
-                  resizeMode="contain"
-                  source={Images.picker_arrow}
-                />
-              </View>
-            )}
-          />
-          {categoryError ? (
-            <Text style={styles.errormsg}> {categoryError}</Text>
-          ) : null}
-        </View>
+        <CustomModalSelector
+          label={'Category'}
+          initValue={'Category'}
+          value={category}
+          options={categories}
+          onChange={onChangeCategory}
+          error={categoryError}
+        />
 
-        <View style={{...styles.pickerContainer}}>
-          {subCategory ? (
-            <Text style={{...styles.labelTopText}}>Sub Category</Text>
-          ) : null}
-          <RNPickerSelect
-            style={{
-              inputAndroid: {
-                ...styles.pickerSelectInputAndroid,
-              },
-              placeholder: {
-                ...styles.pickerSelectPlaceholder,
-              },
-            }}
-            placeholder={{label: 'Sub Category', value: null}}
-            useNativeAndroidPickerStyle={false}
-            disabled={false}
-            value={subCategory}
-            onValueChange={value => setSubCategory(value)}
-            items={[...subCategories]}
-            Icon={() => (
-              <View
-                style={{
-                  ...styles.pickerView,
-                }}>
-                <Image
-                  style={{...styles.picker_arrow}}
-                  resizeMode="contain"
-                  source={Images.picker_arrow}
-                />
-              </View>
-            )}
-          />
-          {subCategoryError ? (
-            <Text style={styles.errormsg}> {subCategoryError}</Text>
-          ) : null}
-        </View>
+        <CustomModalSelector
+          label={'Sub Category'}
+          initValue={'Sub Category'}
+          value={subCategory}
+          options={subCategories}
+          onChange={setSubCategory}
+          error={subCategoryError}
+        />
 
         <CustomTextInput
           returnKeyType="next"
@@ -475,82 +427,23 @@ const AddProducts = props => {
           keyboardType={'number-pad'}
         />
 
-        <View style={{...styles.pickerContainer}}>
-          {currency ? (
-            <Text style={{...styles.labelTopText}}>Refundable</Text>
-          ) : null}
-          <RNPickerSelect
-            style={{
-              inputAndroid: {
-                ...styles.pickerSelectInputAndroid,
-              },
-              placeholder: {
-                ...styles.pickerSelectPlaceholder,
-              },
-            }}
-            placeholder={{label: 'Currency', value: null}}
-            useNativeAndroidPickerStyle={false}
-            disabled={false}
-            value={currency}
-            onValueChange={value => setCurrency(value)}
-            items={[{label: 'Dollar', value: 'dollar'}]}
-            Icon={() => (
-              <View
-                style={{
-                  ...styles.pickerView,
-                }}>
-                <Image
-                  style={{...styles.picker_arrow}}
-                  resizeMode="contain"
-                  source={Images.picker_arrow}
-                />
-              </View>
-            )}
-          />
-          {currencyError ? (
-            <Text style={styles.errormsg}> {currencyError}</Text>
-          ) : null}
-        </View>
+        <CustomModalSelector
+          label={'Currency'}
+          initValue={'Currency'}
+          value={currency}
+          options={currencies}
+          onChange={setCurrency}
+          error={currencyError}
+        />
 
-        <View style={{...styles.pickerContainer}}>
-          {refundable ? (
-            <Text style={{...styles.labelTopText}}>Refundable</Text>
-          ) : null}
-          <RNPickerSelect
-            style={{
-              inputAndroid: {
-                ...styles.pickerSelectInputAndroid,
-              },
-              placeholder: {
-                ...styles.pickerSelectPlaceholder,
-              },
-            }}
-            placeholder={{label: 'Refundable', value: null}}
-            useNativeAndroidPickerStyle={false}
-            disabled={false}
-            value={refundable}
-            onValueChange={value => setRefundable(value)}
-            items={[
-              {label: 'Yes', value: 'yes'},
-              {label: 'No', value: 'no'},
-            ]}
-            Icon={() => (
-              <View
-                style={{
-                  ...styles.pickerView,
-                }}>
-                <Image
-                  style={{...styles.picker_arrow}}
-                  resizeMode="contain"
-                  source={Images.picker_arrow}
-                />
-              </View>
-            )}
-          />
-          {refundableError ? (
-            <Text style={styles.errormsg}> {refundableError}</Text>
-          ) : null}
-        </View>
+        <CustomModalSelector
+          label={'Refundable'}
+          initValue={'Refundable'}
+          value={refundable}
+          options={refundableOptions}
+          onChange={setRefundable}
+          error={refundableError}
+        />
 
         <CustomTextInput
           returnKeyType="next"
