@@ -1,55 +1,67 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 import Drawer from './Drawer';
 
+import {OverlayLoader} from '../components';
+import {VERIFY_TOKEN} from '../config/WebServices';
+import ApiSauce from '../services/ApiSauce';
 import util from '../util';
 import {logout} from '../redux/actions/Login';
-import {OverlayLoader} from '../components';
 
-class Navigation extends Component {
-  constructor() {
-    super();
-    this.state = {user: null, isLoading: false};
-  }
+const Navigation = () => {
+  const userDetailsResponse = useSelector(state => state.userDetails);
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (
-      prevState.login?.data?.id !== nextProps.login?.data?.id &&
-      nextProps?.login?.data?.data?.isActive
-    ) {
-      return {user: nextProps.login, isLoading: false};
-    } else if (
-      nextProps.login?.data?.id &&
-      !nextProps?.login?.data?.data?.isActive
-    ) {
-      util.showAlertWithDelay(
-        'Error',
-        'Your account is deleted by admin.',
-        1000,
-      );
-      nextProps.logout();
-      return {user: null, isLoading: false};
-    } else {
-      return {user: null, isLoading: false};
+  const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (userDetailsResponse?.data?.access_token) {
+      const verifyToken = async () => {
+        try {
+          setIsLoading(true);
+          await ApiSauce.post(
+            VERIFY_TOKEN,
+            {},
+            userDetailsResponse?.data?.access_token,
+          );
+          setIsLoading(false);
+        } catch (error) {
+          setIsLoading(false);
+          if (error === 'Access Denied. Compromised Authorized Token.') {
+            handleFirebaseLogout();
+          }
+        }
+      };
+      verifyToken();
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDetailsResponse]);
 
-  render() {
-    const {isLoading} = this.state;
+  const handleFirebaseLogout = async () => {
+    try {
+      setIsLoading(true);
+      await auth().signOut();
+      dispatch(logout());
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error?.message ? error?.message : error,
+      });
+    }
+  };
 
-    return (
-      <NavigationContainer>
-        <OverlayLoader isLoading={isLoading} />
-        <Drawer />
-      </NavigationContainer>
-    );
-  }
-}
+  return (
+    <NavigationContainer>
+      <OverlayLoader isLoading={isLoading} />
+      <Drawer />
+    </NavigationContainer>
+  );
+};
 
-const mapStateToProps = state => ({login: state.login});
-
-const actions = {logout};
-
-export default connect(mapStateToProps, actions)(Navigation);
+export default Navigation;

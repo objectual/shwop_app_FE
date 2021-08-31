@@ -114,17 +114,15 @@ const MyProducts = props => {
         headerText={'My Products'}
       />
 
-      {!isLoading && results.length ? (
-        <View style={{...styles.headerSeparator}}>
-          <Search
-            value={search}
-            placeholder="Search Here.."
-            onChangeText={value => setSearch(value)}
-            onPressSearch={() => {}}
-            onPressRemove={() => setSearch('')}
-          />
-        </View>
-      ) : null}
+      <View style={{...styles.headerSeparator}}>
+        <Search
+          value={search}
+          placeholder="Search Here.."
+          onChangeText={value => setSearch(value)}
+          onPressSearch={() => {}}
+          onPressRemove={() => setSearch('')}
+        />
+      </View>
 
       {!isLoading && results.length ? (
         <FlatList

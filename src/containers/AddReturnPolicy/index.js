@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,13 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  Keyboard,
 } from 'react-native';
 
 import styles from './styles';
 
 import {Header, GradientButton} from '../../components';
 import {Images, Colors} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 
 const AddReturnPolicy = props => {
   const [title, setTitle] = useState('');
@@ -20,14 +20,6 @@ const AddReturnPolicy = props => {
   const [floatLabel, setFloatLabel] = useState(false);
 
   const textInputRef = useRef();
-
-  const [isOpen] = useKeyboardStatus();
-
-  useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
-    }
-  }, [isOpen]);
 
   const handleValidation = async () => {
     if (!title) {
@@ -80,6 +72,7 @@ const AddReturnPolicy = props => {
               maxLength={120}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(title !== '')}
+              onPressOut={Keyboard.dismiss}
             />
             <Text
               style={{

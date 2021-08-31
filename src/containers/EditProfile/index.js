@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   Text,
   ScrollView,
@@ -9,13 +9,13 @@ import {
   PermissionsAndroid,
   Platform,
   StatusBar,
+  Keyboard,
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 import {nameRegex, fullNameRegex, validate} from '../../services/Validation';
 import {Header, CustomTextInput, PurpleButton} from '../../components';
 import {Images, Colors} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 import util from '../../util';
 
 import styles from './styles';
@@ -36,14 +36,6 @@ const EditProfile = props => {
   const [floatLabel, setFloatLabel] = useState(false);
 
   const textInputRef = useRef();
-
-  const [isOpen] = useKeyboardStatus();
-
-  useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
-    }
-  }, [isOpen]);
 
   let errors = {
     fullNameErr: 'Full name is required.',
@@ -156,6 +148,7 @@ const EditProfile = props => {
             maxLength={120}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => setFloatLabel(bio !== '')}
+            onPressOut={Keyboard.dismiss}
           />
           <Text
             style={{

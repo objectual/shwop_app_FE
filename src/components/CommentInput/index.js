@@ -1,11 +1,9 @@
-import React, {useEffect, useRef} from 'react';
-import {View, TextInput, Image, TouchableOpacity} from 'react-native';
+import React, {useRef} from 'react';
+import {View, TextInput, Image, TouchableOpacity, Keyboard} from 'react-native';
 import styles from './styles';
 import PropTypes from 'prop-types';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Colors, Images, Metrics} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
+import {Colors, Images} from '../../theme';
 
 const CommentInput = props => {
   const {
@@ -16,23 +14,14 @@ const CommentInput = props => {
     onChangeText,
     placeholder,
     secureTextEntry,
-    icon,
     righticon,
     input,
     isIcons,
-    lefticon,
     iconView,
     onPress,
   } = props;
 
-  const [isOpen] = useKeyboardStatus();
   const ref = useRef();
-
-  useEffect(() => {
-    if (!isOpen) {
-      ref.current.blur();
-    }
-  }, [isOpen]);
 
   return (
     <View style={{...styles.mainView}}>
@@ -57,6 +46,7 @@ const CommentInput = props => {
             placeholder={placeholder}
             secureTextEntry={secureTextEntry}
             placeholderTextColor={Colors.silver}
+            onPressOut={Keyboard.dismiss}
           />
         </View>
       </View>
@@ -84,23 +74,9 @@ CommentInput.defaultProps = {
   onChangeText: () => {},
   placeholder: 'Enter your email',
   secureTextEntry: false,
-  icon: (
-    <MaterialCommunityIcons
-      name="close"
-      size={Metrics.ratio(10)}
-      color={Colors.Charade}
-    />
-  ),
   isTitle: true,
   isIcons: true,
   righticon: true,
-  lefticon: (
-    <MaterialCommunityIcons
-      name="close"
-      size={Metrics.ratio(10)}
-      color={Colors.Charade}
-    />
-  ),
 };
 
 CommentInput.propTypes = {
@@ -117,8 +93,6 @@ CommentInput.propTypes = {
   isIcons: PropTypes.bool,
   iconView: PropTypes.object,
   righticon: PropTypes.bool,
-  lefticon: PropTypes.any,
-  icon: PropTypes.any,
   onPress: PropTypes.any,
 };
 export default CommentInput;

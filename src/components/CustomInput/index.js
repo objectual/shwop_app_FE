@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {View, Image, TextInput, TouchableOpacity, Text} from 'react-native';
+import {
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Keyboard,
+} from 'react-native';
 import {Colors} from '../../theme';
 
 import styles from './styles';
@@ -66,6 +73,7 @@ const CustomTextInput = props => {
           placeholderTextColor={Colors.Mercury}
           value={value}
           autoCapitalize={'none'}
+          onPressOut={Keyboard.dismiss}
           onFocus={() => setFloatLabel(true)}
           onBlur={() => {
             let isFloatLabel = value == '' || value == undefined ? false : true;

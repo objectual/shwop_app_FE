@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, Image, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Keyboard,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -101,6 +108,7 @@ const Header = props => {
               placeholder={searchPlaceholder}
               placeholderTextColor={Colors.Dove_Gray}
               value={searchValue}
+              onPressOut={Keyboard.dismiss}
             />
           </View>
         </View>

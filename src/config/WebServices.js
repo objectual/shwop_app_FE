@@ -15,3 +15,4 @@ export const MY_PRODUCT = `${BASE_URL}product/me`;
 export const REVIEW = `${BASE_URL}review`;
 export const IS_EXISTS = `${BASE_URL}users/isexists`;
 export const LOGOUT = `${BASE_URL}users/logout`;
+export const VERIFY_TOKEN = `${BASE_URL}users/verify_token`;

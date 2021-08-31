@@ -9,6 +9,7 @@ import {
   PermissionsAndroid,
   Platform,
   StatusBar,
+  Keyboard,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -605,6 +606,7 @@ const EditProducts = props => {
             maxLength={120}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => setFloatLabel(bio !== '')}
+            onPressOut={Keyboard.dismiss}
           />
           <Text
             style={{

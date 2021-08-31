@@ -339,6 +339,7 @@ const SocialOtp = props => {
               value={code}
               onTextChange={_code => setCode(_code)}
               onFulfill={() => Keyboard.dismiss()}
+              inputProps={{onPressOut: Keyboard.dismiss}}
             />
             <Text style={{...styles.codeErrorText}}>{codeError}</Text>
           </View>

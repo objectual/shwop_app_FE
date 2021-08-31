@@ -10,6 +10,7 @@ import {
 import {useSelector} from 'react-redux';
 import moment from 'moment';
 import {useIsFocused} from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   Header,
@@ -131,13 +132,31 @@ const ProductInfo = props => {
                 </TouchableOpacity>
               </View>
 
-              <View style={{...styles.priceContainer}}>
-                <Text style={{...styles.priceText}}>
-                  {util.currencySymbol(productInfo?.currency)}
-                  {Number.isInteger(productInfo?.baseCost)
-                    ? productInfo?.baseCost
-                    : productInfo?.baseCost?.toFixed(2)}
-                </Text>
+              <View style={{...styles.priceMain}}>
+                <View style={{...styles.priceContainer}}>
+                  <Text style={{...styles.priceText}}>
+                    {util.currencySymbol(productInfo?.currency)}
+                    {Number.isInteger(productInfo?.baseCost)
+                      ? productInfo?.baseCost
+                      : productInfo?.baseCost?.toFixed(2)}
+                  </Text>
+                </View>
+                <View style={{...styles.refundableView}}>
+                  {productInfo.refundable ? (
+                    <Ionicons
+                      size={Metrics.ratio(20)}
+                      name="checkmark-circle"
+                      color={Colors.Affair}
+                    />
+                  ) : (
+                    <Ionicons
+                      size={Metrics.ratio(20)}
+                      name="close-circle"
+                      color={Colors.Alizarin_Crimson}
+                    />
+                  )}
+                  <Text style={{...styles.refundableText}}>Refundable</Text>
+                </View>
               </View>
 
               <View style={{...styles.timeAndNameContainer}}>

@@ -8,12 +8,13 @@ import {
   TextInput,
   FlatList,
   Platform,
+  Keyboard,
 } from 'react-native';
 import EmojiSelector from 'react-native-emoji-selector';
 
 import styles from './styles';
 
-import {Images, Colors, Metrics, Fonts} from '../../theme';
+import {Images, Colors, Metrics} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
 
 const Messages = props => {
@@ -308,6 +309,7 @@ const Messages = props => {
                 ...styles.messageTextInput,
                 height: Math.max(Metrics.ratio(40), Metrics.ratio(inputHeight)),
               }}
+              onPressOut={Keyboard.dismiss}
             />
           </View>
           <TouchableOpacity onPress={onSend} style={{...styles.sendButton}}>

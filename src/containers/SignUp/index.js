@@ -8,6 +8,7 @@ import {
   TextInput,
   PermissionsAndroid,
   Platform,
+  Keyboard,
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
@@ -396,6 +397,7 @@ const SignUp = props => {
             numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => setFloatLabel(bio !== '')}
+            onPressOut={Keyboard.dismiss}
           />
           <Text
             style={{

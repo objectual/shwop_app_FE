@@ -8,6 +8,7 @@ import {
   TextInput,
   // PermissionsAndroid,
   // Platform,
+  Keyboard,
 } from 'react-native';
 // import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {
@@ -398,6 +399,7 @@ const SocialSignUp = props => {
             numberOfLines={10}
             onFocus={() => setFloatLabel(true)}
             onBlur={() => setFloatLabel(bio !== '')}
+            onPressOut={Keyboard.dismiss}
           />
           <Text
             style={{
