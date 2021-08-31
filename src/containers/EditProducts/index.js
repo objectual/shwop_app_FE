@@ -55,7 +55,7 @@ const EditProducts = props => {
   const [floatLabel, setFloatLabel] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [productDetails, setProductDetails] = useState();
+  const [productDetails, setProductDetails] = useState({});
 
   const [uploadImage, setUploadImage] = useState([]);
   const [title, setTitle] = useState('');
@@ -96,6 +96,25 @@ const EditProducts = props => {
       setFloatLabel(true);
     }
   }, [bio]);
+
+  useEffect(() => {
+    if (productDetails?.categories?.length) {
+      const categoryIndex = categories.findIndex(
+        val => val.key === productDetails.categories[0].category.id,
+      );
+
+      const formatedSubCategories = categories[categoryIndex]?.subCategory?.map(
+        element => {
+          return {
+            label: element.name,
+            key: element.id,
+          };
+        },
+      );
+
+      setSubCategories(formatedSubCategories);
+    }
+  }, [categories, productDetails.categories]);
 
   const getCategoriesAndSubcategories = async () => {
     try {
