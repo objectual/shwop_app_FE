@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   StatusBar,
@@ -7,13 +7,13 @@ import {
   Text,
   Image,
   TextInput,
+  Keyboard,
 } from 'react-native';
 
 import styles from './styles';
 
 import {Layout} from '../../components';
 import {Images, Colors, Fonts} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 
 const users = [
   {
@@ -69,15 +69,7 @@ const users = [
 const Chat = props => {
   const searchRef = useRef();
 
-  const [isOpen] = useKeyboardStatus();
-
   const [searchText, setSearchText] = useState('');
-
-  useEffect(() => {
-    if (!isOpen) {
-      searchRef.current.blur();
-    }
-  }, [isOpen]);
 
   const handleNavigation = (screenName, params) => {
     props.navigation.navigate(screenName, {...params});
@@ -165,6 +157,7 @@ const Chat = props => {
           style={{...styles.searchTextInput}}
           placeholder={'Search by Name or Handle'}
           placeholderTextColor={Colors.silver}
+          onPressOut={Keyboard.dismiss}
         />
       </View>
 

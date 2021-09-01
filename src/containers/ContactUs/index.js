@@ -6,6 +6,7 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  Keyboard,
 } from 'react-native';
 
 import styles from './styles';
@@ -203,6 +204,7 @@ const ContactUs = props => {
               maxLength={120}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(issue !== '')}
+              onPressOut={Keyboard.dismiss}
             />
             <Text
               style={{

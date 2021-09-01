@@ -7,6 +7,7 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.Mercury,
     borderRadius: Metrics.ratio(30),
@@ -21,7 +22,8 @@ export default StyleSheet.create({
     marginRight: Metrics.ratio(8),
     borderRadius: Metrics.ratio(30),
     height: Metrics.ratio(30),
-    paddingHorizontal: Metrics.ratio(8),
+    paddingLeft: Metrics.ratio(8),
+    paddingRight: Metrics.ratio(4),
     borderColor: Colors.Mercury,
     borderWidth: 1,
     marginBottom: Metrics.ratio(6),
@@ -39,6 +41,10 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.Nunito,
     color: Colors.Mine_Shaft,
   },
+  tagTextInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   tagTextInput: {
     backgroundColor: Colors.Mercury,
     borderRadius: Metrics.ratio(30),
@@ -52,14 +58,8 @@ export default StyleSheet.create({
     color: Colors.Mine_Shaft,
   },
   addBtn: {
-    backgroundColor: Colors.Affair,
     justifyContent: 'center',
     alignItems: 'center',
-    width: Metrics.ratio(30),
-    height: Metrics.ratio(30),
-    borderRadius: Metrics.ratio(30),
-    borderColor: Colors.Affair,
-    borderWidth: 1,
   },
   addBtnText: {
     fontSize: Metrics.ratio(16),

@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   TextInput,
   PermissionsAndroid,
   Platform,
+  Keyboard,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import RNFS from 'react-native-fs';
@@ -24,22 +25,13 @@ import {
 } from '../../components';
 import {Images, Colors} from '../../theme';
 import util from '../../util';
-import {useKeyboardStatus} from '../../hooks';
 
 const UploadVideo = props => {
   const textInputRef = useRef();
 
-  const [isOpen] = useKeyboardStatus();
-
   const [title, setTitle] = useState('');
   const [showYourTakePopup, setShowYourTakePopup] = useState(false);
   const [floatLabel, setFloatLabel] = useState(false);
-
-  useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
-    }
-  }, [isOpen]);
 
   const onChangeTitle = text => title.length <= 120 && setTitle(text);
 
@@ -167,6 +159,7 @@ const UploadVideo = props => {
               numberOfLines={10}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(title !== '')}
+              onPressOut={Keyboard.dismiss}
             />
             <Text
               style={{

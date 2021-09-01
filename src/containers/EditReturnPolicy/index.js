@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 
@@ -13,7 +14,6 @@ import styles from './styles';
 
 import util from '../../util';
 import {Images, Colors} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 import {OverlayLoader} from '../../components';
 import ApiSauce from '../../services/ApiSauce';
 import {RETURN_POLICY} from '../../config/WebServices';
@@ -29,15 +29,6 @@ const EditReturnPolicy = props => {
 
   const textInputRef = useRef();
 
-  const [isOpen] = useKeyboardStatus();
-
-  useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
-    }
-  }, [isOpen]);
-
-  // VALIDATION & EDIT RETURN POLICY //
   const handleValidation = async () => {
     if (!title) {
       setTitleError('Return policy is required.');
@@ -116,6 +107,7 @@ const EditReturnPolicy = props => {
               maxLength={120}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(title !== '')}
+              onPressOut={Keyboard.dismiss}
             />
             <Text
               style={{

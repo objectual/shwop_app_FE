@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, TextInput, TouchableOpacity, Text} from 'react-native';
+import {View, TextInput, TouchableOpacity, Text, Keyboard} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
+import {Metrics, Colors} from '../../theme';
 
 const CustomTagInput = props => {
   const {
@@ -25,20 +27,32 @@ const CustomTagInput = props => {
             <TouchableOpacity
               onPress={() => removeTag(index)}
               style={{...styles.removeBtn}}>
-              <Text style={{...styles.removeBtnText}}>&times;</Text>
+              <Ionicons
+                name="close-circle-outline"
+                size={Metrics.ratio(20)}
+                color={Colors.Silver_Chalice}
+              />
             </TouchableOpacity>
           </View>
         ))}
-        <TextInput
-          placeholder={placeholder}
-          value={value}
-          style={{...styles.tagTextInput}}
-          onChangeText={onChangeText}
-          onSubmitEditing={onSubmitEditing}
-        />
-        <TouchableOpacity onPress={addTag} style={{...styles.addBtn}}>
-          <Text style={{...styles.addBtnText}}>&#x2b;</Text>
-        </TouchableOpacity>
+        <View style={{...styles.tagTextInputContainer}}>
+          <TextInput
+            placeholder={placeholder}
+            value={value}
+            style={{...styles.tagTextInput}}
+            onChangeText={onChangeText}
+            onSubmitEditing={onSubmitEditing}
+            onPressOut={Keyboard.dismiss}
+          />
+          <TouchableOpacity onPress={addTag} style={{...styles.addBtn}}>
+            <Ionicons
+              size={Metrics.ratio(30)}
+              name="md-add-circle-sharp"
+              color={Colors.Affair}
+              style={styles.addBtnIcon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <Text style={{...styles.errorText}}>{errorText}</Text>
     </View>

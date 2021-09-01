@@ -1,5 +1,12 @@
 import React, {useState, useRef} from 'react';
-import {View, Text, StatusBar, ScrollView, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  ScrollView,
+  TextInput,
+  Keyboard,
+} from 'react-native';
 import {StackActions} from '@react-navigation/native';
 
 import styles from './styles';
@@ -224,6 +231,7 @@ const PlaceOrder = props => {
               maxLength={120}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(otherInfo !== '')}
+              onPressOut={Keyboard.dismiss}
             />
             <Text
               style={{

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, Keyboard} from 'react-native';
 import PhoneInput from 'react-native-phone-number-input';
 import PropTypes from 'prop-types';
 
@@ -33,6 +33,7 @@ const CustomPhoneInput = props => {
         defaultValue={value}
         placeholder="xxxxxxxx"
         defaultCode={defaultCode}
+        textInputProps={{onPressOut: Keyboard.dismiss}}
         layout="first"
         placeholderTextColor={Colors.Mercury}
         containerStyle={{

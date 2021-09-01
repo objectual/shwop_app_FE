@@ -21,3 +21,4 @@ export const FOR_YOU_REVIEWS = (categoryId = '') =>
   `${BASE_URL}review/foryou?search=${categoryId}`;
 export const RETURN_POLICY = `${BASE_URL}users/returnPolicies`;
 export const TERM_CONDITION = `${BASE_URL}/admin/tnc`;
+export const VERIFY_TOKEN = `${BASE_URL}users/verify_token`;

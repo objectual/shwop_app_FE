@@ -31,12 +31,31 @@ const Settings = props => {
     props.navigation.navigate(screenName, {...params});
   };
 
-  const handleLogout = async () => {
+  const handleFirebaseLogout = async () => {
+    try {
+      setIsLoading(true);
+      await auth().signOut();
+      handleUserLogout();
+    } catch (error) {
+      if (
+        error.message === '[auth/no-current-user] No user currently signed in.'
+      ) {
+        handleUserLogout();
+      } else {
+        util.showAlertWithDelay({
+          title: 'Error',
+          message: error?.message ? error?.message : error,
+        });
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleUserLogout = async () => {
     try {
       setIsLoading(true);
       const fcmToken = await AsyncStorage.getItem('fcmToken');
       const payload = {gcm_id: fcmToken};
-      await auth().signOut();
       const userLogOut = await ApiSauce.post(
         LOGOUT,
         payload,
@@ -223,7 +242,7 @@ const Settings = props => {
         <View style={{...styles.logoutContainer}}>
           {userDetailsResponse?.data?.access_token ? (
             <TouchableOpacity
-              onPress={handleLogout}
+              onPress={handleFirebaseLogout}
               style={{...styles.logoutBtn}}>
               <Image
                 resizeMode={'contain'}

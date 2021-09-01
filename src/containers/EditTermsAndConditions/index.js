@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   StatusBar,
   ScrollView,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 
@@ -13,7 +14,6 @@ import styles from './styles';
 
 import util from '../../util';
 import {Images, Colors} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 import {OverlayLoader} from '../../components';
 import ApiSauce from '../../services/ApiSauce';
 import {TERM_CONDITION} from '../../config/WebServices';
@@ -28,14 +28,6 @@ const EditTermsAndConditions = props => {
   const [isLoading, setIsLoading] = useState(false);
 
   const textInputRef = useRef();
-
-  const [isOpen] = useKeyboardStatus();
-
-  useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
-    }
-  }, [isOpen]);
 
   const handleValidation = async () => {
     if (!title) {
@@ -114,6 +106,7 @@ const EditTermsAndConditions = props => {
               numberOfLines={10}
               onFocus={() => setFloatLabel(true)}
               onBlur={() => setFloatLabel(title !== '')}
+              onPressOut={Keyboard.dismiss}
             />
             <Text
               style={{

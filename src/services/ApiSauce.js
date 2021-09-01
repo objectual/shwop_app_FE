@@ -123,6 +123,14 @@ class ApiSauce {
       } else if (
         !response.ok &&
         response.originalError &&
+        response.problem === 'SERVER_ERROR' &&
+        response.status === 503 &&
+        response.data
+      ) {
+        reject(response.problem);
+      } else if (
+        !response.ok &&
+        response.originalError &&
         response.problem === 'CLIENT_ERROR' &&
         response.status === 404 &&
         response.data

@@ -25,6 +25,7 @@ import ImageSlider from './ImageSlider';
 import ReviewCard from './ReviewCard';
 import VideoModal from './VideoModal';
 import CustomTagInput from './CustomTagInput';
+import CustomModalSelector from './CustomModalSelector';
 
 export {
   CustomTextInput,
@@ -54,4 +55,5 @@ export {
   ReviewCard,
   VideoModal,
   CustomTagInput,
+  CustomModalSelector,
 };

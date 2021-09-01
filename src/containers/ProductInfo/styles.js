@@ -43,6 +43,12 @@ export default StyleSheet.create({
     color: Colors.Radical_Red,
     marginLeft: Metrics.ratio(6),
   },
+  priceMain: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: Metrics.ratio(4),
+    justifyContent: 'space-between',
+  },
   priceContainer: {
     alignSelf: 'flex-start',
     paddingHorizontal: Metrics.ratio(12),
@@ -51,12 +57,22 @@ export default StyleSheet.create({
     borderWidth: Metrics.ratio(1),
     borderRadius: Metrics.ratio(6),
     backgroundColor: Colors.Concrete,
-    marginTop: Metrics.ratio(4),
   },
   priceText: {
     fontSize: Metrics.ratio(15),
     fontFamily: Fonts.type.NunitoBold,
     color: Colors.Charade,
+  },
+  refundableView: {
+    paddingLeft: Metrics.ratio(8),
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  refundableText: {
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+    textTransform: 'capitalize',
+    marginLeft: Metrics.ratio(4),
   },
   timeAndNameContainer: {
     flexDirection: 'row',

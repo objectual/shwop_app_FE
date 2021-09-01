@@ -138,10 +138,14 @@ const SocialOtp = props => {
   const resendOtp = async () => {
     let phoneWithAreaCode;
     if (!isSocialLogin) {
-      phoneWithAreaCode = selectedPhoneNumber.replace(
-        /^0+/,
-        `+${selectedCallingCode}`,
-      );
+      if (selectedPhoneNumber.charAt(0) === '0') {
+        phoneWithAreaCode = selectedPhoneNumber.replace(
+          /^0+/,
+          `+${selectedCallingCode}`,
+        );
+      } else {
+        phoneWithAreaCode = `+${selectedCallingCode}${selectedPhoneNumber}`;
+      }
     } else {
       phoneWithAreaCode = `+${selectedPhoneNumber}`;
     }
@@ -174,7 +178,7 @@ const SocialOtp = props => {
     } else {
       try {
         setIsLoading(true);
-        const confirmResult = await confirmation.confirm(code);
+        await confirmation.confirm(code);
         if (isSocialLogin) {
           socialLogin();
         } else {
@@ -335,6 +339,7 @@ const SocialOtp = props => {
               value={code}
               onTextChange={_code => setCode(_code)}
               onFulfill={() => Keyboard.dismiss()}
+              inputProps={{onPressOut: Keyboard.dismiss}}
             />
             <Text style={{...styles.codeErrorText}}>{codeError}</Text>
           </View>

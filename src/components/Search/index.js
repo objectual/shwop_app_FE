@@ -1,11 +1,10 @@
-import React, {useEffect, useRef} from 'react';
-import {View, TouchableOpacity, TextInput, Image} from 'react-native';
+import React, {useRef} from 'react';
+import {View, TouchableOpacity, TextInput, Image, Keyboard} from 'react-native';
 import PropTypes from 'prop-types';
 
 import styles from './style';
 
 import {Images} from '../../theme';
-import {useKeyboardStatus} from '../../hooks';
 
 const Search = props => {
   const {
@@ -19,14 +18,6 @@ const Search = props => {
 
   const textInputRef = useRef();
 
-  const [isOpen] = useKeyboardStatus();
-
-  useEffect(() => {
-    if (!isOpen) {
-      textInputRef.current.blur();
-    }
-  }, [isOpen]);
-
   return (
     <View style={{...styles.searchContainer, ...searchContainerStyle}}>
       <TextInput
@@ -35,6 +26,7 @@ const Search = props => {
         onChangeText={onChangeText}
         style={{...styles.searchInput}}
         placeholder={placeholder}
+        onPressOut={Keyboard.dismiss}
       />
       {value.length >= 1 ? (
         <TouchableOpacity onPress={onPressRemove}>

@@ -53,10 +53,10 @@ const MyProducts = props => {
         MY_PRODUCT,
         userDetailsResponse.data.access_token,
       );
-      setIsLoading(false);
       if (result?.data?.length) {
         setProducts(result?.data);
       }
+      setIsLoading(false);
     } catch (error) {
       util.showAlertWithDelay({
         title: 'Error',
@@ -114,17 +114,15 @@ const MyProducts = props => {
         headerText={'My Products'}
       />
 
-      {!isLoading && results.length ? (
-        <View style={{...styles.headerSeparator}}>
-          <Search
-            value={search}
-            placeholder="Search Here.."
-            onChangeText={value => setSearch(value)}
-            onPressSearch={() => {}}
-            onPressRemove={() => setSearch('')}
-          />
-        </View>
-      ) : null}
+      <View style={{...styles.headerSeparator}}>
+        <Search
+          value={search}
+          placeholder="Search Here.."
+          onChangeText={value => setSearch(value)}
+          onPressSearch={() => {}}
+          onPressRemove={() => setSearch('')}
+        />
+      </View>
 
       {!isLoading && results.length ? (
         <FlatList

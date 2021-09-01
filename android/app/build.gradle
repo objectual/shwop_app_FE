@@ -219,6 +219,8 @@ dependencies {
 
     implementation project(path: ":@react-native-firebase_messaging")
 
+    implementation project(':react-native-exception-handler')
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
