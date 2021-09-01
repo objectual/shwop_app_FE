@@ -7,17 +7,25 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 
 import styles from './styles';
 
-import {Header, GradientButton} from '../../components';
+import util from '../../util';
 import {Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
+import {OverlayLoader} from '../../components';
+import ApiSauce from '../../services/ApiSauce';
+import {RETURN_POLICY} from '../../config/WebServices';
+import {Header, GradientButton} from '../../components';
 
 const EditReturnPolicy = props => {
+  const userDetailsResponse = useSelector(state => state.userDetails);
+
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState();
   const [floatLabel, setFloatLabel] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const textInputRef = useRef();
 
@@ -29,12 +37,40 @@ const EditReturnPolicy = props => {
     }
   }, [isOpen]);
 
+  // VALIDATION & EDIT RETURN POLICY //
   const handleValidation = async () => {
     if (!title) {
       setTitleError('Return policy is required.');
       setTimeout(() => {
         setTitleError('');
       }, 3000);
+    } else if (title && !titleError) {
+      editReturnPolicy();
+    }
+  };
+
+  // EDIT RETURN POLICY FUNCTION //
+  const editReturnPolicy = async () => {
+    let payload = {
+      returnpolicy: title,
+    };
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.post(
+        RETURN_POLICY,
+        payload,
+        userDetailsResponse.data.access_token,
+      );
+      setIsLoading(false);
+      if (result?.success) {
+        props.navigation.navigate('ReturnPolicy');
+      }
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -96,6 +132,7 @@ const EditReturnPolicy = props => {
           />
         </View>
       </ScrollView>
+      <OverlayLoader isLoading={isLoading} />
     </View>
   );
 };

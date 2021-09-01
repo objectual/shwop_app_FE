@@ -130,6 +130,28 @@ export default StyleSheet.create({
     fontSize: Metrics.ratio(13),
     marginLeft: Metrics.ratio(8),
   },
+  barMainContainer: {
+    backgroundColor: '#fff',
+    elevation: 2,
+    height: Metrics.ratio(50),
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+  },
+  barView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  barText: {
+    textTransform: 'capitalize',
+    fontSize: 15,
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+  },
+  barClose: {
+    color: Colors.Charade,
+    fontSize: 20,
+  },
   notFoundContainer: {
     flex: 1,
     justifyContent: 'center',

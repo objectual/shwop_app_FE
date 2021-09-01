@@ -33,4 +33,14 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.Nunito,
     color: Colors.Charade,
   },
+  notFoundContainer: {
+    flex: 1,
+    paddingHorizontal: Metrics.ratio(16),
+  },
+  notFoundText: {
+    fontSize: Metrics.ratio(16),
+    fontFamily: Fonts.type.Nunito,
+    color: Colors.Charade,
+    textAlign: 'center',
+  },
 });

@@ -12,13 +12,18 @@ import {useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import Menu, {MenuItem} from 'react-native-material-menu';
 import AsyncStorage from '@react-native-community/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './styles';
 
 import util from '../../util';
-import {Images} from '../../theme';
+import {Images, Metrics} from '../../theme';
 import ApiSauce from '../../services/ApiSauce';
-import {REVIEW} from '../../config/WebServices';
+import {
+  CATEGORIES,
+  FOLLOWING_REVIEWS,
+  FOR_YOU_REVIEWS,
+} from '../../config/WebServices';
 import {Layout, FollowCard, OverlayLoader} from '../../components';
 
 const Main = props => {
@@ -30,6 +35,8 @@ const Main = props => {
 
   const [recordTipValue, setRecordTipValue] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({});
   const [reviews, setReviews] = useState([]);
 
   const [active, setActive] = useState(0);
@@ -38,14 +45,18 @@ const Main = props => {
 
   useEffect(() => {
     if (isFocused) {
-      getReviewData();
       getRecordTip();
+      getCategories();
+      getFollowingReviews();
     } else {
       setReviews([]);
+      setCategories([]);
+      setSelectedCategory({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
+  // RECORD TIP CARD //
   const getRecordTip = async () => {
     try {
       const value = await AsyncStorage.getItem('recordTipSeen');
@@ -53,28 +64,66 @@ const Main = props => {
         setRecordTipValue(value);
       }
     } catch (error) {
-      console.log('error', error);
+      console.log(error);
     }
   };
 
-  const getReviewData = async () => {
+  // GET CATEGORIES //
+  const getCategories = async () => {
     try {
       setIsLoading(true);
-      const result = await ApiSauce.get(
-        REVIEW,
-        userDetailsResponse.data.access_token,
-      );
-      setIsLoading(false);
-      if (result?.data?.length) {
-        setReviews(result?.data);
+      const categoriesResult = await ApiSauce.get(CATEGORIES);
+      if (categoriesResult?.data?.length) {
+        setCategories(categoriesResult?.data);
       }
+      setIsLoading(false);
     } catch (error) {
       util.showAlertWithDelay({
         title: 'Error',
         message: error,
       });
-      console.log('error', error);
       setIsLoading(false);
+      console.log(error);
+    }
+  };
+
+  // GET FOLLOWING REVIEWS //
+  const getFollowingReviews = async categoryId => {
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.get(
+        FOLLOWING_REVIEWS(categoryId ? categoryId : ''),
+        userDetailsResponse.data.access_token,
+      );
+      setReviews(result?.data);
+      setIsLoading(false);
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
+  // GET FOR_YOU REVIEWS //
+  const getForYouReviews = async categoryId => {
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.get(
+        FOR_YOU_REVIEWS(categoryId ? categoryId : ''),
+        userDetailsResponse.data.access_token,
+      );
+      setReviews(result?.data);
+      setIsLoading(false);
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+      console.log(error);
     }
   };
 
@@ -83,33 +132,40 @@ const Main = props => {
     getRecordTip();
   };
 
-  const handleNavigation = (screenName, params) => {
-    props.navigation.navigate(screenName, {...params});
+  const handleCategory = val => {
+    hideMenu();
+    setSelectedCategory({id: val.id, name: val.name});
+    active === 0 ? getFollowingReviews(val.id) : getForYouReviews(val.id);
+  };
+
+  const handleRemoveCategory = () => {
+    setSelectedCategory({});
+    active === 0 ? getFollowingReviews() : getForYouReviews();
   };
 
   const handleFollowing = () => {
+    setSelectedCategory({});
+    setReviews([]);
     setActive(0);
     setActiveForYou(0);
+    getFollowingReviews();
   };
 
   const handleForYou = () => {
-    setActiveForYou(1);
+    setSelectedCategory({});
+    setReviews([]);
     setActive(2);
+    setActiveForYou(1);
+    getForYouReviews();
+  };
+
+  const handleNavigation = (screenName, params) => {
+    props.navigation.navigate(screenName, {...params});
   };
 
   const hideMenu = () => menuRef?.current?.hide();
 
   const showMenu = () => menuRef?.current?.show();
-
-  const renderMenuItem = ({image, text, onPress}) => {
-    return (
-      <MenuItem onPress={onPress}>
-        <View style={styles.menuItemContainer}>
-          <Text style={styles.menuItemText}>{text}</Text>
-        </View>
-      </MenuItem>
-    );
-  };
 
   return (
     <Layout {...props} isModalizeOpen={value => handleIsModalizeOpen(value)}>
@@ -130,7 +186,7 @@ const Main = props => {
             />
           </View>
         </TouchableOpacity>
-        <View style={styles.centerView}>
+        <View style={{...styles.centerView}}>
           <TouchableOpacity
             onPress={() => handleFollowing()}
             style={
@@ -171,42 +227,51 @@ const Main = props => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.menuContainer}>
-        <Menu ref={menuRef} style={styles.menu}>
-          {renderMenuItem({
-            text: 'Dupes',
-            onPress: hideMenu,
-          })}
-          {renderMenuItem({
-            text: 'Vegan',
-            onPress: hideMenu,
-          })}
-          {renderMenuItem({
-            text: 'Acne',
-            onPress: hideMenu,
-          })}
-          {renderMenuItem({
-            text: 'Drugstore',
-            onPress: hideMenu,
-          })}
-          {renderMenuItem({
-            text: 'Acne',
-            onPress: hideMenu,
-          })}
-          {renderMenuItem({
-            text: 'Vegan',
-            onPress: hideMenu,
-          })}
-          {renderMenuItem({
-            text: 'Dupes',
-            onPress: hideMenu,
-          })}
+      <View style={{...styles.menuContainer}}>
+        <Menu
+          ref={menuRef}
+          style={{
+            ...styles.menu,
+            height: categories?.length > 6 ? Metrics.screenHeight * 0.48 : null,
+          }}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {categories.map(val => {
+              const {name} = val;
+              return (
+                <MenuItem
+                  onPress={() => {
+                    handleCategory(val);
+                  }}>
+                  <View style={{...styles.menuItemContainer}}>
+                    <Text style={{...styles.menuItemText}}>{name}</Text>
+                  </View>
+                </MenuItem>
+              );
+            })}
+          </ScrollView>
         </Menu>
       </View>
 
+      {selectedCategory.name ? (
+        <View style={{...styles.barMainContainer}}>
+          <View style={{...styles.barView}}>
+            <Text style={{...styles.barText}}>{selectedCategory.name}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                handleRemoveCategory();
+              }}>
+              <MaterialCommunityIcons
+                name="close"
+                style={{...styles.barClose}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : null}
+
       {!isLoading && reviews.length ? (
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.MainContainer}>
+          <View style={{...styles.MainContainer}}>
             {reviews.map(val => {
               const {
                 thumbnail,
@@ -237,7 +302,7 @@ const Main = props => {
       ) : null}
 
       {!isLoading && !reviews.length ? (
-        <View style={styles.notFoundContainer}>
+        <View style={{...styles.notFoundContainer}}>
           <Text style={{...styles.notFoundText}}>
             {'Sorry, no record found.\nPlease try again later.'}
           </Text>

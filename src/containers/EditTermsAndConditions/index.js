@@ -7,17 +7,25 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 
 import styles from './styles';
 
-import {Header, GradientButton} from '../../components';
+import util from '../../util';
 import {Images, Colors} from '../../theme';
 import {useKeyboardStatus} from '../../hooks';
+import {OverlayLoader} from '../../components';
+import ApiSauce from '../../services/ApiSauce';
+import {TERM_CONDITION} from '../../config/WebServices';
+import {Header, GradientButton} from '../../components';
 
 const EditTermsAndConditions = props => {
+  const userDetailsResponse = useSelector(state => state.userDetails);
+
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState();
   const [floatLabel, setFloatLabel] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const textInputRef = useRef();
 
@@ -35,6 +43,33 @@ const EditTermsAndConditions = props => {
       setTimeout(() => {
         setTitleError('');
       }, 3000);
+    } else if (title && !titleError) {
+      editTermCondition();
+    }
+  };
+
+  // EDIT TERM_CONDITION FUNCTION //
+  const editTermCondition = async () => {
+    let payload = {
+      termsandconditions: title,
+    };
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.post(
+        TERM_CONDITION,
+        payload,
+        userDetailsResponse.data.access_token,
+      );
+      setIsLoading(false);
+      if (result?.success) {
+        props.navigation.navigate('TermsAndConditions');
+      }
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -95,6 +130,7 @@ const EditTermsAndConditions = props => {
           />
         </View>
       </ScrollView>
+      <OverlayLoader isLoading={isLoading} />
     </View>
   );
 };

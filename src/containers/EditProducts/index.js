@@ -89,6 +89,7 @@ const EditProducts = props => {
     }
   }, [bio]);
 
+  // GET CATEGORIES AND SUB_CATEGORIES
   const getCategoriesAndSubcategories = async () => {
     try {
       setIsLoading(true);
@@ -113,6 +114,7 @@ const EditProducts = props => {
     }
   };
 
+  // GET PRODUCTS DETAILS //
   const getProductDetails = async () => {
     try {
       setIsLoading(true);
@@ -143,6 +145,28 @@ const EditProducts = props => {
         message: error,
       });
       setIsLoading(false);
+    }
+  };
+
+  // DELETE PRODUCT //
+  const deleteProduct = async () => {
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.delete(
+        PRODUCT(productId),
+        userDetailsResponse.data.access_token,
+      );
+      setIsLoading(false);
+      if (result?.success) {
+        props.navigation.navigate('MyProducts');
+      }
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+      console.log(error);
     }
   };
 
@@ -236,9 +260,9 @@ const EditProducts = props => {
     }
   };
 
+  // HANDLE CREATE PRODUCT //
   const handleCreateProduct = async () => {
     setIsLoading(true);
-
     let formDataPayload = new FormData();
 
     // Backend needs to seprate list for removing images
@@ -713,7 +737,7 @@ const EditProducts = props => {
         isRightIconImg={true}
         headerText={'Edit Product'}
         leftBtnPress={() => props.navigation.goBack()}
-        rightBtnPress={() => props.navigation.goBack()}
+        rightBtnPress={() => deleteProduct()}
         headerTextStyle={styles.headerTextStyle}
         isDropShadow={false}
         headerBgColor={Colors.White}

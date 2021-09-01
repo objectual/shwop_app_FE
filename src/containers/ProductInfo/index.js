@@ -47,6 +47,7 @@ const ProductInfo = props => {
     props.navigation.navigate(screenName, {...params});
   };
 
+  // GET PRODUCT INFO //
   const getProductInfo = async () => {
     try {
       setIsLoading(true);
@@ -64,6 +65,28 @@ const ProductInfo = props => {
         message: error,
       });
       setIsLoading(false);
+    }
+  };
+
+  // DELETE PRODUCT INFO //
+  const deleteProductInfo = async () => {
+    try {
+      setIsLoading(true);
+      const result = await ApiSauce.delete(
+        PRODUCT(productId),
+        userDetailsResponse.data.access_token,
+      );
+      setIsLoading(false);
+      if (result?.success) {
+        props.navigation.navigate('MyProducts');
+      }
+    } catch (error) {
+      util.showAlertWithDelay({
+        title: 'Error',
+        message: error,
+      });
+      setIsLoading(false);
+      console.log(error);
     }
   };
 
@@ -100,9 +123,7 @@ const ProductInfo = props => {
         }
         isRightSecIconImg={true}
         rightSecBtnPress={() =>
-          productType === 'own' && productInfo?.id
-            ? console.log('delete')
-            : null
+          productType === 'own' && productInfo?.id ? deleteProductInfo() : null
         }
       />
 
